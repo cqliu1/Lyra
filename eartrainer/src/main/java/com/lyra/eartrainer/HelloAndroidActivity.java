@@ -2,8 +2,8 @@ package com.lyra.eartrainer;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class HelloAndroidActivity extends Activity {
 
@@ -16,8 +16,10 @@ public class HelloAndroidActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //test
+        //setContentView(R.layout.activity_main);
+        TextView text = new TextView(this);
+        text.setText("Hello World!");
+        setContentView(text);
     }
 
     @Override
