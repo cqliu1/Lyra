@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_mode_prompt"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <RadioGroup
+        android:id="@+id/gameModeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/gaemModeRadioPractice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/game_mode_practice" />
+
+        <RadioButton
+            android:id="@+id/gameModeRadioChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_mode_challenge" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/difficultyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/difficulty_prompt"
+        android:text="@string/difficulty_prompt"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <RadioGroup
+        android:id="@+id/difficultyGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/difficultyRadioBeginner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/difficulty_beginner" />
+
+        <RadioButton
+            android:id="@+id/difficultyRadioIntermediate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/difficulty_intermediate" />
+
+        <RadioButton
+            android:id="@+id/difficultyRadioAdvanced"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/difficulty_advanced" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/scaleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:contentDescription="@string/scale_prompt"
+        android:text="@string/scale_prompt"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/scaleSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:entries="@array/scales"
+        android:prompt="@string/scale_prompt" />
+
+    <TextView
+        android:id="@+id/instrumentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:contentDescription="@string/instrument_prompt"
+        android:text="@string/instrument_prompt"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/instrumentSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:entries="@array/instruments"
+        android:prompt="@string/instrument_prompt" />
+
+</LinearLayout>
