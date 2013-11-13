@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Maven Quickstart</string>
-    <string name="hello">Hello eartrainer!</string>
+    <string name="app_name">Lyra Ear Trainer</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="enter_nick">        Please enter a nickname</string>
+    <string name="submit">Submit</string>
+    <string name="nick_description">        The nickname you create will be shown in the leaderboard for you and your friends to identify your high scores.</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_nick">NickActivity</string>
 
 </resources>

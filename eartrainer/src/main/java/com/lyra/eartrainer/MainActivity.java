@@ -1,11 +1,13 @@
 package com.lyra.eartrainer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.TextView;
 
-public class HelloAndroidActivity extends Activity {
+import com.lyra.eartrainer.control.MainController;
+
+public class MainActivity extends Activity {
 
     /**
      * Called when the activity is first created.
@@ -16,10 +18,13 @@ public class HelloAndroidActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        TextView text = new TextView(this);
-        text.setText("Hello World!");
-        setContentView(text);
+        //setContentView(R.layout.create_nick);
+        //TextView text = new TextView(this);
+        //text.setText("Hello World!");
+        //setContentView(text);
+        
+        MainController mainControl = new MainController(this);
+        mainControl.initialize();
     }
 
     @Override
