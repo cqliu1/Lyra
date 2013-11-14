@@ -33,5 +33,21 @@
         <item>Piano</item>
         <item>Bass Guitar</item>
     </string-array>
-    
+ 
+    <string name="replay">Replay</string>
+    <string name="pause">Pause</string>
+    <string name="score">Score</string>
+    <string name="key1">C</string>
+    <string name="key2">C#/Db</string>
+    <string name="key3">D</string>
+    <string name="key4">D#/Eb</string>
+    <string name="key5">E</string>
+    <string name="key6">F</string>
+    <string name="key7">F#/Gb</string>
+    <string name="key8">G</string>
+    <string name="key9">G#/Ab</string>
+    <string name="key10">A</string>
+    <string name="key11">A#/Bb</string>
+    <string name="key12">B</string>
+    <string name="key13">C</string>
 </resources>

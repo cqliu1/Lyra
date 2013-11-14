@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pale_blue">#AEC2EB</color>
+    <color name="teal">#33605A</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="navy_blue">#273b44</color>
+    <color name="light_blue">#AFC7C4</color>
+    <color name="tan">#E2D8BC</color>
+    <color name="burgundy">#7b1d13</color>
+    <color name="olive">#949963</color>
+    <color name="light_brown">#8a7983</color>
+    
+</resources>
