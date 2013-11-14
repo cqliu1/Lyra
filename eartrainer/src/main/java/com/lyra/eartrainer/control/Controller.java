@@ -1,5 +1,13 @@
 package com.lyra.eartrainer.control;
 
-public class Controller {
+import android.app.Activity;
 
+public class Controller {
+	protected Activity activity; 
+	
+	private Controller(){}
+	
+	public Controller(Activity activity){
+		this.activity = activity;
+	}
 }
