@@ -7,8 +7,12 @@
     <string name="enter_nick">        Please enter a nickname</string>
     <string name="submit">Submit</string>
     <string name="nick_description">        The nickname you create will be shown in the leaderboard for you and your friends to identify your high scores.</string>
-    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_test">TestActivity</string> 
     <string name="title_activity_nick">NickActivity</string>
+    <string name ="volume">Volume</string>
+    <string name = "restart">Restart Game</string>
+    <string name = "resume">Resume Game</string>
+    <string name = "quit">Quit Game</string> 
 
     <string name="game_mode_prompt">Game Mode:</string>
     <string name="game_mode_practice">Practice</string>
