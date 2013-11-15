@@ -21,7 +21,7 @@ public class Pause {
 		this.restart = (Button)activity.findViewById(R.id.btnRestartGame);
 		this.quit = (Button)activity.findViewById(R.id.btnQuitGame);
 		this.volumeBar = (SeekBar)activity.findViewById(R.id.seekVolume);
-		volumeBar.scrollTo(volume, 50);
+		volumeBar.scrollTo(volume, 1);
 	}
 	public void updateVolume(int newVolume)
 	{
