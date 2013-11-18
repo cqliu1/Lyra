@@ -17,10 +17,6 @@ public class MainMenuActivity extends Activity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 MainMenuController mmController = new MainMenuController(this);
                 mmController.initialize();
-                
-                //if no nickname start nickActivity
-                Intent intent = new Intent(this, NickActivity.class);
-                startActivity(intent);
         }
 
         @Override
