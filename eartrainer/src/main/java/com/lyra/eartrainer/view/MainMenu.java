@@ -1,22 +1,28 @@
 package com.lyra.eartrainer.view;
 
-import android.app.Activity;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
 import android.widget.Button;
 
+import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.R;
 
-public class MainMenu {
-	private Button settings;
-	private Button game;
-	private Button leaderboard;
+public class MainMenu extends View {
+        private Button settings;
+        private Button game;
+        private Button leaderboard;
 
-	public MainMenu(Activity activity) {
+        public MainMenu(Context con, AttributeSet attrs) {
+        	super(con,attrs);
+            this.game = (Button) findViewById(R.id.btnToGame);
+            this.settings = (Button) findViewById(R.id.btnToSettings);
+            this.leaderboard = (Button) findViewById(R.id.btnToLeaderboards);
+        }
 
-		this.game = (Button) activity.findViewById(R.id.btnToGame);
-		this.settings = (Button) activity.findViewById(R.id.btnToSettings);
-		this.leaderboard = (Button) activity
-				.findViewById(R.id.btnToLeaderboards);
-
-	}
-
+        public void showOptions()
+        {
+        	MainMenuActivity main = (MainMenuActivity) getContext();
+        	main.goToOptions();
+        }
 }

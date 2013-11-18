@@ -17,6 +17,7 @@
     <string name="game_mode_prompt">Game Mode:</string>
     <string name="game_mode_practice">Practice</string>
     <string name="game_mode_challenge">Challenge</string>
+    <string name="startGame">Start Game</string>
     
     <string name="difficulty_prompt">Difficulty Level:</string>
     <string name="difficulty_beginner">Beginner</string>

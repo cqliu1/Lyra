@@ -1,22 +1,19 @@
 package com.lyra.eartrainer;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
 import com.lyra.eartrainer.control.NickController;
 
 public class NickActivity extends Activity {
 	
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nick);
-		
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		NickController nController = new NickController(this);
 		nController.initialize();
 	}
@@ -28,4 +25,8 @@ public class NickActivity extends Activity {
 		return true;
 	}
 
+	public void goToMain(){
+		//store nickname
+		finish();
+	}
 }

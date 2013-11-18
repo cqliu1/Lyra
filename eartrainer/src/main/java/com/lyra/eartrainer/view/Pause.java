@@ -1,32 +1,40 @@
 package com.lyra.eartrainer.view;
 
-import android.app.Activity;
+import android.content.Context;
+import android.util.AttributeSet;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Button;
-import android.widget.SeekBar;
 
-import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.PauseActivity;
 
-public class Pause {
-	private Button resume;
-	private Button restart;
-	private Button quit;
-	private SeekBar volumeBar;
-	private int volume = 50;
+public class Pause extends View{
 	
-	public Pause(Activity activity){
-		this.resume = (Button)activity.findViewById(R.id.btnResumeGame);
-		this.restart = (Button)activity.findViewById(R.id.btnRestartGame);
-		this.quit = (Button)activity.findViewById(R.id.btnQuitGame);
-		this.volumeBar = (SeekBar)activity.findViewById(R.id.seekVolume);
-		volumeBar.scrollTo(volume, 1);
+	
+	public Pause(Context con, AttributeSet attrs){
+		super(con, attrs);
+		
 	}
+	
 	public void updateVolume(int newVolume)
 	{
-		volume = newVolume;
-		volumeBar.scrollTo(volume, 1);
+		PauseActivity pause = (PauseActivity) getContext();
+		pause.changeVolume(newVolume);
 	}
 	
+	public void resumeGameplay()
+	{
+		PauseActivity pause = (PauseActivity) getContext();
+		pause.goToGame();
+	}
+	
+	public void startNewGame()
+	{
+		PauseActivity pause = (PauseActivity) getContext();
+		pause.goToOptions();
+	}
+
+	public void showGameOver() {
+		// TODO Auto-generated method stub
+		PauseActivity pause = (PauseActivity) getContext();
+		pause.goToGameOver();
+	}
 }

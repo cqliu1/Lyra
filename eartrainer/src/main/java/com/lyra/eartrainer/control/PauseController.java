@@ -21,7 +21,7 @@ public class PauseController extends Controller {
 	
 	public void initialize(){
 		//creating the view
-		pView = new Pause(activity);
+		pView = new Pause(activity,null);
 		//attaching event listeners to view widgets
 		attachEvents();
 	}
@@ -79,15 +79,18 @@ public class PauseController extends Controller {
 	private void resumeGame()
 	{
 		// resume the game!
+		pView.resumeGameplay();
 	}
 	private void restartGame()
 	{
 		// restart the game!
+		pView.startNewGame();
 	}
 	private void quitGame()
 	{
 		// record our score?
 		// exit
+		pView.showGameOver();
 	}
 	private void updateVolume()
 	{

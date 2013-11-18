@@ -132,7 +132,7 @@
         android:layout_toRightOf="@+id/key12"
         android:background="@null"
         android:clickable="true"
-        android:contentDescription="@string/key13"
+        android:contentDescription="@string/key1"
         android:src="@drawable/white_key_selection" />
 
     <ImageButton
@@ -193,7 +193,5 @@
         android:clickable="true"
         android:contentDescription="@string/key11"
         android:src="@drawable/black_key_selection" />
-
-
 
 </RelativeLayout>

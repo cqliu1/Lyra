@@ -17,7 +17,7 @@ public class NickController extends Controller {
 	
 	public void initialize(){
 		//creating the view
-		cnView = new CreateNickView(activity);
+		cnView = new CreateNickView(activity,null);
 		//attaching event listeners to view widgets
 		attachEvents();
 	}
@@ -39,8 +39,8 @@ public class NickController extends Controller {
 		//check and make sure that the nick doesn't already exist in the leaderboard db
 		
 		//if the nick didn't exist, save it and move on
-		
+		cnView.goToMain();
 		//else display invalid nick message
-		cnView.displayInvalidNickMessage(); //using the view to update itself
+//		cnView.displayInvalidNickMessage(); //using the view to update itself
 	}
 }
