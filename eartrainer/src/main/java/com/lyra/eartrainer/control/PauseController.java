@@ -57,6 +57,7 @@ public class PauseController extends Controller {
 		});
 		// adjust volume
 		SeekBar volumeBar = (SeekBar)activity.findViewById(R.id.seekVolume);
+		volumeBar.setMax(100);
 		volumeBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener()
 		{
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) 

@@ -16,8 +16,8 @@ public class GameInterface extends View{
 	SoundPool sp;
 	int[] notes;
 	Context context = getContext();
-	SharedPreferences sharedPref = context.getSharedPreferences("@string/volume_val", Context.MODE_PRIVATE);
-	int newVolume = getResources().getInteger(R.string.volume_val);
+	//SharedPreferences sharedPref = context.getSharedPreferences("volume_val", Context.MODE_PRIVATE);
+	//int newVolume = getResources().getInteger(R.string.volume_val);
 	
     public GameInterface(Context con, AttributeSet attrs) {
     	super(con, attrs);
@@ -47,7 +47,9 @@ public class GameInterface extends View{
     	GameActivity game = (GameActivity) getContext();
 		game.setScore(0);
 		//Toast.makeText(game, note, Toast.LENGTH_SHORT).show();
-
+		
+		// this is where we set the volume
+		//float vol = (float)newVolume/100;
 		sp.play(notes[note], 1.0f, 1.0f, 0, 0, 1.0f);
 		
 		
