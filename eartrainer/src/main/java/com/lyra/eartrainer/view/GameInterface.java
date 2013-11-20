@@ -9,11 +9,15 @@ import android.media.SoundPool;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 public class GameInterface extends View{
 	
 	SoundPool sp;
 	int[] notes;
+	Context context = getContext();
+	SharedPreferences sharedPref = context.getSharedPreferences("@string/volume_val", Context.MODE_PRIVATE);
+	int newVolume = getResources().getInteger(R.string.volume_val);
 	
     public GameInterface(Context con, AttributeSet attrs) {
     	super(con, attrs);

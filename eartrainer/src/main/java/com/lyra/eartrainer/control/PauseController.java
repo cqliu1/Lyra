@@ -1,5 +1,7 @@
 package com.lyra.eartrainer.control;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnDragListener;
@@ -14,7 +16,6 @@ import com.lyra.eartrainer.view.Pause;
 
 public class PauseController extends Controller {
 	private Pause pView;
-	 
 	public PauseController(PauseActivity pActivity){
 		super(pActivity);
 	}
@@ -61,7 +62,8 @@ public class PauseController extends Controller {
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) 
 			{
 				// TODO Auto-generated method stub
-				updateVolume();
+				
+				pView.updateVolume(seekBar.getProgress());
 			}
 			public void onStartTrackingTouch(SeekBar seekBar) 
 			{
@@ -91,9 +93,5 @@ public class PauseController extends Controller {
 		// record our score?
 		// exit
 		pView.showGameOver();
-	}
-	private void updateVolume()
-	{
-		// take the value of the seekbar, update volume accordingly
 	}
 }
