@@ -47,7 +47,7 @@ public class PauseActivity extends Activity {
 		Intent intent = new Intent(this,OptionsActivity.class);
 		startActivity(intent);
 
-		this.getParent().finish();
+		//this.getParent().finish();
 		finish();
 	}
 
@@ -55,7 +55,7 @@ public class PauseActivity extends Activity {
 		Intent intent = new Intent(this,GameOverActivity.class);
 		startActivity(intent);
 		
-		this.getParent().finish();
+		//this.getParent().finish();
 		finish();
 	}
 	
