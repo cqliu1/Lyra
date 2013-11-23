@@ -10,12 +10,14 @@ import android.widget.TextView;
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.NickActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.Nickname;
 import com.lyra.eartrainer.view.CreateNickView;
 
 public class NickController extends Controller {
 	private CreateNickView cnView;
 	private Nickname nickname;
+	private GamePlay game;
 
 	public NickController(NickActivity nickActivity){
 		super(nickActivity);
@@ -24,6 +26,7 @@ public class NickController extends Controller {
 	public void initialize(){
 		//instantiating relevant model classes
 		nickname = new Nickname();
+		game = GamePlay.instance(); //creates initial instance of GamePlay
 		
 		if(nickname.nickExists(activity.getFilesDir())){
 			//nickname already exists so this view is not needed, transition to the next view
@@ -72,6 +75,10 @@ public class NickController extends Controller {
 	}
 	
 	private void loadNextScreen(){
+		game.setNickname(nickname.getName()); //sets the nickname before loading the next screen
+		activity.finish(); //finish the NickActivity
+		
+		//begin the MainMenuActivity
 		Intent mainmenu = new Intent(activity, MainMenuActivity.class);
 		activity.startActivity(mainmenu);
 	}

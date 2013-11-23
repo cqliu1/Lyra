@@ -3,19 +3,38 @@ package com.lyra.eartrainer.model;
 import java.util.ArrayList;
 
 public class GamePlay {
+	private static GamePlay instance = null;
 	private byte state;
 	private byte mode;
 	private byte difficulty;
-	private int numberOfRounds;			//the number of rounds you have
+	private int numberOfRounds;					//the number of rounds you have
 	private boolean isFirstRound;		
 	private ArrayList<Round> rounds;
 	private int score;
 	private float volume;
+	private String nickname;
 	
-	public GamePlay(){
+	//hiding constructor - using singleton pattern
+	private GamePlay(){
 		score = 0;
 		volume = 0.5f;
 	}
+	
+    //Begin singleton logic code ------------------------------------------------->
+    
+    public static GamePlay instance(){
+        if(instance == null){
+            instance = new GamePlay();
+        }
+        return instance;
+    }
+    
+    //preventing the cloning (copying) of this single instance
+    public Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException(); 
+    }
+    
+    //END of singleton logic code ------------------------------------------------>
 
 	public byte getState() {
 		return state;
@@ -80,5 +99,12 @@ public class GamePlay {
 	public void setVolume(float volume) {
 		this.volume = volume;
 	}
-	
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}	
 }
