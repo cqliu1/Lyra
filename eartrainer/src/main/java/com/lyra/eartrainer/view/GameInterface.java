@@ -1,69 +1,53 @@
 package com.lyra.eartrainer.view;
 
-import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.model.GamePlay;
 
-import android.content.Context;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.util.AttributeSet;
-import android.view.View;
-import android.widget.Toast;
-import android.content.SharedPreferences;
+import android.app.Activity;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-public class GameInterface extends View{
+public class GameInterface{
 	
-	SoundPool sp;
-	int[] notes;
-	Context context = getContext();
-	//SharedPreferences sharedPref = context.getSharedPreferences("volume_val", Context.MODE_PRIVATE);
-	//int newVolume = getResources().getInteger(R.string.volume_val);
+//	private ImageButton replay;
+//	private ImageButton pause;
+	private TextView score;
+	private ImageButton[] keys;
+	private GamePlay gameplay;
 	
-    public GameInterface(Context con, AttributeSet attrs) {
-    	super(con, attrs);
+//	SoundPool sp;
+//	int[] notes;
+//	int currentNote;
+	
+    public GameInterface(Activity activity, GamePlay game) {
+//    	replay = (ImageButton) activity.findViewById(R.id.replay_button);
+//      pause = (ImageButton) activity.findViewById(R.id.pause_button);
+    	gameplay = game;
+        score = (TextView) activity.findViewById(R.id.score);
+        score.setText(""+gameplay.getScore());
+
+        keys = new ImageButton[13];
+        
+       	keys[0] = (ImageButton) activity.findViewById(R.id.key1);
+        keys[1] = (ImageButton) activity.findViewById(R.id.key2);
+        keys[2] = (ImageButton) activity.findViewById(R.id.key3);
+        keys[3] = (ImageButton) activity.findViewById(R.id.key4);
+        keys[4] = (ImageButton) activity.findViewById(R.id.key5);
+        keys[5] = (ImageButton) activity.findViewById(R.id.key6);
+        keys[6] = (ImageButton) activity.findViewById(R.id.key7);
+        keys[7] = (ImageButton) activity.findViewById(R.id.key8);
+        keys[8] = (ImageButton) activity.findViewById(R.id.key9);
+        keys[9] = (ImageButton) activity.findViewById(R.id.key10);
+        keys[10] = (ImageButton) activity.findViewById(R.id.key11);
+        keys[11] = (ImageButton) activity.findViewById(R.id.key12);
+        keys[12] = (ImageButton) activity.findViewById(R.id.key13);
     	
-    	sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-
-
-    	notes = new int[13];
-    	notes[0] = sp.load(con, R.raw.p040, 1); 
-    	notes[1] = sp.load(con, R.raw.p041, 1); 
-    	notes[2] = sp.load(con, R.raw.p042, 1); 
-    	notes[3] = sp.load(con, R.raw.p043, 1); 
-    	notes[4] = sp.load(con, R.raw.p044, 1); 
-    	notes[5] = sp.load(con, R.raw.p045, 1); 
-    	notes[6] = sp.load(con, R.raw.p046, 1); 
-    	notes[7] = sp.load(con, R.raw.p047, 1); 
-    	notes[8] = sp.load(con, R.raw.p048, 1); 
-    	notes[9] = sp.load(con, R.raw.p049, 1); 
-    	notes[10] = sp.load(con, R.raw.p050, 1); 
-    	notes[11] = sp.load(con, R.raw.p051, 1); 
-    	notes[12] = sp.load(con, R.raw.p052, 1);
-    	
 	}
-    
-    public void playNote(int note) {
+
+	public void updateScore() {
 		// TODO Auto-generated method stub
-    	GameActivity game = (GameActivity) getContext();
-		game.setScore(0);
-		//Toast.makeText(game, note, Toast.LENGTH_SHORT).show();
-		
-		// this is where we set the volume
-		//float vol = (float)newVolume/100;
-		sp.play(notes[note], 1.0f, 1.0f, 0, 0, 1.0f);
-		
-		
+		score.setText("" + gameplay.getScore());
 	}
 	
-	public void replayNotes(Context con, String note) {
-		// TODO Auto-generated method stub
-		GameActivity game = (GameActivity) getContext();
-		game.setScore(0);
-		Toast.makeText(game, note, Toast.LENGTH_SHORT).show();
-	}
-
-	public void showPauseMenu() {
-		GameActivity game = (GameActivity) getContext();
-		game.goToPause();
-	}
+	
 }

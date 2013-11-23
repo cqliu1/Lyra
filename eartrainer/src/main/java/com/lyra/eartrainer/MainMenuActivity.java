@@ -14,7 +14,7 @@ public class MainMenuActivity extends Activity {
         public void onCreate(Bundle savedInstanceBundle) {
                 super.onCreate(savedInstanceBundle);
                 setContentView(R.layout.activity_mainmenu);
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 MainMenuController mmController = new MainMenuController(this);
                 mmController.initialize();
         }
