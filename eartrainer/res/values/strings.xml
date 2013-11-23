@@ -53,7 +53,7 @@
     <string name="key11">A#/Bb</string>
     <string name="key12">B</string>
     <string name="key13">C</string>
-    <string name="title_ear_trainer">EAR TRAINER</string>
+    <string name="title_ear_trainer">\nEAR TRAINER\n\n</string>
     <string name="main_menu_game">GAME</string>
     <string name="main_menu_settings">SETTINGS</string>
     <string name="main_menu_leaderboards">LEADERBOARD</string>
