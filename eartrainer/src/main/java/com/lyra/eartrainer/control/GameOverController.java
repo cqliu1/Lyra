@@ -33,8 +33,6 @@ public class GameOverController extends Controller {
                         public void onClick(View v) {
                                 //fill in later
                         	goToOptions();
-                        	//restartGame();
-                        	
                         }
                 });
                 Button btnToMainMenu = (Button)activity.findViewById(R.id.btnToMainMenu);
@@ -43,7 +41,6 @@ public class GameOverController extends Controller {
                         public void onClick(View v) {
                                 //fill in later
                         	goToMain();
-                        	//showMain();
                         }
                 });
                 Button btnToLeaderboardsGameOver = (Button)activity.findViewById(R.id.btnToLeaderboardsGameOver);
@@ -52,7 +49,6 @@ public class GameOverController extends Controller {
                         public void onClick(View v) {
                                 //fill in later
                         	goToLeaderboard();
-                        	//showLeaderboard();
                         }
                 });
         }
