@@ -13,11 +13,11 @@ public class GameOverController extends Controller {
          
         public GameOverController(GameOverActivity gameOverActivity){
                 super(gameOverActivity);
-        }
+        } 
         
         public void initialize(){
                 //creating the view
-                cgoView = new GameOver(activity,null);
+                cgoView = new GameOver(activity);
                 //attaching event listeners to view widgets
                 attachEvents();
         }
@@ -29,7 +29,7 @@ public class GameOverController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 //fill in later
-                        	cgoView.restartGame();
+                        	restartGame();
                         	
                         }
                 });
@@ -38,7 +38,7 @@ public class GameOverController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 //fill in later
-                        	cgoView.showMain();
+                        	showMain();
                         }
                 });
                 Button btnToLeaderboardsGameOver = (Button)activity.findViewById(R.id.btnToLeaderboardsGameOver);
@@ -46,7 +46,7 @@ public class GameOverController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 //fill in later
-                        	cgoView.showLeaderboard();
+                        	showLeaderboard();
                         }
                 });
         }

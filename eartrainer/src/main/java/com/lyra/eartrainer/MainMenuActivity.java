@@ -25,10 +25,4 @@ public class MainMenuActivity extends Activity {
                 getMenuInflater().inflate(com.lyra.eartrainer.R.menu.main, menu);
                 return true;
         }
-
-        public void goToOptions(){
-        	Intent intent = new Intent(this,OptionsActivity.class);
-        	startActivity(intent);
-        	finish();
-        }
 }
