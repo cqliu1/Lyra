@@ -51,7 +51,7 @@ public class Nickname {
 		}
 		catch(Exception e){
 			//do something better
-			System.out.println("Exception while reading local nickname file.");
+			System.out.println("Exception while reading local nickname file.\n" + e.getMessage());
 			e.printStackTrace();
 		}
 		finally {
@@ -72,7 +72,7 @@ public class Nickname {
 		}
 		catch(Exception e){
 			//do something better
-			System.out.println("Exception while reading local nickname file.");
+			System.out.println("Exception while reading local nickname file.\n" + e.getMessage());
 			e.printStackTrace();
 		}
 		finally {

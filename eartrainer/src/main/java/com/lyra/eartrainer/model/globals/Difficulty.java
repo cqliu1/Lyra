@@ -1,4 +1,4 @@
-package com.lyra.eartrainer.model;
+package com.lyra.eartrainer.model.globals;
 
 public class Difficulty {
 	public static final byte BEGINNER		= 1;

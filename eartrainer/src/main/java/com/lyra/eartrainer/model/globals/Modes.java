@@ -1,4 +1,4 @@
-package com.lyra.eartrainer.model;
+package com.lyra.eartrainer.model.globals;
 
 public class Modes {
 	public static final byte PRACTICE	= 1;

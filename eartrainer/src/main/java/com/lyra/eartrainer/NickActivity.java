@@ -12,7 +12,6 @@ public class NickActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		NickController nController = new NickController(this);
 		nController.initialize();
 	}
