@@ -7,7 +7,7 @@ import com.lyra.eartrainer.model.Note;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
-public class LyraInstrument implements ILyraInstrument {
+public class MusicInstrument implements IMusicInstrument {
 	protected int scaleType;
 	protected String name; 			//The name of the instrument (e.g. piano, guitar)
 	protected Note[] notes;				//The collection of notes to be played
@@ -15,7 +15,7 @@ public class LyraInstrument implements ILyraInstrument {
 	protected int maxNote;
 	protected SoundPool sp;
 	
-	public LyraInstrument(SoundPool sp, int[] soundNotes){
+	public MusicInstrument(SoundPool sp, int[] soundNotes){
 		this.sp = sp;
 		sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
 		notes = new Note[soundNotes.length];

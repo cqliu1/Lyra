@@ -1,16 +1,18 @@
-package com.lyra.eartrainer.model.instrument;
+package com.lyra.eartrainer.factory;
 
 import android.app.Activity;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
 import com.lyra.eartrainer.R;
-import com.lyra.eartrainer.model.globals.InstrumentType;
+import com.lyra.eartrainer.model.globals.InstrumentTypes;
+import com.lyra.eartrainer.model.instrument.IMusicInstrument;
+import com.lyra.eartrainer.model.instrument.Piano;
 
-public class InstrumentFactory {
+public class MusicInstrumentFactory {
 	
-	public static ILyraInstrument makeInstrument(Activity activity, byte instrumentType){
-		ILyraInstrument instrument = null;
+	public static IMusicInstrument makeInstrument(Activity activity, byte instrumentType, byte scale){
+		IMusicInstrument instrument = null;
 		
 		SoundPool sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
 
@@ -29,10 +31,10 @@ public class InstrumentFactory {
         notes[11] = sp.load(activity, R.raw.p051, 1); 
         notes[12] = sp.load(activity, R.raw.p052, 1);
         
-        if(instrumentType == InstrumentType.PIANO){
+        if(instrumentType == InstrumentTypes.PIANO){
         	instrument = new Piano(sp, notes);
         }
-        else if(instrumentType == InstrumentType.GUITAR){
+        else if(instrumentType == InstrumentTypes.GUITAR){
         	//TO DO: for creating the guitar
         }
     	

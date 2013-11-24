@@ -1,6 +1,6 @@
 package com.lyra.eartrainer.model;
 
-import com.lyra.eartrainer.model.instrument.ILyraInstrument;
+import com.lyra.eartrainer.model.instrument.IMusicInstrument;
 
 public class Round {
 	private Note firstNote;
@@ -12,7 +12,7 @@ public class Round {
 	private int time;						//currentTime - startTime -- time it took to complete the round
 	
 	public Round(){
-		ILyraInstrument instrument = GamePlay.instance().getInstrument();
+		IMusicInstrument instrument = GamePlay.instance().getInstrument();
 		
 	}
 	

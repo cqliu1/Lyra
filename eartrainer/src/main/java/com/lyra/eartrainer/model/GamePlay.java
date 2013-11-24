@@ -2,8 +2,8 @@ package com.lyra.eartrainer.model;
 
 import java.util.ArrayList;
 
-import com.lyra.eartrainer.model.instrument.ILyraInstrument;
-import com.lyra.eartrainer.model.instrument.LyraInstrument;
+import com.lyra.eartrainer.model.instrument.IMusicInstrument;
+import com.lyra.eartrainer.model.instrument.MusicInstrument;
 
 public class GamePlay {
 	private static GamePlay instance = null;
@@ -16,7 +16,7 @@ public class GamePlay {
 	private int score;
 	private float volume;
 	private String nickname;
-	private ILyraInstrument instrument;
+	private IMusicInstrument instrument;
 	
 	//hiding constructor - using singleton pattern
 	private GamePlay(){
@@ -113,11 +113,11 @@ public class GamePlay {
 		this.nickname = nickname;
 	}
 
-	public ILyraInstrument getInstrument() {
+	public IMusicInstrument getInstrument() {
 		return instrument;
 	}
 
-	public void setInstrument(ILyraInstrument instrument) {
+	public void setInstrument(IMusicInstrument instrument) {
 		this.instrument = instrument;
 	}	
 }

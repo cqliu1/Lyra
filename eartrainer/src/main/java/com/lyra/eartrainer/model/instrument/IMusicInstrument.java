@@ -1,5 +1,5 @@
 package com.lyra.eartrainer.model.instrument;
 
-public interface ILyraInstrument {
+public interface IMusicInstrument {
 	public void playNote(int note);
 }

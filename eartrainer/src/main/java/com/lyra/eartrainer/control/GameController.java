@@ -14,7 +14,7 @@ import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.PauseActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
-import com.lyra.eartrainer.model.instrument.LyraInstrument;
+import com.lyra.eartrainer.model.instrument.MusicInstrument;
 import com.lyra.eartrainer.view.GameInterface;
 
 public class GameController extends Controller {
