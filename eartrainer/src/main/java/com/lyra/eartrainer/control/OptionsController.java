@@ -22,8 +22,8 @@ import com.lyra.eartrainer.view.Options;
 
 public class OptionsController extends Controller {
 	private Options optionsView;
-	private RadioGroup gameModeGroup;
-	private RadioGroup difficultyGroup;
+	private Spinner gameMode;
+	private Spinner difficulty;
 	private Spinner scale;
 	private Spinner instrument;
 	private GamePlay game;
@@ -38,8 +38,8 @@ public class OptionsController extends Controller {
         
 		optionsView = new Options(activity);
 		game = GamePlay.instance();
-		gameModeGroup = (RadioGroup)activity.findViewById(R.id.gameModeGroup);
-		difficultyGroup = (RadioGroup)activity.findViewById(R.id.difficultyGroup);
+		gameMode = (Spinner)activity.findViewById(R.id.gameModeSpinner);
+		difficulty = (Spinner)activity.findViewById(R.id.difficultySpinner);
 		attachEvents();
 		scale = (Spinner)activity.findViewById(R.id.scaleSpinner);
 		instrument = (Spinner)activity.findViewById(R.id.instrumentSpinner);
