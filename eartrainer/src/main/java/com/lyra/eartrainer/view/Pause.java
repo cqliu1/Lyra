@@ -1,44 +1,28 @@
 package com.lyra.eartrainer.view;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.AttributeSet;
-import android.view.View;
+import android.app.Activity;
+import android.widget.SeekBar;
 
-import com.lyra.eartrainer.PauseActivity;
+import com.lyra.eartrainer.model.GamePlay;
 
-public class Pause extends View{
-	
-	Context context = getContext();
+public class Pause{
+	private GamePlay game;
+	private SeekBar volumeBar;
 	//SharedPreferences sharedPref = context.getSharedPreferences("volume_val", Context.MODE_PRIVATE);
 	//SharedPreferences.Editor editor = sharedPref.edit();
-	public Pause(Context con, AttributeSet attrs){
-		super(con, attrs);
-		
+	public Pause(Activity activity){
+		game = GamePlay.instance();
+		volumeBar.scrollTo((int)game.getVolume()*100, 1);
 	}
 	
-	public void updateVolume(int newVolume)
+	// TODO might not be necessary
+	public void updateVolume()
 	{
 		//PauseActivity pause = (PauseActivity) getContext();
 		//pause.changeVolume(newVolume);
 		//editor.putInt("@string/volume_val", newVolume);
+		volumeBar.scrollTo((int)game.getVolume()*100, 1);
+		
 	}
 	
-	public void resumeGameplay()
-	{
-		PauseActivity pause = (PauseActivity) getContext();
-		pause.goToGame();
-	}
-	
-	public void startNewGame()
-	{
-		PauseActivity pause = (PauseActivity) getContext();
-		pause.goToOptions();
-	}
-
-	public void showGameOver() {
-		// TODO Auto-generated method stub
-		PauseActivity pause = (PauseActivity) getContext();
-		pause.goToGameOver();
-	}
 }

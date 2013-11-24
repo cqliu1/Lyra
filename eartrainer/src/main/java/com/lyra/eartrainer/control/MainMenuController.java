@@ -1,10 +1,12 @@
 package com.lyra.eartrainer.control;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.lyra.eartrainer.MainMenuActivity;
+import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.view.MainMenu;
 
@@ -17,7 +19,7 @@ public class MainMenuController extends Controller {
 
         public void initialize() {
                 // creating the view
-                mmView = new MainMenu(activity,null);
+                mmView = new MainMenu(activity);
                 // attaching event listeners to view widgets
                 attachEvents();
         }
@@ -29,7 +31,7 @@ public class MainMenuController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 // fill in later
-                        	mmView.showOptions();
+                        	goToOptions();
                         }
                 });
                 Button btnSubmit1 = (Button) activity.findViewById(R.id.btnToSettings);
@@ -47,5 +49,11 @@ public class MainMenuController extends Controller {
                                 // fill in later
                         }
                 });
+        }
+        
+        public void goToOptions(){
+        	Intent intent = new Intent(activity,OptionsActivity.class);
+        	activity.startActivity(intent);
+//        	activity.finish();
         }
 }

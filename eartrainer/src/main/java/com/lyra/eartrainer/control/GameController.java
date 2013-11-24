@@ -34,7 +34,7 @@ public class GameController extends Controller {
 		activity.setContentView(R.layout.piano);
 		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		
-		game = new GamePlay();
+		game = GamePlay.instance();
 		gameView = new GameInterface(activity,game);
 		
 		sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);

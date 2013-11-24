@@ -1,28 +1,33 @@
 package com.lyra.eartrainer.control;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnDragListener;
-import android.view.DragEvent;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
+import com.lyra.eartrainer.GameOverActivity;
+import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.PauseActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.view.Pause;
 
 public class PauseController extends Controller {
 	private Pause pView;
+	private GamePlay game;
 	public PauseController(PauseActivity pActivity){
 		super(pActivity);
 	}
 	
 	public void initialize(){
 		//creating the view
-		pView = new Pause(activity,null);
+		pView = new Pause(activity);
+		game = GamePlay.instance();
+		activity.setContentView(R.layout.activity_pause);
+		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		//attaching event listeners to view widgets
 		attachEvents();
 	}
@@ -64,7 +69,7 @@ public class PauseController extends Controller {
 			{
 				// TODO Auto-generated method stub
 				
-				pView.updateVolume(seekBar.getProgress());
+				updateVolume(seekBar.getProgress());
 			}
 			public void onStartTrackingTouch(SeekBar seekBar) 
 			{
@@ -79,20 +84,27 @@ public class PauseController extends Controller {
 		});
 	}
 	
-	private void resumeGame()
-	{
-		// resume the game!
-		pView.resumeGameplay();
+	public void resumeGame(){
+		activity.finish();
 	}
-	private void restartGame()
-	{
-		// restart the game!
-		pView.startNewGame();
+
+	public void restartGame(){
+		Intent intent = new Intent(activity,OptionsActivity.class);
+		activity.startActivity(intent);
+
+		//this.getParent().finish();
+		activity.finish();
 	}
-	private void quitGame()
-	{
-		// record our score?
-		// exit
-		pView.showGameOver();
+
+	public void quitGame() {
+		Intent intent = new Intent(activity,GameOverActivity.class);
+		activity.startActivity(intent);
+		
+		//this.getParent().finish();
+		activity.finish();
+	}
+	
+	public void updateVolume(int vol){
+		game.setVolume((float)vol/100);
 	}
 }

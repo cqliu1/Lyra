@@ -25,21 +25,4 @@ public class GameOverActivity extends Activity {
                 return true;
         }
 
-		public void goToOptions() {
-			// TODO Auto-generated method stub
-			Intent intent = new Intent(this,OptionsActivity.class);
-			startActivity(intent);
-			finish();
-		}
-		public void goToMain() {
-			// TODO Auto-generated method stub
-			Intent intent = new Intent(this,MainMenuActivity.class);
-			startActivity(intent);
-			finish();
-		}
-		public void goToLeaderboard() {
-			// TODO Auto-generated method stub
-			// direct to leaderboard
-		}
-
 }
