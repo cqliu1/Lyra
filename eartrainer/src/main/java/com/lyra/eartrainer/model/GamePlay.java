@@ -13,11 +13,13 @@ public class GamePlay {
 	private int score;
 	private float volume;
 	private String nickname;
+	private Instrument instrument;
 	
 	//hiding constructor - using singleton pattern
 	private GamePlay(){
 		score = 0;
 		volume = 0.5f;
+		this.setInstrument(null);
 	}
 	
     //Begin singleton logic code ------------------------------------------------->
@@ -106,5 +108,13 @@ public class GamePlay {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public Instrument getInstrument() {
+		return instrument;
+	}
+
+	public void setInstrument(Instrument instrument) {
+		this.instrument = instrument;
 	}	
 }

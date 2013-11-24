@@ -11,7 +11,9 @@ import android.widget.Spinner;
 import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.model.Difficulty;
 import com.lyra.eartrainer.model.GamePlay;
+import com.lyra.eartrainer.model.Modes;
 import com.lyra.eartrainer.view.Options;
 
 public class OptionsController extends Controller {
@@ -59,5 +61,9 @@ public class OptionsController extends Controller {
     
     public void storeOptions(){
 		// TODO change settings in gameplay instance
+    	game.setDifficulty(Difficulty.BEGINNER);
+    	game.setMode(Modes.PRACTICE);
+    	Piano piano = new Piano();
+    	game.setInstrument(piano);
     }
 }

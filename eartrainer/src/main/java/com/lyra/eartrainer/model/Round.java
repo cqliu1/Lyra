@@ -1,14 +1,18 @@
 package com.lyra.eartrainer.model;
 
 public class Round {
-	Note firstNote;
-	Note secondNote;
-	Note selectedNote;
+	private Note firstNote;
+	private Note secondNote;
+	private Note selectedNote;
 	
-	int selectionCount;				//the number of times the player attempted to select the correct note
-	boolean finished;
-	int time;						//currentTime - startTime -- time it took to complete the round
+	private int selectionCount;				//the number of times the player attempted to select the correct note
+	private boolean finished;
+	private int time;						//currentTime - startTime -- time it took to complete the round
 	
+	public Round(){
+		Instrument instrument = GamePlay.instance().getInstrument();
+		
+	}
 	
 	//returns true if the player selected the correct result
 	public boolean isCorrect(){

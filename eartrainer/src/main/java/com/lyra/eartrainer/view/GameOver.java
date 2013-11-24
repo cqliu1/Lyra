@@ -15,8 +15,8 @@ public class GameOver{
     private Button leaderboard;
 
     public GameOver(Activity activity) {
-        this.replay = (Button) findViewById(R.id.btnToReplay);
-        this.mainmenu = (Button) findViewById(R.id.btnToMainMenu);
-        this.leaderboard = (Button) findViewById(R.id.btnToLeaderboardsGameOver);
+        this.replay = (Button) activity.findViewById(R.id.btnToReplay);
+        this.mainmenu = (Button) activity.findViewById(R.id.btnToMainMenu);
+        this.leaderboard = (Button) activity.findViewById(R.id.btnToLeaderboardsGameOver);
     }
 }
