@@ -11,9 +11,13 @@ import android.widget.Spinner;
 import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
-import com.lyra.eartrainer.model.Difficulty;
+import com.lyra.eartrainer.factory.abs.LyraAbstractFactory;
+import com.lyra.eartrainer.factory.abs.LyraFactoryCreator;
 import com.lyra.eartrainer.model.GamePlay;
-import com.lyra.eartrainer.model.Modes;
+import com.lyra.eartrainer.model.globals.Difficulties;
+import com.lyra.eartrainer.model.globals.Modes;
+import com.lyra.eartrainer.model.globals.ScaleTypes;
+import com.lyra.eartrainer.model.instrument.IMusicInstrument;
 import com.lyra.eartrainer.view.Options;
 
 public class OptionsController extends Controller {
@@ -61,9 +65,10 @@ public class OptionsController extends Controller {
     
     public void storeOptions(){
 		// TODO change settings in gameplay instance
-    	game.setDifficulty(Difficulty.BEGINNER);
+    	game.setDifficulty(Difficulties.BEGINNER);
     	game.setMode(Modes.PRACTICE);
-    	Piano piano = new Piano();
+    	LyraAbstractFactory factory = LyraFactoryCreator.getFactory(ScaleTypes.MAJOR);
+    	IMusicInstrument piano = factory.createInstrument(activity);
     	game.setInstrument(piano);
     }
 }

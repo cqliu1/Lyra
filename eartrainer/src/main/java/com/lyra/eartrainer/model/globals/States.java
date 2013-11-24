@@ -1,4 +1,4 @@
-package com.lyra.eartrainer.model;
+package com.lyra.eartrainer.model.globals;
 
 public class States {
 	public static final byte PLAYING	= 1;

@@ -1,11 +1,11 @@
 package com.lyra.eartrainer.control;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.NickActivity;
@@ -24,6 +24,7 @@ public class NickController extends Controller {
 	}
 	
 	public void initialize(){
+		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		//instantiating relevant model classes
 		nickname = new Nickname();
 		game = GamePlay.instance(); //creates initial instance of GamePlay
