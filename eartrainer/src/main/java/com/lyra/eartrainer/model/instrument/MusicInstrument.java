@@ -1,11 +1,8 @@
 package com.lyra.eartrainer.model.instrument;
 
-import java.util.ArrayList;
+import android.media.SoundPool;
 
 import com.lyra.eartrainer.model.Note;
-
-import android.media.AudioManager;
-import android.media.SoundPool;
 
 public class MusicInstrument implements IMusicInstrument {
 	protected int scaleType;
@@ -15,9 +12,9 @@ public class MusicInstrument implements IMusicInstrument {
 	protected int maxNote;
 	protected SoundPool sp;
 	
-	public MusicInstrument(SoundPool sp, int[] soundNotes){
-		this.sp = sp;
-		sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+	public MusicInstrument(MusicInfo musicInfo){
+		this.sp = musicInfo.getSoundPool();
+		int[] soundNotes = musicInfo.getSoundNotes();
 		notes = new Note[soundNotes.length];
 		for(int i = 0;i < soundNotes.length;i++){
 			notes[i] = new Note();
