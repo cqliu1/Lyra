@@ -1,10 +1,13 @@
 package com.lyra.eartrainer.control;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.lyra.eartrainer.GameOverActivity;
+import com.lyra.eartrainer.MainMenuActivity;
+import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.view.GameOver;
 
@@ -29,7 +32,7 @@ public class GameOverController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 //fill in later
-                        	restartGame();
+                        	goToOptions();
                         	
                         }
                 });
@@ -38,7 +41,7 @@ public class GameOverController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 //fill in later
-                        	showMain();
+                        	goToMain();
                         }
                 });
                 Button btnToLeaderboardsGameOver = (Button)activity.findViewById(R.id.btnToLeaderboardsGameOver);
@@ -46,8 +49,25 @@ public class GameOverController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 //fill in later
-                        	showLeaderboard();
+                        	goToLeaderboard();
                         }
                 });
         }
+        
+		public void goToOptions() {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent(activity,OptionsActivity.class);
+			activity.startActivity(intent);
+			activity.finish();
+		}
+		public void goToMain() {
+			// TODO Auto-generated method stub
+			Intent intent = new Intent(activity,MainMenuActivity.class);
+			activity.startActivity(intent);
+			activity.finish();
+		}
+		public void goToLeaderboard() {
+			// TODO Auto-generated method stub
+			// direct to leaderboard
+		}
 }
