@@ -16,7 +16,9 @@ import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.PauseActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
+import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.instrument.MusicInstrument;
+import com.lyra.eartrainer.model.instrument.Piano;
 import com.lyra.eartrainer.view.GameInterface;
 
 public class GameController extends Controller {
@@ -82,17 +84,6 @@ public class GameController extends Controller {
         {
         	
         	final int note = i;
-        	
-        	/*keys[i].setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					game.getInstrument().playNote(note);
-					int oldScore = game.getScore();
-					game.setScore(++oldScore);
-					gameView.updateScore();
-				}
-			});*/
-        	
-        	
         	
         	keys[i].setOnTouchListener(new View.OnTouchListener() {
 				
@@ -170,41 +161,39 @@ public class GameController extends Controller {
 			if(eventRealX > thisLeft && eventRealX < thisRight
 					&& eventRealY < thisBottom && eventRealY > thisTop) {
 				
-				// Check if we are on a black key by seeing if we overlap the prev and next keys
-				if(prevKey != null && nextKey != null) {
-					prevKey.getLocationOnScreen(location);
-					int prevLeft = location[0];
-					int prevRight = location[0] + prevKey.getWidth();
-					int prevTop = location[1];
-					int prevBottom = location[1] + prevKey.getHeight();
+				// For pianos, check if we are on a black key and give them precedence over white keys
+				// when overlapping
+				
+				if(game.getInstrumentType() == InstrumentTypes.PIANO){
 					
-					nextKey.getLocationOnScreen(location);
-					int nextLeft = location[0];
-					int nextRight = location[0] + nextKey.getWidth();
-					int nextTop = location[1];
-					int nextBottom = location[1] + nextKey.getHeight();					
+					Piano piano = (Piano) game.getInstrument();
 					
-					// Check if in the bounds of the next key
-					if(eventRealX > nextLeft && eventRealX < nextRight
-							&& eventRealY < nextBottom && eventRealY > nextTop) {
+					// If this is a black key, return it as the hovered
+					if(piano.isBlackKey(i)) {
+						return i;
+					}
+					
+					// Check if the nextKey is black and overlapping
+					// Check if we are on a black key by seeing if we overlap the prev and next keys
+					if(nextKey != null && piano.isBlackKey(i+1)) {
+						nextKey.getLocationOnScreen(location);
+						int nextLeft = location[0];
+						int nextRight = location[0] + nextKey.getWidth();
+						int nextTop = location[1];
+						int nextBottom = location[1] + nextKey.getHeight();					
 						
-						// If this key or the next key is black
-						if(nextLeft < thisRight) {
-							// If this key is black
-							if(prevRight > thisLeft) {
-								return i;
-							} else {
-							// The next key is black
-								return i+1;
-							}
-						// The next key is white
-						} else {
+						// Check if in the bounds of the next key
+						if(eventRealX > nextLeft && eventRealX < nextRight
+								&& eventRealY < nextBottom && eventRealY > nextTop) {
 							return i+1;
 						}
 						
 					}
 					
 				}
+				
+				
+				
 				
 				return i;
 			}

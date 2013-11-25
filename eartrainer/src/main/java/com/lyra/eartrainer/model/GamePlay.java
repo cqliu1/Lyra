@@ -10,6 +10,7 @@ public class GamePlay {
 	private byte state;
 	private byte mode;
 	private byte difficulty;
+	private byte instrumentType;
 	private int numberOfRounds;					//the number of rounds you have
 	private boolean isFirstRound;		
 	private ArrayList<Round> rounds;
@@ -63,6 +64,14 @@ public class GamePlay {
 
 	public void setDifficulty(byte difficulty) {
 		this.difficulty = difficulty;
+	}
+	
+	public byte getInstrumentType() {
+		return instrumentType;
+	}
+
+	public void setInstrumentType(byte instrumentType) {
+		this.instrumentType = instrumentType;
 	}
 
 	public int getNumberOfRounds() {

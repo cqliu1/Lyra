@@ -14,15 +14,6 @@ public class MusicInstrument implements IMusicInstrument {
 	
 	public MusicInstrument(MusicInfo musicInfo){
 		this.sp = musicInfo.getSoundPool();
-		int[] soundNotes = musicInfo.getSoundNotes();
-		notes = new Note[soundNotes.length];
-		for(int i = 0;i < soundNotes.length;i++){
-			notes[i] = new Note();
-			//this.notes[i].setFile(file);
-			//this.notes[i].setName(name);
-			//this.notes[i].setId(id);
-			notes[i].setSoundId(soundNotes[i]);
-		}
 	}
 	
     public void playNote(int note) {
