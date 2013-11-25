@@ -1,5 +1,7 @@
 package com.lyra.eartrainer.control;
 
+import java.lang.reflect.Field;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
@@ -13,10 +15,12 @@ import android.widget.Spinner;
 import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.R.raw;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.factory.LyraAbstractFactory;
 import com.lyra.eartrainer.model.factory.LyraFactoryCreator;
 import com.lyra.eartrainer.model.globals.Difficulties;
+import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
 import com.lyra.eartrainer.model.globals.ScaleTypes;
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;
@@ -67,6 +71,11 @@ public class OptionsController extends Controller {
     }
     
     public void storeOptions(){
+    	
+    	if(((String)instrument.getSelectedItem()).equals("Piano")) {
+    		game.setInstrumentType(InstrumentTypes.PIANO);
+    	}
+    	
 		// TODO change settings in gameplay instance
     	game.setDifficulty(Difficulties.BEGINNER);
     	game.setMode(Modes.PRACTICE);
@@ -78,23 +87,30 @@ public class OptionsController extends Controller {
     
     private MusicInfo makeUserInfo(){
 		SoundPool sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-
-        int[] notes = new int[13];
-        notes[0] = sp.load(activity, R.raw.p040, 1);
-        notes[1] = sp.load(activity, R.raw.p041, 1);
-        notes[2] = sp.load(activity, R.raw.p042, 1);
-        notes[3] = sp.load(activity, R.raw.p043, 1);
-        notes[4] = sp.load(activity, R.raw.p044, 1);
-        notes[5] = sp.load(activity, R.raw.p045, 1);
-        notes[6] = sp.load(activity, R.raw.p046, 1);
-        notes[7] = sp.load(activity, R.raw.p047, 1);
-        notes[8] = sp.load(activity, R.raw.p048, 1);
-        notes[9] = sp.load(activity, R.raw.p049, 1);
-        notes[10] = sp.load(activity, R.raw.p050, 1);
-        notes[11] = sp.load(activity, R.raw.p051, 1);
-        notes[12] = sp.load(activity, R.raw.p052, 1);
         
         MusicInfo mi = new MusicInfo();
+        
+        int[] notes = null;
+        
+        // For piano instrument type load the piano sounds
+        if(game.getInstrumentType() == InstrumentTypes.PIANO) {
+        	Class<raw> raw = R.raw.class;
+        	Field[] fields = raw.getFields();
+        	notes = new int[fields.length];
+        	for(int i=0; i<fields.length; i++) {
+        		Field f = fields[i];
+        		if(f.getName().startsWith("p")) {
+        			try {
+						notes[i] = sp.load(activity, f.getInt(null), 1);
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+        		}
+        	}
+        }
+        
         mi.setSoundNotes(notes);
         mi.setSoundPool(sp);
         

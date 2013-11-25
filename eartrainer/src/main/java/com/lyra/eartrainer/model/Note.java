@@ -3,8 +3,13 @@ package com.lyra.eartrainer.model;
 public class Note {
 	private int id;
 	private String name;
-	private int file;
 	private int soundId;
+	
+	public Note() {
+		this.id = -1;
+		this.name = null;
+		this.soundId = -1;
+	}
 	
 	public int getId() {
 		return id;
@@ -17,12 +22,6 @@ public class Note {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public int getFile() {
-		return file;
-	}
-	public void setFile(int file) {
-		this.file = file;
 	}
 	public int getSoundId() {
 		return soundId;
