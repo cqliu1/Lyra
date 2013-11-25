@@ -1,26 +1,18 @@
 package com.lyra.eartrainer.control;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.PauseActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
-import com.lyra.eartrainer.model.instrument.MusicInstrument;
 import com.lyra.eartrainer.view.GameInterface;
 
 public class GameController extends Controller {
 	private GameInterface gameView;
-	private Context con;
-	private String note;
 	private GamePlay game;
 	private int currentNote;
 
@@ -62,7 +54,7 @@ public class GameController extends Controller {
         
         replay.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				replayNotes(con,note);
+				replayNote(currentNote);
 				int oldScore = game.getScore();
 				game.setScore(++oldScore);
 				gameView.updateScore();
@@ -91,10 +83,10 @@ public class GameController extends Controller {
         }
 	}
 	
-	public void replayNotes(Context con, String note) {
+	public void replayNote(int note) {
 		// TODO Auto-generated method stub
-		game.setScore(0);
-		Toast.makeText(activity, note, Toast.LENGTH_SHORT).show();
+		game.getInstrument().playNote(note);
+		//		Toast.makeText(activity, note, Toast.LENGTH_SHORT).show();
 	}
 
 	public void goToPause(){
