@@ -17,14 +17,20 @@
     <string name = "volume_val"> volume_val</string>
 
     <string name="game_mode_prompt">Game Mode:</string>
-    <string name="game_mode_practice">Practice</string>
-    <string name="game_mode_challenge">Challenge</string>
+    
+    <string-array name="game_modes">
+        <item>Practice</item>
+        <!--<item>Challenge</item>-->
+    </string-array>
+
     <string name="startGame">Start Game</string>
     
     <string name="difficulty_prompt">Difficulty Level:</string>
-    <string name="difficulty_beginner">Beginner</string>
-    <string name="difficulty_intermediate">Intermediate</string>
-    <string name="difficulty_advanced">Advanced</string>
+    <string-array name="difficulty_levels">
+        <item>Beginner</item>
+        <!--<item>Intermediate</item>
+        <item>Advanced</item>-->
+    </string-array>
     
     <string name="scale_prompt">Scale:</string>
     <string-array name="scales">
@@ -34,7 +40,7 @@
     <string name="instrument_prompt">Instrument:</string>
     <string-array name="instruments">
         <item>Piano</item>
-        <item>Bass Guitar</item>
+        <!--<item>Bass Guitar</item>-->
     </string-array>
  
     <string name="replay">Replay</string>

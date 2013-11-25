@@ -4,10 +4,11 @@ import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class GameInterface{
+public class GameInterface extends View {
 	
 //	private ImageButton replay;
 //	private ImageButton pause;
@@ -20,6 +21,7 @@ public class GameInterface{
 //	int currentNote;
 	
     public GameInterface(Activity activity, GamePlay game) {
+    	super(activity);
 //    	replay = (ImageButton) activity.findViewById(R.id.replay_button);
 //      pause = (ImageButton) activity.findViewById(R.id.pause_button);
     	gameplay = game;
@@ -41,7 +43,6 @@ public class GameInterface{
         keys[10] = (ImageButton) activity.findViewById(R.id.key11);
         keys[11] = (ImageButton) activity.findViewById(R.id.key12);
         keys[12] = (ImageButton) activity.findViewById(R.id.key13);
-    	
 	}
 
 	public void updateScore() {

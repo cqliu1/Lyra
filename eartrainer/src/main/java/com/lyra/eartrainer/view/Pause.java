@@ -3,6 +3,7 @@ package com.lyra.eartrainer.view;
 import android.app.Activity;
 import android.widget.SeekBar;
 
+import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
 
 public class Pause{
@@ -12,7 +13,8 @@ public class Pause{
 	//SharedPreferences.Editor editor = sharedPref.edit();
 	public Pause(Activity activity){
 		game = GamePlay.instance();
-		volumeBar.scrollTo((int)game.getVolume()*100, 1);
+		volumeBar = (SeekBar) activity.findViewById(R.id.seekVolume);
+		volumeBar.setProgress((int)(game.getVolume()*100));
 	}
 	
 	// TODO might not be necessary

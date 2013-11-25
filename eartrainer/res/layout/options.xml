@@ -5,33 +5,19 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/gameModePrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/game_mode_prompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <RadioGroup
-        android:id="@+id/gameModeGroup"
+    <Spinner
+        android:id="@+id/gameModeSpinner"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <RadioButton
-            android:id="@+id/gaemModeRadioPractice"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/game_mode_practice" />
-
-        <RadioButton
-            android:id="@+id/gameModeRadioChallenge"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/game_mode_challenge" />
-    </RadioGroup>
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:entries="@array/game_modes"
+        android:prompt="@string/game_mode_prompt" />
 
     <TextView
         android:id="@+id/difficultyText"
@@ -41,31 +27,13 @@
         android:text="@string/difficulty_prompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <RadioGroup
-        android:id="@+id/difficultyGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <RadioButton
-            android:id="@+id/difficultyRadioBeginner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/difficulty_beginner" />
-
-        <RadioButton
-            android:id="@+id/difficultyRadioIntermediate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/difficulty_intermediate" />
-
-        <RadioButton
-            android:id="@+id/difficultyRadioAdvanced"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/difficulty_advanced" />
-    </RadioGroup>
+    <Spinner
+        android:id="@+id/difficultySpinner"
+         android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:entries="@array/difficulty_levels"
+        android:prompt="@string/difficulty_prompt" />
 
     <TextView
         android:id="@+id/scaleText"
