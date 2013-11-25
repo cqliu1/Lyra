@@ -1,7 +1,5 @@
-package com.lyra.eartrainer.factory.abs;
+package com.lyra.eartrainer.model.factory;
 
-import com.lyra.eartrainer.factory.creators.MajorConcreteCreator;
-import com.lyra.eartrainer.factory.creators.PentatonicConcreteCreator;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.ScaleTypes;
 
