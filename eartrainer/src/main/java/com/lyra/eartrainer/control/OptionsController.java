@@ -80,12 +80,12 @@ public class OptionsController extends Controller {
     	game.setDifficulty(Difficulties.BEGINNER);
     	game.setMode(Modes.PRACTICE);
     	LyraAbstractFactory factory = LyraFactoryCreator.getFactory(ScaleTypes.MAJOR);
-    	MusicInfo mi = makeUserInfo();
+    	MusicInfo mi = makeMusicInfo();
     	IMusicInstrument piano = factory.createInstrument(mi);
     	game.setInstrument(piano);
     }
     
-    private MusicInfo makeUserInfo(){
+    private MusicInfo makeMusicInfo(){
 		SoundPool sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
         
         MusicInfo mi = new MusicInfo();
