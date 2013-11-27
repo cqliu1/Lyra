@@ -12,10 +12,10 @@ import com.lyra.eartrainer.NickActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.Nickname;
-import com.lyra.eartrainer.view.CreateNickView;
+import com.lyra.eartrainer.view.NickView;
 
 public class NickController extends Controller {
-	private CreateNickView cnView;
+	private NickView nView;
 	private Nickname nickname;
 	private GamePlay game;
 
@@ -37,7 +37,7 @@ public class NickController extends Controller {
 		else {
 			//loading this view
 			activity.setContentView(R.layout.activity_nick);
-			cnView = new CreateNickView(activity);
+			nView = new NickView(activity);
 			//attaching event listeners to view widgets
 			attachEvents();
 		}
@@ -71,7 +71,7 @@ public class NickController extends Controller {
 			loadNextScreen();
 		}
 		else {
-			cnView.displayFailedSaveMessage();
+			nView.displayFailedSaveMessage();
 		}
 	}
 	

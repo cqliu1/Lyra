@@ -7,13 +7,13 @@ import android.widget.TextView;
 
 import com.lyra.eartrainer.R;
 
-public class CreateNickView {
+public class NickView {
 	private EditText editNick;
 	private TextView textError;
 	
-	private CreateNickView(){}
+	private NickView(){}
 	
-	public CreateNickView(Activity activity){
+	public NickView(Activity activity){
 		this.editNick = (EditText)activity.findViewById(R.id.editNick);
 		this.textError = (TextView)activity.findViewById(R.id.textNickError);
 	}
