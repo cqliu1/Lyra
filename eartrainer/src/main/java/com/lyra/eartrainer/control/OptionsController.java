@@ -9,7 +9,6 @@ import android.media.SoundPool;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.lyra.eartrainer.GameActivity;
@@ -17,14 +16,13 @@ import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.R.raw;
 import com.lyra.eartrainer.model.GamePlay;
-import com.lyra.eartrainer.model.factory.LyraAbstractFactory;
-import com.lyra.eartrainer.model.factory.LyraFactoryCreator;
 import com.lyra.eartrainer.model.globals.Difficulties;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
 import com.lyra.eartrainer.model.globals.ScaleTypes;
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;
-import com.lyra.eartrainer.model.instrument.MusicInfo;
+import com.lyra.eartrainer.model.instrument.SoundInfo;
+import com.lyra.eartrainer.model.instrument.MusicInstrumentFactory;
 import com.lyra.eartrainer.view.Options;
 
 public class OptionsController extends Controller {
@@ -79,16 +77,15 @@ public class OptionsController extends Controller {
 		// TODO change settings in gameplay instance
     	game.setDifficulty(Difficulties.BEGINNER);
     	game.setMode(Modes.PRACTICE);
-    	LyraAbstractFactory factory = LyraFactoryCreator.getFactory(ScaleTypes.MAJOR);
-    	MusicInfo mi = makeMusicInfo();
-    	IMusicInstrument piano = factory.createInstrument(mi);
+    	SoundInfo mi = loadNotes();
+    	IMusicInstrument piano = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.PIANO, ScaleTypes.MAJOR);
     	game.setInstrument(piano);
     }
     
-    private MusicInfo makeMusicInfo(){
+    private SoundInfo loadNotes(){
 		SoundPool sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
         
-        MusicInfo mi = new MusicInfo();
+        SoundInfo mi = new SoundInfo();
         
         int[] notes = null;
         

@@ -1,13 +1,10 @@
-package com.lyra.eartrainer.model.factory;
+package com.lyra.eartrainer.model.instrument;
 
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
-import com.lyra.eartrainer.model.instrument.IMusicInstrument;
-import com.lyra.eartrainer.model.instrument.MusicInfo;
-import com.lyra.eartrainer.model.instrument.Piano;
 
 public class MusicInstrumentFactory {
 	
-	public static IMusicInstrument makeInstrument(MusicInfo musicInfo, byte instrumentType, byte scale){
+	public static IMusicInstrument makeInstrument(SoundInfo musicInfo, byte instrumentType, byte scale){
 		IMusicInstrument instrument = null;
         
         if(instrumentType == InstrumentTypes.PIANO){

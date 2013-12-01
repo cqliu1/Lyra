@@ -2,7 +2,7 @@ package com.lyra.eartrainer.model.instrument;
 
 import android.media.SoundPool;
 
-public class MusicInfo {
+public class SoundInfo {
 	private SoundPool soundPool;
 	private int[] soundNotes;
 	

@@ -12,7 +12,7 @@ public class MusicInstrument implements IMusicInstrument {
 	protected int maxNote;
 	protected SoundPool sp;
 	
-	public MusicInstrument(MusicInfo musicInfo){
+	public MusicInstrument(SoundInfo musicInfo){
 		this.sp = musicInfo.getSoundPool();
 	}
 	

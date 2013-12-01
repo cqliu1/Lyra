@@ -5,7 +5,7 @@ import android.util.Log;
 import com.lyra.eartrainer.model.Note;
 
 public class Piano extends MusicInstrument implements IMusicInstrument {
-	public Piano(MusicInfo musicInfo){
+	public Piano(SoundInfo musicInfo){
 		super(musicInfo);
 		minNote = 40;
 		maxNote = 52;
