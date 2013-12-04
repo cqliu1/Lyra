@@ -4,6 +4,7 @@ import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
