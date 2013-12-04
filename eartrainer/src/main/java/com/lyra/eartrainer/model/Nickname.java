@@ -31,7 +31,7 @@ public class Nickname {
 		
 		//get the nickname
 		name = readLocalNick(nickFile);
-		if(!name.equals("")){
+		if(!name.equals("") && !name.equals("null")){
 			return true;
 		}
 
@@ -46,7 +46,8 @@ public class Nickname {
 			byte[] buff = new byte[(int)file.length()];
 			int read = fis.read(buff);
 			if(read > 0){
-				result = new String(buff); 
+				result = new String(buff);
+				result = result.trim();
 			}
 		}
 		catch(Exception e){
