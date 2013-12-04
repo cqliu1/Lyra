@@ -20,6 +20,7 @@ public class GameOverController extends Controller {
         
         public void initialize(){
                 //creating the view
+        		activity.setContentView(R.layout.activity_gameover);
                 cgoView = new GameOver(activity);
                 //attaching event listeners to view widgets
                 attachEvents();
