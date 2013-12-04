@@ -121,8 +121,8 @@ public class GameController extends Controller {
 	
 	public void replayNotes(Context con, String note) {
 		// TODO Auto-generated method stub
-		game.setScore(0);
-		Toast.makeText(activity, note, Toast.LENGTH_SHORT).show();
+//		game.setScore(0);
+//		Toast.makeText(activity, note, Toast.LENGTH_SHORT).show();
 	}
 
 	public void goToPause(){
