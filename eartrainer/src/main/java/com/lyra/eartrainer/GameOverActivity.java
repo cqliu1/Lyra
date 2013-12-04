@@ -12,8 +12,6 @@ public class GameOverActivity extends Activity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
-                setContentView(R.layout.activity_gameover);
-                
                 GameOverController nController = new GameOverController(this);
                 nController.initialize();
         }

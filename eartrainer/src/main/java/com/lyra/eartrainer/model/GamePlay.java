@@ -24,6 +24,10 @@ public class GamePlay {
 		score = 0;
 		volume = 0.5f;
 		this.setInstrument(null);
+		numberOfRounds = 10;
+		rounds = new ArrayList<Round>();
+		for(int i = 0; i < numberOfRounds; i++)
+			rounds.add(new Round());
 	}
 	
     //Begin singleton logic code ------------------------------------------------->

@@ -12,8 +12,8 @@ public class Round {
 	private int time;						//currentTime - startTime -- time it took to complete the round
 	
 	public Round(){
-		IMusicInstrument instrument = GamePlay.instance().getInstrument();
-		
+		GamePlay game = GamePlay.instance();
+		IMusicInstrument instrument = game.getInstrument();
 	}
 	
 	//returns true if the player selected the correct result
