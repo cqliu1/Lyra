@@ -43,6 +43,7 @@ public class OptionsController extends Controller {
         
 		optionsView = new Options(activity);
 		game = GamePlay.instance();
+		game.reset();
 		gameMode = (Spinner)activity.findViewById(R.id.gameModeSpinner);
 		difficulty = (Spinner)activity.findViewById(R.id.difficultySpinner);
 		attachEvents();

@@ -23,6 +23,10 @@ public class GamePlay {
 	
 	//hiding constructor - using singleton pattern
 	private GamePlay(){
+		reset();
+	}
+
+	public void reset() {
 		roundNumber = 0;
 		score = 0;
 		volume = 0.5f;
