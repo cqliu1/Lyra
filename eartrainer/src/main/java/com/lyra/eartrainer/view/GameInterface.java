@@ -2,6 +2,8 @@ package com.lyra.eartrainer.view;
 
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
+import com.lyra.eartrainer.model.globals.InstrumentTypes;
+import com.lyra.eartrainer.model.instrument.Piano;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -51,5 +53,52 @@ public class GameInterface extends View {
 		score.setText("" + gameplay.getScore());
 	}
 	
+	public void selectCorrectNote(int note) {
+		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
+			Piano piano = (Piano) GamePlay.instance().getInstrument();
+			
+			if(piano.isBlackKey(note)) {
+				keys[note].setImageResource(R.drawable.correct_black_key);
+			} else {
+				keys[note].setImageResource(R.drawable.correct_white_key);
+			}	
+		}
+	}
+	
+	public void selectIncorrectNote(int note) {
+		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
+			Piano piano = (Piano) GamePlay.instance().getInstrument();
+			
+			if(piano.isBlackKey(note)) {
+				keys[note].setImageResource(R.drawable.wrong_black_key);
+			} else {
+				keys[note].setImageResource(R.drawable.wrong_white_key);
+			}	
+		}
+	}
+	
+	public void resetNote(int note) {
+		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
+			Piano piano = (Piano) GamePlay.instance().getInstrument();
+			
+			if(piano.isBlackKey(note)) {
+				keys[note].setImageResource(R.drawable.black_key_selection);
+			} else {
+				keys[note].setImageResource(R.drawable.white_key_selection);
+			}	
+		}
+	}
+	
+	public void selectNote(int note) {
+		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
+			Piano piano = (Piano) GamePlay.instance().getInstrument();
+			
+			if(piano.isBlackKey(note)) {
+				keys[note].setImageResource(R.drawable.black_key_select);
+			} else {
+				keys[note].setImageResource(R.drawable.white_key_select);
+			}	
+		}
+	}
 	
 }

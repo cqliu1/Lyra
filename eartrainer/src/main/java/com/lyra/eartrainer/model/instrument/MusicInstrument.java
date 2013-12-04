@@ -28,4 +28,12 @@ public class MusicInstrument implements IMusicInstrument {
     	float vol = game.getVolume();
 		sp.play(notes[note].getSoundId(), vol, vol, 0, 0, 1.0f);
 	}
+    
+    public int getMinNote() {
+    	return minNote;
+    }
+    
+    public int getMaxNote() {
+    	return maxNote;
+    }
 }
