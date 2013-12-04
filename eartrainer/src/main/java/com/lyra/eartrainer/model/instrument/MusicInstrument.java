@@ -3,6 +3,7 @@ package com.lyra.eartrainer.model.instrument;
 import android.media.SoundPool;
 
 import com.lyra.eartrainer.model.Note;
+import com.lyra.eartrainer.model.GamePlay;
 
 public class MusicInstrument implements IMusicInstrument {
 	protected int scaleType;
@@ -11,9 +12,11 @@ public class MusicInstrument implements IMusicInstrument {
 	protected int minNote;
 	protected int maxNote;
 	protected SoundPool sp;
+	protected GamePlay game;
 	
 	public MusicInstrument(SoundInfo musicInfo){
 		this.sp = musicInfo.getSoundPool();
+		game = GamePlay.instance();
 	}
 	
     public void playNote(int note) {
@@ -22,6 +25,7 @@ public class MusicInstrument implements IMusicInstrument {
 		
 		// this is where we set the volume
 		//float vol = (float)newVolume/100;
-		sp.play(notes[note].getSoundId(), 1.0f, 1.0f, 0, 0, 1.0f);
+    	float vol = game.getVolume();
+		sp.play(notes[note].getSoundId(), vol, vol, 0, 0, 1.0f);
 	}
 }
