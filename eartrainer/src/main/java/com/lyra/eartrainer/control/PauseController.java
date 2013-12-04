@@ -108,5 +108,6 @@ public class PauseController extends Controller {
 	
 	public void updateVolume(int vol){
 		game.setVolume((float)vol/100);
+		game.getInstrument().playNote(0);
 	}
 }
