@@ -14,6 +14,7 @@ public class GamePlay {
 	private int numberOfRounds;					//the number of rounds you have
 	private boolean isFirstRound;		
 	//private ArrayList<Round> rounds;
+	private int roundNumber;
 	private Round currentRound;
 	private int score;
 	private float volume;
@@ -22,6 +23,7 @@ public class GamePlay {
 	
 	//hiding constructor - using singleton pattern
 	private GamePlay(){
+		roundNumber = 0;
 		score = 0;
 		volume = 0.5f;
 		this.setInstrument(null);
@@ -92,21 +94,22 @@ public class GamePlay {
 	public void setFirstRound(boolean isFirstRound) {
 		this.isFirstRound = isFirstRound;
 	}
-
-	/*public ArrayList<Round> getRounds() {
-		return rounds;
-	}
-
-	public void setRounds(ArrayList<Round> rounds) {
-		this.rounds = rounds;
-	}*/
 	
 	public Round getCurrentRound() {
 		return currentRound;
 	}
 	
-	public void resetCurrentRound() {
+	public void endCurrentRound() {
+		currentRound = null;
+	}
+	
+	public void startNewRound() {
 		currentRound = new Round();
+		roundNumber++;
+	}
+	
+	public boolean isGameOver() {
+		return roundNumber == numberOfRounds;
 	}
 
 	public int getScore() {

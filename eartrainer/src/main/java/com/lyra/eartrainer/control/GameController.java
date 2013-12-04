@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lyra.eartrainer.GameActivity;
+import com.lyra.eartrainer.GameOverActivity;
 import com.lyra.eartrainer.PauseActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
@@ -44,8 +45,6 @@ public class GameController extends Controller {
 		
 		game = GamePlay.instance();
 		gameView = new GameInterface(activity,game);
-		
-		game.resetCurrentRound();
         
 		attachEvents();
 	}
@@ -73,6 +72,9 @@ public class GameController extends Controller {
         
         replay.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				if(game.getCurrentRound() == null) {
+					game.startNewRound();
+				}
 				replayNotes(con,note);
 			}
 		});
@@ -95,16 +97,28 @@ public class GameController extends Controller {
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {	
 					// If it is the initial touch, play the note and update the score
-					if(event.getActionMasked() == MotionEvent.ACTION_DOWN){ 			
+					if(event.getActionMasked() == MotionEvent.ACTION_DOWN){ 
+						// If the game isn't started or has ended, just display a toast to restart
+						if(game.getCurrentRound() == null || game.getCurrentRound().getFinished()) {
+							Toast.makeText(act, "Press play to start!", Toast.LENGTH_SHORT).show();
+							return true;
+						}
+						
 						Timer timer = new Timer();
 						timer.schedule(new PlayNoteTask(note, act), 0L);
 						
 						if(game.getCurrentRound().isCorrect(note)) {
 							updateGameScore();
-							gameView.selectCorrectNote(note);
-							Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
-							timer.schedule(new ResetRoundTask(act), 1000L);
+							gameView.selectCorrectNote(note);					
 							game.getCurrentRound().setFinished(true);
+							
+							if(game.isGameOver()) {
+								Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
+								timer.schedule(new EndGameTask(act), 2000L);
+							} else {
+								Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
+								timer.schedule(new EndRoundTask(act), 1000L);
+							}
 							
 						} else {
 							gameView.selectIncorrectNote(note);
@@ -116,6 +130,11 @@ public class GameController extends Controller {
 					}
 					// If it is a hover, figure out which key is hovered and play it
 					if(event.getActionMasked() == MotionEvent.ACTION_MOVE) {
+						// Do nothing if the game hasn't started or is finished
+						if(game.getCurrentRound() == null || game.getCurrentRound().getFinished()) {
+							return true;
+						}
+						
 						int hoverKey = getKeyHovered(v, event);
 						//Log.d("Piano", "hoverKey = " + hoverKey);
 						if(hoverKey != -1 && hoverKey != lastPlayedKey) {
@@ -125,9 +144,15 @@ public class GameController extends Controller {
 							if(game.getCurrentRound().isCorrect(hoverKey)) {
 								updateGameScore();
 								gameView.selectCorrectNote(hoverKey);
-								Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
-								timer.schedule(new ResetRoundTask(act), 1000L);	
 								game.getCurrentRound().setFinished(true);
+								
+								if(game.isGameOver()) {
+									Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
+									timer.schedule(new EndGameTask(act), 2000L);
+								} else {
+									Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
+									timer.schedule(new EndRoundTask(act), 1000L);
+								}
 							} else {
 								gameView.selectIncorrectNote(hoverKey);
 							}
@@ -161,7 +186,7 @@ public class GameController extends Controller {
 	}
 	
 	private void updateGameScore() {
-		if(!game.getCurrentRound().getFinished()) {
+		if(game.getCurrentRound() != null && !game.getCurrentRound().getFinished()) {
 			int oldScore = game.getScore();
 			game.setScore(oldScore+10);
 			gameView.updateScore();
@@ -307,11 +332,11 @@ public class GameController extends Controller {
    };
    
    //tells handler to send a message
-   class ResetRoundTask extends TimerTask {
+   class EndRoundTask extends TimerTask {
 
 	   Activity act;
 	   
-	   public ResetRoundTask(Activity act) {
+	   public EndRoundTask(Activity act) {
 		   this.act = act;
 	   }
 	   
@@ -322,10 +347,35 @@ public class GameController extends Controller {
                @Override
                public void run() {
             	   gameView.resetNote(game.getCurrentRound().getFirstNote());
-            	   game.resetCurrentRound();
+            	   game.endCurrentRound();
                }
            });
        }
    };
+   
+   class EndGameTask extends TimerTask {
+
+	   Activity act;
+	   
+	   public EndGameTask(Activity act) {
+		   this.act = act;
+	   }
+	   
+	   @Override
+       public void run() {
+           act.runOnUiThread(new Runnable() {
+
+               @Override
+               public void run() {
+	           		Intent intent = new Intent(act,GameOverActivity.class);
+	        		act.startActivity(intent);
+	        		
+	        		//this.getParent().finish();
+	        		act.finish();
+               }
+           });
+       }
+   };
+   
 	
 }
