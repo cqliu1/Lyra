@@ -1,5 +1,9 @@
 package com.lyra.eartrainer.control;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -42,9 +46,6 @@ public class GameController extends Controller {
 		gameView = new GameInterface(activity,game);
 		
 		game.resetCurrentRound();
-		
-		game.getCurrentRound().playNotes();
-		gameView.selectNote(game.getCurrentRound().getFirstNote());
         
 		attachEvents();
 	}
@@ -85,6 +86,7 @@ public class GameController extends Controller {
         // Set the touch listener for each key
         for(int i = 0; i < keys.length; i++ ) {       	
         	final int note = i;
+        	final Activity act = this.activity;
         	
         	keys[i].setOnTouchListener(new View.OnTouchListener() {
 				
@@ -102,6 +104,8 @@ public class GameController extends Controller {
 							game.getCurrentRound();
 						} else {
 							gameView.selectIncorrectNote(note);
+							Timer timer = new Timer();
+							timer.schedule(new ResetNoteTask(note, act), 1000L);
 						}
 							
 						lastPlayedKey = note;
@@ -130,6 +134,8 @@ public class GameController extends Controller {
 		// TODO Auto-generated method stub
 //		game.setScore(0);
 //		Toast.makeText(activity, note, Toast.LENGTH_SHORT).show();
+		gameView.resetNote(game.getCurrentRound().getFirstNote());
+		gameView.selectNote(game.getCurrentRound().getFirstNote());
 		game.getCurrentRound().playNotes();
 	}
 
@@ -207,5 +213,28 @@ public class GameController extends Controller {
 		}
 		return -1;
 	}
+	
+   //tells handler to send a message
+   class ResetNoteTask extends TimerTask {
+
+	   int note;
+	   Activity act;
+	   
+	   public ResetNoteTask(int note, Activity act) {
+		   this.note = note;
+		   this.act = act;
+	   }
+	   
+	   @Override
+       public void run() {
+           act.runOnUiThread(new Runnable() {
+
+               @Override
+               public void run() {
+            	   gameView.resetNote(note);
+               }
+           });
+       }
+   };
 	
 }
