@@ -24,10 +24,10 @@ public class PauseController extends Controller {
 	
 	public void initialize(){
 		//creating the view
-		pView = new Pause(activity);
-		game = GamePlay.instance();
 		activity.setContentView(R.layout.activity_pause);
 		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		pView = new Pause(activity);
+		game = GamePlay.instance();
 		//attaching event listeners to view widgets
 		attachEvents();
 	}
@@ -63,6 +63,8 @@ public class PauseController extends Controller {
 		// adjust volume
 		SeekBar volumeBar = (SeekBar)activity.findViewById(R.id.seekVolume);
 		volumeBar.setMax(100);
+		float vol = game.getVolume()*100;
+		volumeBar.setProgress((int)vol);
 		volumeBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener()
 		{
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) 

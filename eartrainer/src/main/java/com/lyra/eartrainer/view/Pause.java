@@ -14,7 +14,10 @@ public class Pause{
 	public Pause(Activity activity){
 		game = GamePlay.instance();
 		volumeBar = (SeekBar) activity.findViewById(R.id.seekVolume);
-		volumeBar.setProgress((int)(game.getVolume()*100));
+		//updateVolume();
+		// THIS VVVVV IS BREAKING PAUSE
+		//volumeBar.setProgress((int)(game.getVolume()*100));
+		
 	}
 	
 	// TODO might not be necessary
