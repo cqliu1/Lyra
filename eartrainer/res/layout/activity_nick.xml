@@ -4,6 +4,7 @@
     android:alignmentMode="alignBounds"
     android:columnCount="1"
     android:columnOrderPreserved="false"
+    android:background="@drawable/black_wood"
     android:orientation="horizontal"
     android:useDefaultMargins="true" >
 
@@ -27,6 +28,8 @@
         android:gravity="center"  />
 
     <Button
+        android:background="@drawable/red_button"
+        android:textColor="@color/white"
         android:id="@+id/btnSubmitNick"
         android:layout_gravity="center"
         android:gravity="center"
