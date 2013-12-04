@@ -4,6 +4,7 @@
     android:alignmentMode="alignBounds"
     android:columnCount="1"
     android:columnOrderPreserved="false"
+    android:background="@drawable/black_wood"
     android:orientation="horizontal"
     android:useDefaultMargins="true" >
 
@@ -17,6 +18,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
       
     <Button
+        android:background="@drawable/red_button"
+        android:textColor="@color/white"
         android:id="@+id/btnToReplay"
         android:layout_gravity="center"
         android:layout_column="0"
@@ -25,6 +28,8 @@
         android:text="@string/restart" />
     
      <Button
+        android:background="@drawable/red_button"
+        android:textColor="@color/white"
         android:id="@+id/btnToMainMenu"
         android:layout_column="0"
         android:layout_gravity="center_horizontal|top"
@@ -32,6 +37,8 @@
         android:text="@string/game_over_main_menu" />
      
     <Button
+        android:background="@drawable/red_button"
+        android:textColor="@color/white"
         android:id="@+id/btnToLeaderboardsGameOver"
         android:layout_column="0"
         android:layout_gravity="center"

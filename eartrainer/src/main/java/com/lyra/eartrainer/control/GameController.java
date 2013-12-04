@@ -68,9 +68,6 @@ public class GameController extends Controller {
         replay.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				replayNotes(con,note);
-				int oldScore = game.getScore();
-				game.setScore(++oldScore);
-				gameView.updateScore();
 			}
 		});
         
@@ -80,9 +77,8 @@ public class GameController extends Controller {
 			}
 		});
         
-        for(int i = 0; i < keys.length; i++ )
-        {
-        	
+        // Set the touch listener for each key
+        for(int i = 0; i < keys.length; i++ ) {       	
         	final int note = i;
         	
         	keys[i].setOnTouchListener(new View.OnTouchListener() {
@@ -91,23 +87,20 @@ public class GameController extends Controller {
         		
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {	
-					//Log.d("Piano", "EventX: " + event.getX() + " EventY: " + event.getY());
+					// If it is the initial touch, play the note and update the score
 					if(event.getActionMasked() == MotionEvent.ACTION_DOWN){ 			
 						game.getInstrument().playNote(note);
-						int oldScore = game.getScore();
-						game.setScore(++oldScore);
-						gameView.updateScore();
+						updateGameScore();
 						lastPlayedKey = note;
 						return true;
 					}
+					// If it is a hover, figure out which key is hovered and play it
 					if(event.getActionMasked() == MotionEvent.ACTION_MOVE) {
 						int hoverKey = getKeyHovered(v, event);
 						Log.d("Piano", "hoverKey = " + hoverKey);
 						if(hoverKey != -1 && hoverKey != lastPlayedKey) {
 							game.getInstrument().playNote(hoverKey);
-							int oldScore = game.getScore();
-							game.setScore(++oldScore);
-							gameView.updateScore();
+							updateGameScore();
 							lastPlayedKey = hoverKey;
 							return true;
 						}						
@@ -130,8 +123,14 @@ public class GameController extends Controller {
 		activity.startActivity(intent);
 	}
 	
+	private void updateGameScore() {
+		int oldScore = game.getScore();
+		game.setScore(++oldScore);
+		gameView.updateScore();
+	}
+	
 	// Loops through the keys to see which one contains the event using x/y coords
-	public int getKeyHovered(View v, MotionEvent event) {
+	private int getKeyHovered(View v, MotionEvent event) {
 		int[] location = new int[2];
 		v.getLocationOnScreen(location);
 		
@@ -139,14 +138,9 @@ public class GameController extends Controller {
 		float eventRealX = event.getX() + location[0];
 		float eventRealY = event.getY() + location[1];
 		
-		// variables to hold next/current/previous key values
-		
-		
+		// Iterate through the keys forwards
 		for(int i=0; i<keys.length; i++) {
-			ImageButton thisKey = keys[i], prevKey = null, nextKey = null;		
-			if(i> 0) {
-				prevKey = keys[i-1];
-			}
+			ImageButton thisKey = keys[i], nextKey = null;		
 			if(i < keys.length-1) {
 				nextKey = keys[i+1];
 			}
@@ -174,7 +168,6 @@ public class GameController extends Controller {
 					}
 					
 					// Check if the nextKey is black and overlapping
-					// Check if we are on a black key by seeing if we overlap the prev and next keys
 					if(nextKey != null && piano.isBlackKey(i+1)) {
 						nextKey.getLocationOnScreen(location);
 						int nextLeft = location[0];
@@ -192,9 +185,7 @@ public class GameController extends Controller {
 					
 				}
 				
-				
-				
-				
+				// No special cases, Return the key we are in the bounds of
 				return i;
 			}
 			
