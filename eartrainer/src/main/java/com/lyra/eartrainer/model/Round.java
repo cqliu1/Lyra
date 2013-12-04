@@ -1,5 +1,9 @@
 package com.lyra.eartrainer.model;
 
+import java.util.TimerTask;
+
+import android.app.Activity;
+
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;
 
 public class Round {
@@ -24,6 +28,8 @@ public class Round {
 			secondNote = (int) (Math.random() * (max-min));
 		}	
 		
+		finished = false;
+		
 	}
 	
 	//returns true if the player selected the correct result
@@ -39,16 +45,16 @@ public class Round {
 	public int getFirstNote() {
 		return firstNote;
 	}
+
+	public int getSecondNote() {
+		return secondNote;
+	}
 	
-	public void playNotes() {
-		GamePlay.instance().getInstrument().playNote(firstNote);
-		// Pause
-		try {
-			Thread.sleep(1000L);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		GamePlay.instance().getInstrument().playNote(secondNote);
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+	
+	public boolean getFinished() {
+		return finished;
 	}
 }

@@ -96,17 +96,20 @@ public class GameController extends Controller {
 				public boolean onTouch(View v, MotionEvent event) {	
 					// If it is the initial touch, play the note and update the score
 					if(event.getActionMasked() == MotionEvent.ACTION_DOWN){ 			
-						game.getInstrument().playNote(note);
+						Timer timer = new Timer();
+						timer.schedule(new PlayNoteTask(note, act), 0L);
 						
 						if(game.getCurrentRound().isCorrect(note)) {
 							updateGameScore();
 							gameView.selectCorrectNote(note);
-							game.getCurrentRound();
+							Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
+							timer.schedule(new ResetRoundTask(act), 1000L);
+							game.getCurrentRound().setFinished(true);
+							
 						} else {
 							gameView.selectIncorrectNote(note);
-							Timer timer = new Timer();
-							timer.schedule(new ResetNoteTask(note, act), 1000L);
 						}
+						timer.schedule(new ResetNoteTask(note, act), 1000L);
 							
 						lastPlayedKey = note;
 						return true;
@@ -114,11 +117,22 @@ public class GameController extends Controller {
 					// If it is a hover, figure out which key is hovered and play it
 					if(event.getActionMasked() == MotionEvent.ACTION_MOVE) {
 						int hoverKey = getKeyHovered(v, event);
-						Log.d("Piano", "hoverKey = " + hoverKey);
+						//Log.d("Piano", "hoverKey = " + hoverKey);
 						if(hoverKey != -1 && hoverKey != lastPlayedKey) {
-							game.getInstrument().playNote(hoverKey);
-							updateGameScore();
-							gameView.selectCorrectNote(hoverKey);
+							Timer timer = new Timer();
+							timer.schedule(new PlayNoteTask(hoverKey, act), 0L);
+							
+							if(game.getCurrentRound().isCorrect(hoverKey)) {
+								updateGameScore();
+								gameView.selectCorrectNote(hoverKey);
+								Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
+								timer.schedule(new ResetRoundTask(act), 1000L);	
+								game.getCurrentRound().setFinished(true);
+							} else {
+								gameView.selectIncorrectNote(hoverKey);
+							}
+							timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
+								
 							lastPlayedKey = hoverKey;
 							return true;
 						}						
@@ -131,12 +145,14 @@ public class GameController extends Controller {
 	}
 	
 	public void replayNotes(Context con, String note) {
-		// TODO Auto-generated method stub
-//		game.setScore(0);
-//		Toast.makeText(activity, note, Toast.LENGTH_SHORT).show();
-		gameView.resetNote(game.getCurrentRound().getFirstNote());
-		gameView.selectNote(game.getCurrentRound().getFirstNote());
-		game.getCurrentRound().playNotes();
+		int firstNote = game.getCurrentRound().getFirstNote();
+		int secondNote = game.getCurrentRound().getSecondNote();
+		
+		Timer timer = new Timer();
+		timer.schedule(new ResetNoteTask(firstNote, this.activity), 0L);
+		timer.schedule(new SelectNoteTask(firstNote, this.activity, true), 100L);
+		timer.schedule(new PlayNoteTask(firstNote, this.activity), 100L);
+		timer.schedule(new PlayNoteTask(secondNote, this.activity), 1000L);
 	}
 
 	public void goToPause(){
@@ -145,9 +161,11 @@ public class GameController extends Controller {
 	}
 	
 	private void updateGameScore() {
-		int oldScore = game.getScore();
-		game.setScore(oldScore+10);
-		gameView.updateScore();
+		if(!game.getCurrentRound().getFinished()) {
+			int oldScore = game.getScore();
+			game.setScore(oldScore+10);
+			gameView.updateScore();
+		}
 	}
 	
 	// Loops through the keys to see which one contains the event using x/y coords
@@ -232,6 +250,79 @@ public class GameController extends Controller {
                @Override
                public void run() {
             	   gameView.resetNote(note);
+               }
+           });
+       }
+   };
+   
+   //tells handler to send a message
+   class PlayNoteTask extends TimerTask {
+
+	   int note;
+	   Activity act;
+	   
+	   public PlayNoteTask(int note, Activity act) {
+		   this.note = note;
+		   this.act = act;
+	   }
+	   
+	   @Override
+       public void run() {
+           act.runOnUiThread(new Runnable() {
+
+               @Override
+               public void run() {
+            	   GamePlay.instance().getInstrument().playNote(note);
+               }
+           });
+       }
+   };
+   
+   //tells handler to send a message
+   class SelectNoteTask extends TimerTask {
+
+	   int note;
+	   Activity act;
+	   boolean correct;
+	   
+	   public SelectNoteTask(int note, Activity act, boolean correct) {
+		   this.note = note;
+		   this.act = act;
+		   this.correct = correct;
+	   }
+	   
+	   @Override
+       public void run() {
+           act.runOnUiThread(new Runnable() {
+
+               @Override
+               public void run() {
+            	   if(correct)
+            		   gameView.selectCorrectNote(note);
+            	   else
+            		   gameView.selectIncorrectNote(note);
+               }
+           });
+       }
+   };
+   
+   //tells handler to send a message
+   class ResetRoundTask extends TimerTask {
+
+	   Activity act;
+	   
+	   public ResetRoundTask(Activity act) {
+		   this.act = act;
+	   }
+	   
+	   @Override
+       public void run() {
+           act.runOnUiThread(new Runnable() {
+
+               @Override
+               public void run() {
+            	   gameView.resetNote(game.getCurrentRound().getFirstNote());
+            	   game.resetCurrentRound();
                }
            });
        }
