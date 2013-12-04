@@ -40,6 +40,11 @@ public class GameController extends Controller {
 		
 		game = GamePlay.instance();
 		gameView = new GameInterface(activity,game);
+		
+		game.resetCurrentRound();
+		
+		game.getCurrentRound().playNotes();
+		gameView.selectNote(game.getCurrentRound().getFirstNote());
         
 		attachEvents();
 	}
@@ -90,7 +95,15 @@ public class GameController extends Controller {
 					// If it is the initial touch, play the note and update the score
 					if(event.getActionMasked() == MotionEvent.ACTION_DOWN){ 			
 						game.getInstrument().playNote(note);
-						updateGameScore();
+						
+						if(game.getCurrentRound().isCorrect(note)) {
+							updateGameScore();
+							gameView.selectCorrectNote(note);
+							game.getCurrentRound();
+						} else {
+							gameView.selectIncorrectNote(note);
+						}
+							
 						lastPlayedKey = note;
 						return true;
 					}
@@ -101,6 +114,7 @@ public class GameController extends Controller {
 						if(hoverKey != -1 && hoverKey != lastPlayedKey) {
 							game.getInstrument().playNote(hoverKey);
 							updateGameScore();
+							gameView.selectCorrectNote(hoverKey);
 							lastPlayedKey = hoverKey;
 							return true;
 						}						
@@ -116,6 +130,7 @@ public class GameController extends Controller {
 		// TODO Auto-generated method stub
 //		game.setScore(0);
 //		Toast.makeText(activity, note, Toast.LENGTH_SHORT).show();
+		game.getCurrentRound().playNotes();
 	}
 
 	public void goToPause(){
@@ -125,7 +140,7 @@ public class GameController extends Controller {
 	
 	private void updateGameScore() {
 		int oldScore = game.getScore();
-		game.setScore(++oldScore);
+		game.setScore(oldScore+10);
 		gameView.updateScore();
 	}
 	

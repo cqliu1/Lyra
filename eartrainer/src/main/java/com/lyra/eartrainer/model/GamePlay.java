@@ -13,7 +13,8 @@ public class GamePlay {
 	private byte instrumentType;
 	private int numberOfRounds;					//the number of rounds you have
 	private boolean isFirstRound;		
-	private ArrayList<Round> rounds;
+	//private ArrayList<Round> rounds;
+	private Round currentRound;
 	private int score;
 	private float volume;
 	private String nickname;
@@ -24,6 +25,8 @@ public class GamePlay {
 		score = 0;
 		volume = 0.5f;
 		this.setInstrument(null);
+		numberOfRounds = 10;
+		currentRound = null;
 	}
 	
     //Begin singleton logic code ------------------------------------------------->
@@ -90,12 +93,20 @@ public class GamePlay {
 		this.isFirstRound = isFirstRound;
 	}
 
-	public ArrayList<Round> getRounds() {
+	/*public ArrayList<Round> getRounds() {
 		return rounds;
 	}
 
 	public void setRounds(ArrayList<Round> rounds) {
 		this.rounds = rounds;
+	}*/
+	
+	public Round getCurrentRound() {
+		return currentRound;
+	}
+	
+	public void resetCurrentRound() {
+		currentRound = new Round();
 	}
 
 	public int getScore() {
