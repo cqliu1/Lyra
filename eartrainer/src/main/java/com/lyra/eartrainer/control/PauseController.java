@@ -71,7 +71,6 @@ public class PauseController extends Controller {
 			{
 				// TODO Auto-generated method stub
 				
-				updateVolume(seekBar.getProgress());
 			}
 			public void onStartTrackingTouch(SeekBar seekBar) 
 			{
@@ -81,6 +80,7 @@ public class PauseController extends Controller {
 			public void onStopTrackingTouch(SeekBar seekBar) 
 			{
 				// TODO Auto-generated method stub
+				updateVolume(seekBar.getProgress());
 				
 			}
 		});
