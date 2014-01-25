@@ -121,7 +121,12 @@ public class GameController extends Controller {
 							}
 							
 						} else {
+							game.oneStrike();
 							gameView.selectIncorrectNote(note);
+							if(game.isGameOver()) {
+								Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
+								timer.schedule(new EndGameTask(act), 2000L);
+							}
 						}
 						timer.schedule(new ResetNoteTask(note, act), 1000L);
 							
@@ -155,6 +160,12 @@ public class GameController extends Controller {
 								}
 							} else {
 								gameView.selectIncorrectNote(hoverKey);
+								game.oneStrike();
+								Log.d("testing", "one strike");
+								if(game.isGameOver()) {
+									Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
+									timer.schedule(new EndGameTask(act), 2000L);
+								}
 							}
 							timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
 								

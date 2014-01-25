@@ -7,6 +7,7 @@ import com.lyra.eartrainer.model.instrument.Piano;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ public class GameInterface extends View {
 //	private ImageButton replay;
 //	private ImageButton pause;
 	private TextView score;
+	private TextView strikes;
 	private ImageButton[] keys;
 	private GamePlay gameplay;
 	
@@ -29,8 +31,10 @@ public class GameInterface extends View {
 //      pause = (ImageButton) activity.findViewById(R.id.pause_button);
     	gameplay = game;
         score = (TextView) activity.findViewById(R.id.score);
+        strikes = (TextView) activity.findViewById(R.id.strikesText);
         score.setText(""+gameplay.getScore());
-
+        strikes.setText("Strikes: " + gameplay.getStrikes());
+        
         keys = new ImageButton[13];
         
        	keys[0] = (ImageButton) activity.findViewById(R.id.key1);
@@ -75,6 +79,7 @@ public class GameInterface extends View {
 				keys[note].setImageResource(R.drawable.wrong_white_key);
 			}	
 		}
+		strikes.setText("Strikes: " + gameplay.getStrikes());
 	}
 	
 	public void resetNote(int note) {

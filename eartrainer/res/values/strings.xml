@@ -66,5 +66,6 @@
     <string name="main_menu_description">Main Menu description placeholder</string>
     <string name="game_over">GAME OVER!</string>
     <string name="game_over_main_menu">MAIN MENU</string>
-    <string name="game_over_description">This game has ended but will you play again?</string>
+    <string name="game_over_description">This game has ended but will you play again?</string><string name="strikes">Strikes</string>
+    
 </resources>

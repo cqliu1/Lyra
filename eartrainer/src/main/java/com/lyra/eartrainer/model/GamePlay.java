@@ -20,6 +20,7 @@ public class GamePlay {
 	private float volume;
 	private String nickname;
 	private IMusicInstrument instrument;
+	private int strikes;
 	
 	//hiding constructor - using singleton pattern
 	private GamePlay(){
@@ -30,6 +31,7 @@ public class GamePlay {
 		roundNumber = 0;
 		score = 0;
 		volume = 0.5f;
+		strikes = 0;
 		this.setInstrument(null);
 		numberOfRounds = 10;
 		currentRound = null;
@@ -113,7 +115,7 @@ public class GamePlay {
 	}
 	
 	public boolean isGameOver() {
-		return roundNumber == numberOfRounds;
+		return (roundNumber == numberOfRounds || strikes == 3);
 	}
 
 	public int getScore() {
@@ -138,6 +140,16 @@ public class GamePlay {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	
+	public int getStrikes()
+	{
+		return strikes;
+	}
+	
+	public void oneStrike()
+	{
+		strikes++;
 	}
 
 	public IMusicInstrument getInstrument() {

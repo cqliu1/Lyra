@@ -194,4 +194,15 @@
         android:contentDescription="@string/key11"
         android:src="@drawable/black_key_selection" />
 
+    <TextView
+        android:id="@+id/strikesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/score"
+        android:layout_alignBottom="@+id/score"
+        android:layout_toRightOf="@+id/key11"
+        android:text="@string/strikes"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white" />
+
 </RelativeLayout>
