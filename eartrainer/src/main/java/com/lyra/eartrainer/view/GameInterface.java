@@ -57,6 +57,11 @@ public class GameInterface extends View {
 		score.setText("" + gameplay.getScore());
 	}
 	
+	public void updateStrikes()
+	{
+		 strikes.setText("Strikes: " + gameplay.getStrikes());
+	}
+	
 	public void selectCorrectNote(int note) {
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
 			Piano piano = (Piano) GamePlay.instance().getInstrument();

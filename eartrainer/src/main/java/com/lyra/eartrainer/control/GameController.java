@@ -32,6 +32,7 @@ public class GameController extends Controller {
 	private String note;
 	private GamePlay game;
 	private int currentNote;
+	private int MAX_STRIKES = 3;	// varies depending on difficulty
 	ImageButton[] keys;
 
 	public GameController(GameActivity gameActivity) {
@@ -74,6 +75,7 @@ public class GameController extends Controller {
 			public void onClick(View v) {
 				if(game.getCurrentRound() == null) {
 					game.startNewRound();
+					gameView.updateStrikes();
 				}
 				replayNotes(con,note);
 			}
@@ -121,12 +123,8 @@ public class GameController extends Controller {
 							}
 							
 						} else {
-							game.oneStrike();
 							gameView.selectIncorrectNote(note);
-							if(game.isGameOver()) {
-								Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
-								timer.schedule(new EndGameTask(act), 2000L);
-							}
+							checkStrikes(timer, act);
 						}
 						timer.schedule(new ResetNoteTask(note, act), 1000L);
 							
@@ -160,12 +158,7 @@ public class GameController extends Controller {
 								}
 							} else {
 								gameView.selectIncorrectNote(hoverKey);
-								game.oneStrike();
-								Log.d("testing", "one strike");
-								if(game.isGameOver()) {
-									Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
-									timer.schedule(new EndGameTask(act), 2000L);
-								}
+								checkStrikes(timer, act);
 							}
 							timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
 								
@@ -194,6 +187,18 @@ public class GameController extends Controller {
 	public void goToPause(){
 		Intent intent = new Intent(activity,PauseActivity.class);
 		activity.startActivity(intent);
+	}
+	
+	public void checkStrikes(Timer timer, Activity act)
+	{
+		game.oneStrike();
+		gameView.updateStrikes();
+		if (game.getStrikes() >= MAX_STRIKES) 
+		{
+			game.getCurrentRound().setFinished(true);
+			Toast.makeText(act, "Round failed!", Toast.LENGTH_SHORT).show();
+			timer.schedule(new EndRoundTask(act), 500L);
+		}
 	}
 	
 	private void updateGameScore() {

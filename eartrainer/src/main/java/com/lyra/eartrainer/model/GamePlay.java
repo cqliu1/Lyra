@@ -112,6 +112,7 @@ public class GamePlay {
 	public void startNewRound() {
 		currentRound = new Round();
 		roundNumber++;
+		strikes = 0;
 	}
 	
 	public boolean isGameOver() {
