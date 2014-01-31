@@ -24,7 +24,10 @@ import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.instrument.MusicInstrument;
 import com.lyra.eartrainer.model.instrument.Piano;
+import com.lyra.eartrainer.model.instrument.Guitar;
 import com.lyra.eartrainer.view.GameInterface;
+import com.lyra.eartrainer.model.globals.Difficulties;
+import com.lyra.eartrainer.model.globals.Modes;
 
 public class GameController extends Controller {
 	private GameInterface gameView;
@@ -32,7 +35,7 @@ public class GameController extends Controller {
 	private String note;
 	private GamePlay game;
 	private int currentNote;
-	private int MAX_STRIKES = 3;	// varies depending on difficulty
+	private int MAX_STRIKES;	// varies depending on difficulty
 	ImageButton[] keys;
 
 	public GameController(GameActivity gameActivity) {
@@ -46,7 +49,12 @@ public class GameController extends Controller {
 		
 		game = GamePlay.instance();
 		gameView = new GameInterface(activity,game);
-        
+		
+		// grab difficulty of game
+		if (game.getDifficulty() == Difficulties.BEGINNER) MAX_STRIKES = 10; 
+		else if (game.getDifficulty() == Difficulties.INTERMEDIATE) MAX_STRIKES = 5;
+		else if (game.getDifficulty() == Difficulties.ADVANCED) MAX_STRIKES = 3; 
+		
 		attachEvents();
 	}
 	
@@ -54,23 +62,28 @@ public class GameController extends Controller {
 		//adding submit button click handler
 		ImageButton replay = (ImageButton) activity.findViewById(R.id.replay_button);
         ImageButton pause = (ImageButton) activity.findViewById(R.id.pause_button);
-
-        keys = new ImageButton[13];
         
-       	keys[0] = (ImageButton) activity.findViewById(R.id.key1);
-        keys[1] = (ImageButton) activity.findViewById(R.id.key2);
-        keys[2] = (ImageButton) activity.findViewById(R.id.key3);
-        keys[3] = (ImageButton) activity.findViewById(R.id.key4);
-        keys[4] = (ImageButton) activity.findViewById(R.id.key5);
-        keys[5] = (ImageButton) activity.findViewById(R.id.key6);
-        keys[6] = (ImageButton) activity.findViewById(R.id.key7);
-        keys[7] = (ImageButton) activity.findViewById(R.id.key8);
-        keys[8] = (ImageButton) activity.findViewById(R.id.key9);
-        keys[9] = (ImageButton) activity.findViewById(R.id.key10);
-        keys[10] = (ImageButton) activity.findViewById(R.id.key11);
-        keys[11] = (ImageButton) activity.findViewById(R.id.key12);
-        keys[12] = (ImageButton) activity.findViewById(R.id.key13);
-        
+        if (game.getInstrumentType() == InstrumentTypes.PIANO)
+        {
+	        keys = new ImageButton[13];
+	        
+	       	keys[0] = (ImageButton) activity.findViewById(R.id.key1);
+	        keys[1] = (ImageButton) activity.findViewById(R.id.key2);
+	        keys[2] = (ImageButton) activity.findViewById(R.id.key3);
+	        keys[3] = (ImageButton) activity.findViewById(R.id.key4);
+	        keys[4] = (ImageButton) activity.findViewById(R.id.key5);
+	        keys[5] = (ImageButton) activity.findViewById(R.id.key6);
+	        keys[6] = (ImageButton) activity.findViewById(R.id.key7);
+	        keys[7] = (ImageButton) activity.findViewById(R.id.key8);
+	        keys[8] = (ImageButton) activity.findViewById(R.id.key9);
+	        keys[9] = (ImageButton) activity.findViewById(R.id.key10);
+	        keys[10] = (ImageButton) activity.findViewById(R.id.key11);
+	        keys[11] = (ImageButton) activity.findViewById(R.id.key12);
+	        keys[12] = (ImageButton) activity.findViewById(R.id.key13);
+        }
+        else if (game.getInstrumentType() == InstrumentTypes.GUITAR){
+        	// TODO: update keys with guitar buttons
+        }
         replay.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if(game.getCurrentRound() == null) {
@@ -87,66 +100,34 @@ public class GameController extends Controller {
 			}
 		});
         
-        // Set the touch listener for each key
-        for(int i = 0; i < keys.length; i++ ) {       	
-        	final int note = i;
-        	final Activity act = this.activity;
-        	
-        	keys[i].setOnTouchListener(new View.OnTouchListener() {
-				
-        		int lastPlayedKey = -1;
-        		
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {	
-					// If it is the initial touch, play the note and update the score
-					if(event.getActionMasked() == MotionEvent.ACTION_DOWN){ 
-						// If the game isn't started or has ended, just display a toast to restart
-						if(game.getCurrentRound() == null || game.getCurrentRound().getFinished()) {
-							Toast.makeText(act, "Press play to start!", Toast.LENGTH_SHORT).show();
-							return true;
-						}
-						
-						Timer timer = new Timer();
-						timer.schedule(new PlayNoteTask(note, act), 0L);
-						
-						if(game.getCurrentRound().isCorrect(note)) {
-							updateGameScore();
-							gameView.selectCorrectNote(note);					
-							game.getCurrentRound().setFinished(true);
-							
-							if(game.isGameOver()) {
-								Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
-								timer.schedule(new EndGameTask(act), 2000L);
-							} else {
-								Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
-								timer.schedule(new EndRoundTask(act), 1000L);
+        // for challenge mode/practice mode
+        if (GamePlay.instance().getMode() != Modes.FREEPLAY)
+        {
+	        // Set the touch listener for each key
+	        for(int i = 0; i < keys.length; i++ ) {       	
+	        	final int note = i;
+	        	final Activity act = this.activity;
+	        	
+	        	keys[i].setOnTouchListener(new View.OnTouchListener() {
+					
+	        		int lastPlayedKey = -1;
+	        		
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {	
+						// If it is the initial touch, play the note and update the score
+						if(event.getActionMasked() == MotionEvent.ACTION_DOWN){ 
+							// If the game isn't started or has ended, just display a toast to restart
+							if(game.getCurrentRound() == null || game.getCurrentRound().getFinished()) {
+								Toast.makeText(act, "Press play to start!", Toast.LENGTH_SHORT).show();
+								return true;
 							}
 							
-						} else {
-							gameView.selectIncorrectNote(note);
-							checkStrikes(timer, act);
-						}
-						timer.schedule(new ResetNoteTask(note, act), 1000L);
-							
-						lastPlayedKey = note;
-						return true;
-					}
-					// If it is a hover, figure out which key is hovered and play it
-					if(event.getActionMasked() == MotionEvent.ACTION_MOVE) {
-						// Do nothing if the game hasn't started or is finished
-						if(game.getCurrentRound() == null || game.getCurrentRound().getFinished()) {
-							return true;
-						}
-						
-						int hoverKey = getKeyHovered(v, event);
-						//Log.d("Piano", "hoverKey = " + hoverKey);
-						if(hoverKey != -1 && hoverKey != lastPlayedKey) {
 							Timer timer = new Timer();
-							timer.schedule(new PlayNoteTask(hoverKey, act), 0L);
+							timer.schedule(new PlayNoteTask(note, act), 0L);
 							
-							if(game.getCurrentRound().isCorrect(hoverKey)) {
+							if(game.getCurrentRound().isCorrect(note)) {
 								updateGameScore();
-								gameView.selectCorrectNote(hoverKey);
+								gameView.selectCorrectNote(note);					
 								game.getCurrentRound().setFinished(true);
 								
 								if(game.isGameOver()) {
@@ -156,20 +137,74 @@ public class GameController extends Controller {
 									Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
 									timer.schedule(new EndRoundTask(act), 1000L);
 								}
+								
 							} else {
-								gameView.selectIncorrectNote(hoverKey);
+								gameView.selectIncorrectNote(note);
 								checkStrikes(timer, act);
 							}
-							timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
+							timer.schedule(new ResetNoteTask(note, act), 1000L);
 								
-							lastPlayedKey = hoverKey;
+							lastPlayedKey = note;
 							return true;
-						}						
+						}
+						// If it is a hover, figure out which key is hovered and play it
+						if(event.getActionMasked() == MotionEvent.ACTION_MOVE) {
+							// Do nothing if the game hasn't started or is finished
+							if(game.getCurrentRound() == null || game.getCurrentRound().getFinished()) {
+								return true;
+							}
+							
+							int hoverKey = getKeyHovered(v, event);
+							//Log.d("Piano", "hoverKey = " + hoverKey);
+							if(hoverKey != -1 && hoverKey != lastPlayedKey) {
+								Timer timer = new Timer();
+								timer.schedule(new PlayNoteTask(hoverKey, act), 0L);
+								
+								if(game.getCurrentRound().isCorrect(hoverKey)) {
+									updateGameScore();
+									gameView.selectCorrectNote(hoverKey);
+									game.getCurrentRound().setFinished(true);
+									
+									if(game.isGameOver()) {
+										Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
+										timer.schedule(new EndGameTask(act), 2000L);
+									} else {
+										Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
+										timer.schedule(new EndRoundTask(act), 1000L);
+									}
+								} else {
+									gameView.selectIncorrectNote(hoverKey);
+									checkStrikes(timer, act);
+								}
+								timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
+									
+								lastPlayedKey = hoverKey;
+								return true;
+							}						
+						}
+						return false;
 					}
-					return false;
-				}
-			});
-        	
+				});
+	        }
+        }
+        // its free play, just listen for notes and play when clicked
+        else
+        {
+        	for (int i = 0; i < keys.length; i++)
+        	{
+        		final int note = i;
+	        	final Activity act = this.activity;
+	        	
+	        	keys[i].setOnTouchListener(new View.OnTouchListener() 
+	        	{
+	        		public boolean onTouch(View v, MotionEvent event) 
+	        		{							
+							Timer timer = new Timer();
+							timer.schedule(new PlayNoteTask(note, act), 0L);
+							return true;
+					}
+	        	});
+        	}
         }
 	}
 	
@@ -191,13 +226,16 @@ public class GameController extends Controller {
 	
 	public void checkStrikes(Timer timer, Activity act)
 	{
-		game.oneStrike();
-		gameView.updateStrikes();
-		if (game.getStrikes() >= MAX_STRIKES) 
+		if (game.getMode() == Modes.CHALLENGE)
 		{
-			game.getCurrentRound().setFinished(true);
-			Toast.makeText(act, "Round failed!", Toast.LENGTH_SHORT).show();
-			timer.schedule(new EndRoundTask(act), 500L);
+			game.oneStrike();
+			gameView.updateStrikes();
+			if (game.getStrikes() >= MAX_STRIKES) 
+			{
+				game.getCurrentRound().setFinished(true);
+				Toast.makeText(act, "Round failed!", Toast.LENGTH_SHORT).show();
+				timer.schedule(new EndRoundTask(act), 1000L);
+			}
 		}
 	}
 	
@@ -264,6 +302,8 @@ public class GameController extends Controller {
 					}
 					
 				}
+				
+				// guitar does not have any overlapping keys, not a special case
 				
 				// No special cases, Return the key we are in the bounds of
 				return i;

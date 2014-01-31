@@ -11,7 +11,8 @@ public class GamePlay {
 	private byte mode;
 	private byte difficulty;
 	private byte instrumentType;
-	private int numberOfRounds;					//the number of rounds you have
+	private byte scale;
+	private int numberOfRounds;					
 	private boolean isFirstRound;		
 	//private ArrayList<Round> rounds;
 	private int roundNumber;
@@ -83,6 +84,14 @@ public class GamePlay {
 
 	public void setInstrumentType(byte instrumentType) {
 		this.instrumentType = instrumentType;
+	}
+	
+	public byte getScale() {
+		return scale;
+	}
+	
+	public void setScale(byte newScale) {
+		this.scale = newScale;
 	}
 
 	public int getNumberOfRounds() {

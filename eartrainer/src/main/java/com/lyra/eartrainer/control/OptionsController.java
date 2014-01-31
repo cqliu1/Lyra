@@ -71,16 +71,66 @@ public class OptionsController extends Controller {
     
     public void storeOptions(){
     	
+    	// choosing instrument
     	if(((String)instrument.getSelectedItem()).equals("Piano")) {
     		game.setInstrumentType(InstrumentTypes.PIANO);
     	}
+    	else if (((String)instrument.getSelectedItem()).equals("Guitar"))
+    	{
+    		game.setInstrumentType(InstrumentTypes.GUITAR);
+    	}
     	
 		// TODO change settings in gameplay instance
-    	game.setDifficulty(Difficulties.BEGINNER);
-    	game.setMode(Modes.PRACTICE);
+    	
+    	// choosing difficulty
+    	if (((String)difficulty.getSelectedItem()).equals("Beginner"))
+    	{
+    		game.setDifficulty(Difficulties.BEGINNER);
+    	}
+    	else if (((String)difficulty.getSelectedItem()).equals("Intermediate"))
+    	{
+    		game.setDifficulty(Difficulties.INTERMEDIATE);
+    	}
+    	else if (((String)difficulty.getSelectedItem()).equals("Advanced"))
+    	{
+    		game.setDifficulty(Difficulties.ADVANCED);
+    	}
+    	
+    	// choosing mode
+    	if (((String)gameMode.getSelectedItem()).equals("Practice"))
+    	{
+    		game.setMode(Modes.PRACTICE);
+    	}
+    	else if (((String)gameMode.getSelectedItem()).equals("Free Play"))
+    	{
+    		game.setMode(Modes.FREEPLAY);
+    	}
+    	else if (((String)gameMode.getSelectedItem()).equals("Challenge"))
+    	{
+    		game.setMode(Modes.CHALLENGE);
+    	}
+    	
+    	// choosing scale
+    	if(((String)scale.getSelectedItem()).equals("Major"))
+    	{
+    		game.setScale(ScaleTypes.MAJOR);
+    	}
+    	if(((String)scale.getSelectedItem()).equals("Pentatonic"))
+    	{
+    		game.setScale(ScaleTypes.PENTATONIC);
+    	}
+    	
     	SoundInfo mi = loadNotes();
-    	IMusicInstrument piano = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.PIANO, ScaleTypes.MAJOR);
-    	game.setInstrument(piano);
+    	if (game.getInstrumentType() == InstrumentTypes.PIANO)
+    	{
+    		IMusicInstrument piano = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.PIANO, game.getScale());
+    		game.setInstrument(piano);
+    	}
+    	else if (game.getInstrumentType() == InstrumentTypes.GUITAR)
+    	{
+    		IMusicInstrument guitar = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.GUITAR, game.getScale());
+    		game.setInstrument(guitar);
+    	}
     }
     
     private SoundInfo loadNotes(){
@@ -107,6 +157,10 @@ public class OptionsController extends Controller {
 					}
         		}
         	}
+        }
+        else if (game.getInstrumentType() == InstrumentTypes.GUITAR)
+        {
+            // TODO: load the guitar sounds
         }
         
         mi.setSoundNotes(notes);

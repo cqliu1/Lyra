@@ -3,6 +3,7 @@ package com.lyra.eartrainer.view;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
+import com.lyra.eartrainer.model.globals.Modes;
 import com.lyra.eartrainer.model.instrument.Piano;
 
 import android.app.Activity;
@@ -32,34 +33,43 @@ public class GameInterface extends View {
     	gameplay = game;
         score = (TextView) activity.findViewById(R.id.score);
         strikes = (TextView) activity.findViewById(R.id.strikesText);
-        score.setText(""+gameplay.getScore());
-        strikes.setText("Strikes: " + gameplay.getStrikes());
+        if (GamePlay.instance().getMode() != Modes.FREEPLAY) score.setText(""+gameplay.getScore());
+        else score.setText("");
+        if (GamePlay.instance().getMode() == Modes.CHALLENGE) strikes.setText("Strikes: " + gameplay.getStrikes());
+        else strikes.setText("");
         
-        keys = new ImageButton[13];
-        
-       	keys[0] = (ImageButton) activity.findViewById(R.id.key1);
-        keys[1] = (ImageButton) activity.findViewById(R.id.key2);
-        keys[2] = (ImageButton) activity.findViewById(R.id.key3);
-        keys[3] = (ImageButton) activity.findViewById(R.id.key4);
-        keys[4] = (ImageButton) activity.findViewById(R.id.key5);
-        keys[5] = (ImageButton) activity.findViewById(R.id.key6);
-        keys[6] = (ImageButton) activity.findViewById(R.id.key7);
-        keys[7] = (ImageButton) activity.findViewById(R.id.key8);
-        keys[8] = (ImageButton) activity.findViewById(R.id.key9);
-        keys[9] = (ImageButton) activity.findViewById(R.id.key10);
-        keys[10] = (ImageButton) activity.findViewById(R.id.key11);
-        keys[11] = (ImageButton) activity.findViewById(R.id.key12);
-        keys[12] = (ImageButton) activity.findViewById(R.id.key13);
+        if (GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO)
+        {
+	        keys = new ImageButton[13];
+	        
+	       	keys[0] = (ImageButton) activity.findViewById(R.id.key1);
+	        keys[1] = (ImageButton) activity.findViewById(R.id.key2);
+	        keys[2] = (ImageButton) activity.findViewById(R.id.key3);
+	        keys[3] = (ImageButton) activity.findViewById(R.id.key4);
+	        keys[4] = (ImageButton) activity.findViewById(R.id.key5);
+	        keys[5] = (ImageButton) activity.findViewById(R.id.key6);
+	        keys[6] = (ImageButton) activity.findViewById(R.id.key7);
+	        keys[7] = (ImageButton) activity.findViewById(R.id.key8);
+	        keys[8] = (ImageButton) activity.findViewById(R.id.key9);
+	        keys[9] = (ImageButton) activity.findViewById(R.id.key10);
+	        keys[10] = (ImageButton) activity.findViewById(R.id.key11);
+	        keys[11] = (ImageButton) activity.findViewById(R.id.key12);
+	        keys[12] = (ImageButton) activity.findViewById(R.id.key13);
+        }
+        else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR)
+        {
+        	// TODO: add guitar buttons to keys
+        }
 	}
 
 	public void updateScore() {
 		// TODO Auto-generated method stub
-		score.setText("" + gameplay.getScore());
+		if (GamePlay.instance().getMode() != Modes.FREEPLAY) score.setText("" + gameplay.getScore());
 	}
 	
 	public void updateStrikes()
 	{
-		 strikes.setText("Strikes: " + gameplay.getStrikes());
+		 if (GamePlay.instance().getMode() == Modes.CHALLENGE) strikes.setText("Strikes: " + gameplay.getStrikes());
 	}
 	
 	public void selectCorrectNote(int note) {
@@ -71,6 +81,9 @@ public class GameInterface extends View {
 			} else {
 				keys[note].setImageResource(R.drawable.correct_white_key);
 			}	
+		}
+		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR) {
+			// TODO: correct guitar notes
 		}
 	}
 	
@@ -84,7 +97,10 @@ public class GameInterface extends View {
 				keys[note].setImageResource(R.drawable.wrong_white_key);
 			}	
 		}
-		strikes.setText("Strikes: " + gameplay.getStrikes());
+		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR){
+			// TODO: incorrect guitar notes
+		}
+		if (GamePlay.instance().getMode() == Modes.CHALLENGE) strikes.setText("Strikes: " + gameplay.getStrikes());
 	}
 	
 	public void resetNote(int note) {
@@ -96,6 +112,9 @@ public class GameInterface extends View {
 			} else {
 				keys[note].setImageResource(R.drawable.white_key_selection);
 			}	
+		}
+		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR) {
+			// TODO: resetting guitar notes
 		}
 	}
 	
@@ -109,6 +128,8 @@ public class GameInterface extends View {
 				keys[note].setImageResource(R.drawable.white_key_select);
 			}	
 		}
+		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR) {
+			// TODO: select guitar notes
+		}
 	}
-	
 }

@@ -21,6 +21,8 @@
     <string-array name="game_modes">
         <item>Practice</item>
         <!--<item>Challenge</item>-->
+        <item >Challenge</item>
+        <item >Free Play</item>
     </string-array>
 
     <string name="startGame">Start Game</string>
@@ -30,6 +32,8 @@
         <item>Beginner</item>
         <!--<item>Intermediate</item>
         <item>Advanced</item>-->
+        <item >Intermediate</item>
+        <item >Advanced</item>
     </string-array>
     
     <string name="scale_prompt">Scale:</string>
@@ -41,6 +45,7 @@
     <string-array name="instruments">
         <item>Piano</item>
         <!--<item>Bass Guitar</item>-->
+        <item >Guitar</item>
     </string-array>
  
     <string name="replay">Replay</string>
