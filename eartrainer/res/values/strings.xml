@@ -21,6 +21,8 @@
     <string-array name="game_modes">
         <item>Practice</item>
         <!--<item>Challenge</item>-->
+        <item >Challenge</item>
+        <item >Free Play</item>
     </string-array>
 
     <string name="startGame">Start Game</string>
@@ -30,6 +32,8 @@
         <item>Beginner</item>
         <!--<item>Intermediate</item>
         <item>Advanced</item>-->
+        <item >Intermediate</item>
+        <item >Advanced</item>
     </string-array>
     
     <string name="scale_prompt">Scale:</string>
@@ -41,6 +45,7 @@
     <string-array name="instruments">
         <item>Piano</item>
         <!--<item>Bass Guitar</item>-->
+        <item >Guitar</item>
     </string-array>
  
     <string name="replay">Replay</string>
@@ -66,6 +71,44 @@
     <string name="main_menu_description">Main Menu description placeholder</string>
     <string name="game_over">GAME OVER!</string>
     <string name="game_over_main_menu">MAIN MENU</string>
-    <string name="game_over_description">This game has ended but will you play again?</string><string name="strikes">Strikes</string>
+    <string name="game_over_description">This game has ended but will you play again?</string>
+    <string name="strikes">Strikes</string>
+    <string name="guitar">Guitar Layout</string>
+    <string name="tab1">E</string>
+	<string name="tab2">F</string>
+	<string name="tab3">F#/Gb</string>
+	<string name="tab4">G</string>
+	<string name="tab5">G#/Ab</string>
+	<string name="tab6">A</string>
+	<string name="tab7">A</string>
+	<string name="tab8">A#/Bb</string>
+	<string name="tab9">B</string>
+	<string name="tab10">C</string>
+	<string name="tab11">C#/Db</string>
+	<string name="tab12">D</string>
+	<string name="tab13">D</string>
+	<string name="tab14">D#/Eb</string>
+	<string name="tab15">E</string>
+	<string name="tab16">F</string>
+	<string name="tab17">F#/Gb</string>
+	<string name="tab18">G</string>
+	<string name="tab19">G</string>
+	<string name="tab20">G#/Ab</string>
+	<string name="tab21">A</string>
+	<string name="tab22">A#/Bb</string>
+	<string name="tab23">B</string>
+	<string name="tab24">C</string>
+	<string name="tab25">B</string>
+	<string name="tab26">C</string>
+	<string name="tab27">C#/Db</string>
+	<string name="tab28">D</string>
+	<string name="tab29">D#/Eb</string>
+	<string name="tab30">E</string>
+	<string name="tab31">E</string>
+	<string name="tab32">F</string>
+	<string name="tab33">F#/Gb</string>
+	<string name="tab34">G</string>
+	<string name="tab35">G#/Ab</string>
+	<string name="tab36">A</string>
     
 </resources>
