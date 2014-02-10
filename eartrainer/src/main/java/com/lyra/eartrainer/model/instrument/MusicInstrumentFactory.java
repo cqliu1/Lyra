@@ -11,7 +11,7 @@ public class MusicInstrumentFactory {
         	instrument = new Piano(musicInfo);
         }
         else if(instrumentType == InstrumentTypes.GUITAR){
-        	//TO DO: for creating the guitar
+        	instrument = new Guitar(musicInfo);
         }
     	
 		return instrument;
