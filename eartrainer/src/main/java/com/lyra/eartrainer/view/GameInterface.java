@@ -4,6 +4,7 @@ import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
+import com.lyra.eartrainer.model.instrument.Guitar;
 import com.lyra.eartrainer.model.instrument.Piano;
 
 import android.app.Activity;
@@ -33,7 +34,7 @@ public class GameInterface extends View {
     	gameplay = game;
         score = (TextView) activity.findViewById(R.id.score);
         strikes = (TextView) activity.findViewById(R.id.strikesText);
-        if (GamePlay.instance().getMode() != Modes.FREEPLAY) score.setText(""+gameplay.getScore());
+        if (GamePlay.instance().getMode() != Modes.FREEPLAY ) score.setText(""+gameplay.getScore());
         else score.setText("");
         if (GamePlay.instance().getMode() == Modes.CHALLENGE) strikes.setText("Strikes: " + gameplay.getStrikes());
         else strikes.setText("");
@@ -84,6 +85,7 @@ public class GameInterface extends View {
 		}
 		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR) {
 			// TODO: correct guitar notes
+			keys[note].setImageResource(R.drawable.correct_tab);
 		}
 	}
 	
@@ -99,6 +101,7 @@ public class GameInterface extends View {
 		}
 		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR){
 			// TODO: incorrect guitar notes
+			keys[note].setImageResource(R.drawable.wrong_tab);
 		}
 		if (GamePlay.instance().getMode() == Modes.CHALLENGE) strikes.setText("Strikes: " + gameplay.getStrikes());
 	}
@@ -115,6 +118,17 @@ public class GameInterface extends View {
 		}
 		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR) {
 			// TODO: resetting guitar notes
+//			Guitar guitar = (Guitar) GamePlay.instance().getInstrument();
+			switch(note){
+				case 1: keys[note].setImageResource(R.drawable.e_tab); // reset open e tab 
+				case 7: keys[note].setImageResource(R.drawable.a_tab); // reset open a tab
+				case 13: keys[note].setImageResource(R.drawable.d_tab); // reset open d tab
+				case 19: keys[note].setImageResource(R.drawable.g_tab); // reset open g tab
+				case 25: keys[note].setImageResource(R.drawable.b_tab); // reset open b tab
+				case 31: keys[note].setImageResource(R.drawable.e_tab); // reset open e tab
+				default: keys[note].setImageResource(R.drawable.blank_tab); //reset rest to blank tab
+			}
+			
 		}
 	}
 	
@@ -130,6 +144,7 @@ public class GameInterface extends View {
 		}
 		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR) {
 			// TODO: select guitar notes
+			keys[note].setImageResource(R.drawable.silver_tab);
 		}
 	}
 }
