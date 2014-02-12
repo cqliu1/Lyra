@@ -10,6 +10,13 @@ import android.widget.EditText;
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.NickActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.dao.LyraDAO;
+import com.lyra.eartrainer.dao.NicknameTransferObject;
+import com.lyra.eartrainer.dao.client.ClientLyraDAO;
+import com.lyra.eartrainer.dao.exception.BadRequestException;
+import com.lyra.eartrainer.dao.exception.ConflictException;
+import com.lyra.eartrainer.dao.exception.DaoParseException;
+import com.lyra.eartrainer.dao.exception.ServerErrorException;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.Nickname;
 import com.lyra.eartrainer.view.NickView;
@@ -29,20 +36,20 @@ public class NickController extends Controller {
 		nickname = new Nickname();
 		game = GamePlay.instance(); //creates initial instance of GamePlay
 		
-		if(nickname.nickExists(activity.getFilesDir())){
+		/* Save this - Temporarily commented out until this is finished
+		if(nickname.localNickExists(activity.getFilesDir())){
 			//nickname already exists so this view is not needed, transition to the next view
 			System.out.println("Found Nick: " + nickname.getName() + " Loading Main Menu Screen...");
 			loadNextScreen();
 		}
 		else {
+		*/
 			//loading this view
 			activity.setContentView(R.layout.activity_nick);
 			nView = new NickView(activity);
 			//attaching event listeners to view widgets
 			attachEvents();
-		}
-		
-
+		//}
 	}
 
 	private void attachEvents(){
@@ -58,15 +65,32 @@ public class NickController extends Controller {
 	
 	//the submit button handler
 	private void submitNick(){
-		System.out.println("Submit Nick");
-		//TO DO:  
-		//check and make sure that the nick doesn't already exist in the leaderboard db
-		nickname.setName(((EditText)activity.findViewById(R.id.editNick)).getText().toString());
+		//attempting to create the nickname
+		String userInputNick = ((EditText)activity.findViewById(R.id.editNick)).getText().toString();
 		
-		//if the nick didn't exist, save it and move on
+		NicknameTransferObject nickTransferObject = new NicknameTransferObject();
+		nickTransferObject.setId(0);
+		nickTransferObject.setNickname(userInputNick);
+		
+		//saving the nickname into the remote database
+		LyraDAO nickDAO = new ClientLyraDAO();
+		try {
+			nickDAO.create(nickTransferObject);
+		}catch(DaoParseException cde){
+			System.out.println("Parse Failure when creating nickname. " + cde.getMessage());
+		}catch(ConflictException ce){
+			System.out.println("Duplicate nickname detected. " + ce.getMessage());
+		}catch(Exception e){
+			//handling BadRequestException or ServerErrorException
+			System.out.println("Failed to create nickname. " + e.getMessage());
+		}
+		
+		nickname.setName(userInputNick);
+		
+		//The nick didn't exist, save it and move on
 		nickname.storeNickname(activity.getFilesDir());
 		
-		if(nickname.nickExists(activity.getFilesDir())){
+		if(nickname.localNickExists(activity.getFilesDir())){
 			System.out.println("Saved Nick: " + nickname.getName() + " Loading Main Menu Screen...");
 			loadNextScreen();
 		}

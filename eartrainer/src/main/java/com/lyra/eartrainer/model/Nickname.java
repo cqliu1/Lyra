@@ -25,7 +25,7 @@ public class Nickname {
 		writeLocalNick(nickFile);
 	}
 	
-	public boolean nickExists(File dir){
+	public boolean localNickExists(File dir){
 		File nickFile = getNickFile(dir);
 		if(!nickFile.exists()) return false;
 		
