@@ -11,5 +11,5 @@ import com.lyra.eartrainer.dao.exception.ServerErrorException;
 public interface LyraDAO {
 	public String create(Object transferObject) throws DaoParseException, ConflictException, BadRequestException, ServerErrorException;
 	public Object read(String identifier, Class<?> transferObjectClass) throws DaoParseException, NotFoundException, ServerErrorException;
-	public ArrayList readAll() throws DaoParseException, NotFoundException, ServerErrorException;
+	//public ArrayList readAll(int pageNumber, Class<?> transferObjectClass) throws DaoParseException, NotFoundException, ServerErrorException;
 }

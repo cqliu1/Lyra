@@ -13,6 +13,7 @@ import com.lyra.eartrainer.dao.exception.DaoParseException;
 import com.lyra.eartrainer.dao.exception.NotFoundException;
 import com.lyra.eartrainer.dao.exception.ServerErrorException;
 
+//TODO - DELETE THIS COMMENT SOON - use regular "read" for "readAll" with dto that has "items" in it.
 public class ClientLyraDAO implements LyraDAO {
 	private static final String RESOURCE_URI = "http://www.whatever.com/nickname_svc";
 	private JerseyClient client = null;
@@ -84,7 +85,17 @@ public class ClientLyraDAO implements LyraDAO {
 	    return responseObject;
 	}
 	
-	public ArrayList readAll(){
-		return null;
+	/*
+	//check the response status code and raises the appropriate exception based on that
+	private void checkReadError() throws NotFoundException, ServerErrorException {
+		if(client.getResponseStatusCode() == Response.Status.NOT_FOUND.getStatusCode()){
+			//404 Not Found, the resource deosn't exist
+			throw new NotFoundException("Not Found");
+		}
+		else if(client.getResponseStatusCode() == Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()){
+			//500 Internal Server Error, some unexpected error happened
+			throw new ServerErrorException("Unexpected server error");
+		}
 	}
+	*/
 }
