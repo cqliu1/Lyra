@@ -1,4 +1,4 @@
-package com.lyra.eartrainer.dao.exception;
+package com.lyra.eartrainer.client.exception;
 
 public class ConflictException extends Exception {
 	public ConflictException(String message){

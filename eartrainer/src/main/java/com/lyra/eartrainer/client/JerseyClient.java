@@ -1,14 +1,16 @@
-package com.lyra.eartrainer.dao.client;
+package com.lyra.eartrainer.client;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
-import com.lyra.eartrainer.dao.NicknameTransferObject;
+import com.lyra.eartrainer.client.exception.BadRequestException;
+import com.lyra.eartrainer.client.exception.ConflictException;
+import com.lyra.eartrainer.client.exception.NotFoundException;
+import com.lyra.eartrainer.client.exception.ServerErrorException;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 public class JerseyClient {
@@ -24,11 +26,19 @@ public class JerseyClient {
     	webResource = client.resource(baseURI);
     }
     
-    public String executePost(String requestData){
+    public String executePost(String uriPath, String requestData) throws ConflictException, BadRequestException, ServerErrorException {
     	String entity = null;
     	
+    	Builder webResourceBuilder = null;
+    	if(uriPath != null){
+    		webResourceBuilder = webResource.path(uriPath).accept(MediaType.APPLICATION_JSON);
+    	}
+    	else {
+    		webResourceBuilder = webResource.type(MediaType.APPLICATION_JSON);
+    	}
+    	
     	//Setting the Media Type (Content-Type: application/json) header and using the HTTP "POST" verb
-		ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON).post(ClientResponse.class, requestData);
+		ClientResponse clientResponse = webResourceBuilder.post(ClientResponse.class, requestData);
 		responseStatusCode = clientResponse.getStatus();
 		
 		if(responseStatusCode == Response.Status.OK.getStatusCode() || responseStatusCode == Response.Status.CREATED.getStatusCode()){
@@ -43,17 +53,42 @@ public class JerseyClient {
 				location = clientResponse.getLocation().toString(); //will point to the location (url with unique-identifier of the resource @ end of it, e.g: http://restfulsvc.com/nickstore/1236543)
 			}
 		}
+		else if(responseStatusCode == Response.Status.CONFLICT.getStatusCode()){
+			//409 Conflict, the resource that it attempted to create already existed (no replace allowed)
+			throw new ConflictException("409 Conflict");
+		}
+		else if(responseStatusCode == Response.Status.BAD_REQUEST.getStatusCode()){
+			//400 Bad Request, the request entity message contained invalid information
+			throw new BadRequestException("400 Bad Request");
+		}
+		else if(responseStatusCode == Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()){
+			//500 Internal Server Error, some unexpected error happened
+			throw new ServerErrorException("500 Internal Server Error");
+		}
 		
 System.out.println("entity=" + entity);
 		
 		return entity;
     }
     
-    public String executeGet(String uriPath){
+    public String executeGet(String uriPath) throws NotFoundException, ServerErrorException {
     	String entity = null;
     	
 		ClientResponse clientResponse = webResource.path(uriPath).accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 		responseStatusCode = clientResponse.getStatus();
+		
+		if(responseStatusCode == Response.Status.OK.getStatusCode()){
+			//200 OK
+			entity = clientResponse.getEntity(String.class);
+		}
+		else if(responseStatusCode == Response.Status.NOT_FOUND.getStatusCode()){
+			//404 Not Found, the resource deosn't exist
+			throw new NotFoundException("404 Not Found");
+		}
+		else if(responseStatusCode == Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()){
+			//500 Internal Server Error, some unexpected error happened
+			throw new ServerErrorException("500 Internal Server Error");
+		}
 		
 System.out.println("entity=" + entity);
 		

@@ -1,15 +1,15 @@
-package com.lyra.eartrainer.dto;
+package com.lyra.eartrainer.model;
 
 import java.util.List;
 
-public class LoaderBoardScoreList {
+public class LeaderBoard {
 	private int numResults = 0;
-	private List<LeaderBoardDTO> items;
+	private List<LeaderBoardEntry> items;
 
-	public List<LeaderBoardDTO> getItems() {
+	public List<LeaderBoardEntry> getItems() {
 		return items;
 	}
-	public void setItems(List<LeaderBoardDTO> items) {
+	public void setItems(List<LeaderBoardEntry> items) {
 		this.items = items;
 	}
 	public int getNumResults() {

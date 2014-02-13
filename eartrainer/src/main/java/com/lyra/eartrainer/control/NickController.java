@@ -10,13 +10,9 @@ import android.widget.EditText;
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.NickActivity;
 import com.lyra.eartrainer.R;
-import com.lyra.eartrainer.dao.LyraDAO;
-import com.lyra.eartrainer.dao.NicknameTransferObject;
-import com.lyra.eartrainer.dao.client.ClientLyraDAO;
-import com.lyra.eartrainer.dao.exception.BadRequestException;
-import com.lyra.eartrainer.dao.exception.ConflictException;
-import com.lyra.eartrainer.dao.exception.DaoParseException;
-import com.lyra.eartrainer.dao.exception.ServerErrorException;
+import com.lyra.eartrainer.dao.DuplicateNicknameException;
+import com.lyra.eartrainer.dao.NicknameDao;
+import com.lyra.eartrainer.dao.NicknameDaoImpl;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.Nickname;
 import com.lyra.eartrainer.view.NickView;
@@ -36,7 +32,7 @@ public class NickController extends Controller {
 		nickname = new Nickname();
 		game = GamePlay.instance(); //creates initial instance of GamePlay
 		
-		/* Save this - Temporarily commented out until this is finished
+		/* Save this - Temporarily commented out for testing against the service
 		if(nickname.localNickExists(activity.getFilesDir())){
 			//nickname already exists so this view is not needed, transition to the next view
 			System.out.println("Found Nick: " + nickname.getName() + " Loading Main Menu Screen...");
@@ -68,34 +64,34 @@ public class NickController extends Controller {
 		//attempting to create the nickname
 		String userInputNick = ((EditText)activity.findViewById(R.id.editNick)).getText().toString();
 		
-		NicknameTransferObject nickTransferObject = new NicknameTransferObject();
-		nickTransferObject.setId(0);
-		nickTransferObject.setNickname(userInputNick);
-		
 		//saving the nickname into the remote database
-		LyraDAO nickDAO = new ClientLyraDAO();
+		NicknameDao nicknameDao = new NicknameDaoImpl();
 		try {
-			nickDAO.create(nickTransferObject);
-		}catch(DaoParseException cde){
-			System.out.println("Parse Failure when creating nickname. " + cde.getMessage());
-		}catch(ConflictException ce){
-			System.out.println("Duplicate nickname detected. " + ce.getMessage());
-		}catch(Exception e){
-			//handling BadRequestException or ServerErrorException
-			System.out.println("Failed to create nickname. " + e.getMessage());
+			nickname = nicknameDao.storeNickname(activity.getFilesDir(), userInputNick);
+		} catch(DuplicateNicknameException dne){
+			nView.displayInvalidNickMessage();
+			return;
 		}
 		
-		nickname.setName(userInputNick);
-		
-		//The nick didn't exist, save it and move on
-		nickname.storeNickname(activity.getFilesDir());
-		
-		if(nickname.localNickExists(activity.getFilesDir())){
+		if(nickname != null){
 			System.out.println("Saved Nick: " + nickname.getName() + " Loading Main Menu Screen...");
 			loadNextScreen();
 		}
 		else {
 			nView.displayFailedSaveMessage();
+			nickname = new Nickname("Guest");
+			
+			//waiting a few seconds and then automatically loading the next screen
+			new Thread(new Runnable(){
+				public void run(){
+					try {
+						Thread.currentThread().sleep(3000);
+						loadNextScreen();
+					} catch(InterruptedException ie){
+						return; //app was closed or another thread interrupted this one for some reason
+					}
+				}
+			}).start();
 		}
 	}
 	
