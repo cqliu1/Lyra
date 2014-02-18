@@ -236,16 +236,27 @@ public class GameController extends Controller {
         	for (int i = 0; i < keys.length; i++)
         	{
         		final int note = i;
+        		
 	        	final Activity act = this.activity;
 	        	
 	        	keys[i].setOnTouchListener(new View.OnTouchListener() 
 	        	{
+	        		int lastPlayedKey = -1;
+	        		
+	        		// if event. eventDown that bullshit
 	        		public boolean onTouch(View v, MotionEvent event) 
-	        		{							
+	        		{			
 							Timer timer = new Timer();
-							timer.schedule(new PlayNoteTask(note, act), 0L);
+							if (lastPlayedKey != note)
+							{
+								timer.schedule(new PlayNoteTask(note, act), 0L);
+								timer.schedule(new ResetNoteTask(note, act), 1000L);
+								lastPlayedKey = note;
+							}
 							return true;
+							
 					}
+	        		
 	        	});
         	}
         }
