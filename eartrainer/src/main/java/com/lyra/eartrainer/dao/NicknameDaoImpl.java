@@ -6,17 +6,17 @@ import java.io.FileOutputStream;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.lyra.eartrainer.client.JerseyClient;
+import com.lyra.eartrainer.client.LyraHttpClient;
 import com.lyra.eartrainer.client.exception.ConflictException;
 import com.lyra.eartrainer.model.Nickname;
 
 public class NicknameDaoImpl implements NicknameDao {
 	private static final String NICK_FILE = "nickname.txt";
-	private static final String RESOURCE_URI = "http://www.whatever.com/nickname_svc";
-	private JerseyClient client = null;
+	private static final String RESOURCE_URI = "http://data-lyraeartrainer.rhcloud.com/users";
+	private LyraHttpClient client = null;
 	
 	public NicknameDaoImpl(){
-		client = new JerseyClient(RESOURCE_URI);
+		client = new LyraHttpClient(RESOURCE_URI);
 	}
     
 	public Nickname storeNickname(File dir, String nickName) throws DuplicateNicknameException {
@@ -24,8 +24,10 @@ public class NicknameDaoImpl implements NicknameDao {
 		
 		try {
 			String entity = client.executePost("/" + nickName, null);
-			resultNickname = new Nickname(Integer.parseInt(entity.trim()), nickName);
-			storeLocalNickname(dir, resultNickname);
+			if(entity != null){
+				resultNickname = new Nickname(Integer.parseInt(entity.trim()), nickName);
+				storeLocalNickname(dir, resultNickname);
+			}
 		} catch(ConflictException ce){
 			throw new DuplicateNicknameException("The nickname provide was already taken by another user.");
 		} catch(Exception e){
@@ -37,34 +39,17 @@ public class NicknameDaoImpl implements NicknameDao {
 		return resultNickname;
 	}
 	
-	public boolean nicknameExists(File dir){
-		File nickFile = getNicknameFile(dir);
-		if(!nickFile.exists()) return false;
-		
-		//get the nickname
-		String localData = readLocalNickname(nickFile);
-		if(!localData.equals("") && !localData.equals("null")){
-			return true;
-		}
-
-		return false;
-	}
-	
-	private void storeLocalNickname(File dir, Nickname nickName){
-		File nickFile = getNicknameFile(dir);
-		writeLocalNickname(nickFile, nickName);
-	}
-	
-	private String readLocalNickname(File file){
-		String result = "";
+	public Nickname getLocalNickname(File dir) throws DaoParseException {
+		String rawNicknameData = "";
 		FileInputStream fis = null;
 		try {
-			fis = new FileInputStream(file);
-			byte[] buff = new byte[(int)file.length()];
+			File nickFile = getNicknameFile(dir);
+			fis = new FileInputStream(nickFile);
+			byte[] buff = new byte[(int)nickFile.length()];
 			int read = fis.read(buff);
 			if(read > 0){
-				result = new String(buff);
-				result = result.trim();
+				rawNicknameData = new String(buff);
+				rawNicknameData = rawNicknameData.trim();
 			}
 		}
 		catch(Exception e){
@@ -72,15 +57,21 @@ public class NicknameDaoImpl implements NicknameDao {
 			//Logging error instead
 			System.out.println("Exception while reading local nickname file.\n" + e.getMessage());
 			e.printStackTrace();
-			result = "";
+			rawNicknameData = "";
 		}
 		finally {
 			try {
 				if(fis != null){fis.close();}
 			}catch(Exception e){}
 		}
-		
-		return result;
+
+		Nickname nickname = (Nickname)deSerialize(rawNicknameData, Nickname.class);
+		return nickname;
+	}
+	
+	private void storeLocalNickname(File dir, Nickname nickName){
+		File nickFile = getNicknameFile(dir);
+		writeLocalNickname(nickFile, nickName);
 	}
 	
 	private void writeLocalNickname(File file, Nickname nickName){
@@ -108,4 +99,31 @@ public class NicknameDaoImpl implements NicknameDao {
 		File nickFile = new File(filePath);
 		return nickFile;
 	}
+	
+	//deserializes json
+	private Object deSerialize(String json, Class<?> valueType) throws DaoParseException {
+		Object result = null;
+	    ObjectMapper mapper = new ObjectMapper();
+	    try {
+	    	result = mapper.readValue(json, valueType);
+	    } catch (Exception e) {
+			throw new DaoParseException("Failed to deserialize response object.\n" + e.getMessage());
+		}
+	    return result;
+	}
+	
+	/*
+	public boolean nicknameExists(File dir){
+		File nickFile = getNicknameFile(dir);
+		if(!nickFile.exists()) return false;
+		
+		//get the nickname
+		String localData = readLocalNickname(nickFile);
+		if(!localData.equals("") && !localData.equals("null")){
+			return true;
+		}
+
+		return false;
+	}
+	*/
 }

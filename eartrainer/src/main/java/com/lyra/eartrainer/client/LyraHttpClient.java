@@ -1,0 +1,125 @@
+package com.lyra.eartrainer.client;
+
+import java.io.InputStream;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+
+import android.os.StrictMode;
+
+import com.lyra.eartrainer.client.exception.BadRequestException;
+import com.lyra.eartrainer.client.exception.ConflictException;
+import com.lyra.eartrainer.client.exception.NotFoundException;
+import com.lyra.eartrainer.client.exception.ServerErrorException;
+
+public class LyraHttpClient {
+	public static final String REQUEST_GET = "GET";
+	public static final String REQUEST_POST = "POST";
+    private String baseURI; //the http url (including path) to the nickname service
+    private int responseStatusCode;
+    DefaultHttpClient client;
+    
+    public LyraHttpClient(String baseURI){
+    	this.baseURI = baseURI;
+    	client = new DefaultHttpClient();
+    	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+   		StrictMode.setThreadPolicy(policy); 
+    }
+    
+    public String executePost(String uriPath, String requestData) throws ConflictException, BadRequestException, ServerErrorException {
+    	String body = null;
+    	String uri = baseURI + uriPath;
+    	
+    	HttpPost post = new HttpPost(uri);
+    	
+    	try {
+			if(requestData != null){
+		    	StringEntity requestEntity = new StringEntity(requestData, HTTP.UTF_8);
+		    	requestEntity.setContentType("application/json");
+		    	post.setEntity(requestEntity);
+			}
+
+			HttpResponse response = client.execute(post);
+			responseStatusCode = response.getStatusLine().getStatusCode();
+
+			if(responseStatusCode == ClientStatus.OK || responseStatusCode == ClientStatus.CREATED){
+				//200 OK, or 201 Created
+				//successfully created resource
+				StringBuilder responseBody = getResponseBody(response);
+				body = responseBody.toString();
+			}
+    	}
+    	catch(Exception e){
+    		e.printStackTrace();
+    		return null;
+    	}
+    	
+		if(responseStatusCode == ClientStatus.CONFLICT){
+			//409 Conflict, the resource that it attempted to create already existed (no replace allowed)
+			throw new ConflictException("409 Conflict");
+		}
+		else if(responseStatusCode == ClientStatus.BAD_REQUEST){
+			//400 Bad Request, the request entity message contained invalid information
+			throw new BadRequestException("400 Bad Request");
+		}
+		else if(responseStatusCode == ClientStatus.INTERNAL_SERVER_ERROR){
+			//500 Internal Server Error, some unexpected error happened
+			throw new ServerErrorException("500 Internal Server Error");
+		}
+    	
+    	return body;
+    }
+    
+    public String executeGet(String uriPath) throws NotFoundException, ServerErrorException {
+    	String body = null;
+    	String uri = baseURI + uriPath;
+    	HttpGet get = new HttpGet(uri);
+    	
+    	try {
+    		get.setHeader("Accept","application/json");
+    		HttpResponse response = client.execute(get);
+			responseStatusCode = response.getStatusLine().getStatusCode();
+			
+			if(responseStatusCode == ClientStatus.OK){
+				//200 OK
+				StringBuilder responseBody = getResponseBody(response);
+				body = responseBody.toString();
+			}
+    	}
+    	catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	
+		if(responseStatusCode == ClientStatus.NOT_FOUND){
+			//404 Not Found, the resource deosn't exist
+			throw new NotFoundException("404 Not Found");
+		}
+		else if(responseStatusCode == ClientStatus.INTERNAL_SERVER_ERROR){
+			//500 Internal Server Error, some unexpected error happened
+			throw new ServerErrorException("500 Internal Server Error");
+		}
+    	
+    	return body;
+    }
+    
+    private StringBuilder getResponseBody(HttpResponse response) throws Exception {
+		StringBuilder responseBody = new StringBuilder("");
+		HttpEntity entity = response.getEntity();
+		if(entity.isStreaming()){
+			InputStream is = entity.getContent();
+			int len = -1;
+			byte[] buf = new byte[1024];
+			while ((len = is.read(buf)) != -1){
+				if(len == 0)
+					continue;
+				responseBody.append(new String(buf));
+			}
+		}
+		return responseBody;
+    }
+}

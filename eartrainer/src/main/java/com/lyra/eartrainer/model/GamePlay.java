@@ -19,12 +19,13 @@ public class GamePlay {
 	private Round currentRound;
 	private int score;
 	private float volume;
-	private String nickname;
+	private Nickname nickname;
 	private IMusicInstrument instrument;
 	private int strikes;
 	
 	//hiding constructor - using singleton pattern
 	private GamePlay(){
+		nickname = new Nickname("Guest");
 		reset();
 	}
 
@@ -144,11 +145,11 @@ public class GamePlay {
 		this.volume = volume;
 	}
 
-	public String getNickname() {
+	public Nickname getNickname() {
 		return nickname;
 	}
 
-	public void setNickname(String nickname) {
+	public void setNickname(Nickname nickname) {
 		this.nickname = nickname;
 	}
 	

@@ -20,6 +20,6 @@ public class MainMenu{
         }
         
         private void showNickname(){
-        	textDescription.setText("Welcome " + GamePlay.instance().getNickname() + "!");
+        	textDescription.setText("Welcome " + GamePlay.instance().getNickname().getName() + "!");
         }
 }

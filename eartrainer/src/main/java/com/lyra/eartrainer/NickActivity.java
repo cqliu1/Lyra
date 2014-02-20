@@ -5,14 +5,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 
-import com.lyra.eartrainer.control.NickController;
+import com.lyra.eartrainer.control.NicknameController;
 
 public class NickActivity extends Activity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		NickController nController = new NickController(this);
+		NicknameController nController = new NicknameController(this);
 		nController.initialize();
 	}
 

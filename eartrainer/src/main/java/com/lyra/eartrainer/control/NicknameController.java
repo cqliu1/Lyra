@@ -10,42 +10,51 @@ import android.widget.EditText;
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.NickActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.dao.DaoParseException;
 import com.lyra.eartrainer.dao.DuplicateNicknameException;
 import com.lyra.eartrainer.dao.NicknameDao;
 import com.lyra.eartrainer.dao.NicknameDaoImpl;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.Nickname;
-import com.lyra.eartrainer.view.NickView;
+import com.lyra.eartrainer.view.NicknameView;
 
-public class NickController extends Controller {
-	private NickView nView;
+public class NicknameController extends Controller {
+	private NicknameView nView;
 	private Nickname nickname;
 	private GamePlay game;
 
-	public NickController(NickActivity nickActivity){
+	public NicknameController(NickActivity nickActivity){
 		super(nickActivity);
 	}
 	
 	public void initialize(){
 		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		//instantiating relevant model classes
-		nickname = new Nickname();
 		game = GamePlay.instance(); //creates initial instance of GamePlay
 		
-		/* Save this - Temporarily commented out for testing against the service
-		if(nickname.localNickExists(activity.getFilesDir())){
+		//try to read nickname object from local file
+		nickname = null;
+		NicknameDao nickDao = new NicknameDaoImpl();
+		try {
+			nickname = nickDao.getLocalNickname(activity.getFilesDir());
+		} catch(DaoParseException dpe){}
+		
+		//uncomment the line below in order to force re-creation of the nickname
+		//nickname = null;
+		
+		//check if nickname exists
+		if(nickname != null && nickname.getId() != -1){
 			//nickname already exists so this view is not needed, transition to the next view
 			System.out.println("Found Nick: " + nickname.getName() + " Loading Main Menu Screen...");
 			loadNextScreen();
 		}
 		else {
-		*/
 			//loading this view
 			activity.setContentView(R.layout.activity_nick);
-			nView = new NickView(activity);
+			nView = new NicknameView(activity);
 			//attaching event listeners to view widgets
 			attachEvents();
-		//}
+		}
 	}
 
 	private void attachEvents(){
@@ -69,6 +78,7 @@ public class NickController extends Controller {
 		try {
 			nickname = nicknameDao.storeNickname(activity.getFilesDir(), userInputNick);
 		} catch(DuplicateNicknameException dne){
+			System.out.println("Duplicate Nickname Detected!");
 			nView.displayInvalidNickMessage();
 			return;
 		}
@@ -79,8 +89,8 @@ public class NickController extends Controller {
 		}
 		else {
 			nView.displayFailedSaveMessage();
-			nickname = new Nickname("Guest");
 			
+			//TODO get rid of this and use a button instead
 			//waiting a few seconds and then automatically loading the next screen
 			new Thread(new Runnable(){
 				public void run(){
@@ -96,7 +106,7 @@ public class NickController extends Controller {
 	}
 	
 	private void loadNextScreen(){
-		game.setNickname(nickname.getName()); //sets the nickname before loading the next screen
+		game.setNickname(nickname); //sets the nickname before loading the next screen
 		activity.finish(); //finish the NickActivity
 		
 		//begin the MainMenuActivity

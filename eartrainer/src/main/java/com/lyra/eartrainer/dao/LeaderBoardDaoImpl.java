@@ -1,24 +1,21 @@
 package com.lyra.eartrainer.dao;
 
-import javax.ws.rs.core.Response;
-
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.lyra.eartrainer.client.JerseyClient;
-import com.lyra.eartrainer.client.exception.ConflictException;
+import com.lyra.eartrainer.client.LyraHttpClient;
 import com.lyra.eartrainer.client.exception.NotFoundException;
 import com.lyra.eartrainer.client.exception.ServerErrorException;
 import com.lyra.eartrainer.model.LeaderBoard;
 import com.lyra.eartrainer.model.LeaderBoardEntry;
 
 public class LeaderBoardDaoImpl implements LeaderBoardDao {
-	private static final String RESOURCE_URI = "http://www.whatever.com/leaderboard_svc";
-	private JerseyClient client = null;
+	private static final String RESOURCE_URI = "http://data-lyraeartrainer.rhcloud.com/leaderboard";
+	private LyraHttpClient client = null;
 	private int pageNumber = 1;
 	private String entity = null;
 	
 	public LeaderBoardDaoImpl(){
-		client = new JerseyClient(RESOURCE_URI);
+		client = new LyraHttpClient(RESOURCE_URI);
 	}
     
 	//adds the user score to the leaderboard by appending it to the database via a CRUD 'create' request
@@ -51,31 +48,11 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 		return recordId;
 	}
 	
-	//TODO - do I need this? or just getScores? are we getting an individual score record at any point? -- Keep this method until a later date
-	//TODO - I can always grab an array of one element from getScores - Talk to Keilan about preference
-	public LeaderBoardEntry getScore(String identifier) throws DaoParseException {
-		//sending a typical CRUD 'read' service request by setting the Media Type in the 'Accept' (Accept: application/json) header
-		//and by using the HTTP "GET" verb
-		entity = doGetRequest("/" + identifier);
-		LeaderBoardEntry scoreEntry = (LeaderBoardEntry)deSerializeEntity(LeaderBoardEntry.class);
-		
-		/*
-	    ObjectMapper mapper = new ObjectMapper();
-	    try {
-	    	scoreEntry = mapper.readValue(entity, LeaderBoardEntry.class);
-	    } catch (Exception e) {
-			throw new DaoParseException("Failed to deserialize response object.\n" + e.getMessage());
-		}
-		*/
-	    
-	    return scoreEntry;
-	}
-	
 	//sets the page number and pulls a set of leaderboard entries (aka leaderboard scores) from the service
 	public LeaderBoard getScores(int pageNumber) throws DaoParseException {
 		this.pageNumber = pageNumber;
 		entity = doGetRequest("/" + pageNumber);
-		LeaderBoard leaderboard = (LeaderBoard)deSerializeEntity(LeaderBoard.class);
+		LeaderBoard leaderboard = (LeaderBoard)deSerialize(LeaderBoard.class);
 	    return leaderboard;
 	}
 	
@@ -104,7 +81,7 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 	}
 	
 	//deserializes json response objects into hydrated java objects of type: valueType
-	private Object deSerializeEntity(Class<?> valueType) throws DaoParseException {
+	private Object deSerialize(Class<?> valueType) throws DaoParseException {
 		Object result = null;
 	    ObjectMapper mapper = new ObjectMapper();
 	    try {
@@ -114,4 +91,23 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 		}
 	    return result;
 	}
+	
+	/*
+	public LeaderBoardEntry getScore(String identifier) throws DaoParseException {
+		//sending a typical CRUD 'read' service request by setting the Media Type in the 'Accept' (Accept: application/json) header
+		//and by using the HTTP "GET" verb
+		entity = doGetRequest("/" + identifier);
+		LeaderBoardEntry scoreEntry = (LeaderBoardEntry)deSerializeEntity(LeaderBoardEntry.class);
+		
+
+//	    ObjectMapper mapper = new ObjectMapper();
+//	    try {
+//	    	scoreEntry = mapper.readValue(entity, LeaderBoardEntry.class);
+//	    } catch (Exception e) {
+//			throw new DaoParseException("Failed to deserialize response object.\n" + e.getMessage());
+//		}
+	    
+	    return scoreEntry;
+	}
+	*/
 }
