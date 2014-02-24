@@ -60,6 +60,44 @@ public class GameInterface extends View {
         else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR)
         {
         	// TODO: add guitar buttons to keys
+        	keys = new ImageButton[36];
+        	
+        	keys[0] = (ImageButton) activity.findViewById(R.id.tab1);
+        	keys[1] = (ImageButton) activity.findViewById(R.id.tab2);
+        	keys[2] = (ImageButton) activity.findViewById(R.id.tab3);
+        	keys[3] = (ImageButton) activity.findViewById(R.id.tab4);
+        	keys[4] = (ImageButton) activity.findViewById(R.id.tab5);
+        	keys[5] = (ImageButton) activity.findViewById(R.id.tab6);
+        	keys[6] = (ImageButton) activity.findViewById(R.id.tab7);
+        	keys[7] = (ImageButton) activity.findViewById(R.id.tab8);
+        	keys[8] = (ImageButton) activity.findViewById(R.id.tab9);
+        	keys[9] = (ImageButton) activity.findViewById(R.id.tab10);
+        	keys[10] = (ImageButton) activity.findViewById(R.id.tab11);
+        	keys[11] = (ImageButton) activity.findViewById(R.id.tab12);
+        	keys[12] = (ImageButton) activity.findViewById(R.id.tab13);
+        	keys[13] = (ImageButton) activity.findViewById(R.id.tab14);
+        	keys[14] = (ImageButton) activity.findViewById(R.id.tab15);
+        	keys[15] = (ImageButton) activity.findViewById(R.id.tab16);
+        	keys[16] = (ImageButton) activity.findViewById(R.id.tab17);
+        	keys[17] = (ImageButton) activity.findViewById(R.id.tab18);
+        	keys[18] = (ImageButton) activity.findViewById(R.id.tab19);
+        	keys[19] = (ImageButton) activity.findViewById(R.id.tab20);
+        	keys[20] = (ImageButton) activity.findViewById(R.id.tab21);
+        	keys[21] = (ImageButton) activity.findViewById(R.id.tab22);
+        	keys[22] = (ImageButton) activity.findViewById(R.id.tab23);
+        	keys[23] = (ImageButton) activity.findViewById(R.id.tab24);
+        	keys[24] = (ImageButton) activity.findViewById(R.id.tab25);
+        	keys[25] = (ImageButton) activity.findViewById(R.id.tab26);
+        	keys[26] = (ImageButton) activity.findViewById(R.id.tab27);
+        	keys[27] = (ImageButton) activity.findViewById(R.id.tab28);
+        	keys[28] = (ImageButton) activity.findViewById(R.id.tab29);
+        	keys[29] = (ImageButton) activity.findViewById(R.id.tab30);
+        	keys[30] = (ImageButton) activity.findViewById(R.id.tab31);
+        	keys[31] = (ImageButton) activity.findViewById(R.id.tab32);
+        	keys[32] = (ImageButton) activity.findViewById(R.id.tab33);
+        	keys[33] = (ImageButton) activity.findViewById(R.id.tab34);
+        	keys[34] = (ImageButton) activity.findViewById(R.id.tab35);
+        	keys[35] = (ImageButton) activity.findViewById(R.id.tab36);
         }
 	}
 

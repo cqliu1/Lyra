@@ -83,7 +83,7 @@ public class OptionsController extends Controller {
 		// TODO change settings in gameplay instance
     	
     	// choosing difficulty
-    	if (((String)difficulty.getSelectedItem()).equals("Beginner"))
+    	/*if (((String)difficulty.getSelectedItem()).equals("Beginner"))
     	{
     		game.setDifficulty(Difficulties.BEGINNER);
     	}
@@ -94,7 +94,8 @@ public class OptionsController extends Controller {
     	else if (((String)difficulty.getSelectedItem()).equals("Advanced"))
     	{
     		game.setDifficulty(Difficulties.ADVANCED);
-    	}
+    	}*/
+    	game.setDifficulty(Difficulties.ADVANCED);
     	
     	// choosing mode
     	if (((String)gameMode.getSelectedItem()).equals("Practice"))
@@ -111,15 +112,15 @@ public class OptionsController extends Controller {
     	}
     	
     	// choosing scale
-    	if(((String)scale.getSelectedItem()).equals("Major"))
+    	/*if(((String)scale.getSelectedItem()).equals("Major"))
     	{
     		game.setScale(ScaleTypes.MAJOR);
     	}
     	if(((String)scale.getSelectedItem()).equals("Pentatonic"))
     	{
     		game.setScale(ScaleTypes.PENTATONIC);
-    	}
-    	
+    	}*/
+    	game.setScale(ScaleTypes.MAJOR);
     	SoundInfo mi = loadNotes();
     	if (game.getInstrumentType() == InstrumentTypes.PIANO)
     	{

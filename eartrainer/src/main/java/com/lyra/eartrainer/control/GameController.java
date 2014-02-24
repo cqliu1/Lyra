@@ -243,19 +243,31 @@ public class GameController extends Controller {
 	        	{
 	        		int lastPlayedKey = -1;
 	        		
-	        		// if event. eventDown that bullshit
 	        		public boolean onTouch(View v, MotionEvent event) 
 	        		{			
+	        			if (event.getActionMasked() == MotionEvent.ACTION_DOWN)
+	        			{
 							Timer timer = new Timer();
-							if (lastPlayedKey != note)
-							{
-								timer.schedule(new PlayNoteTask(note, act), 0L);
-								timer.schedule(new ResetNoteTask(note, act), 1000L);
-								lastPlayedKey = note;
-							}
+							timer.schedule(new PlayNoteTask(note, act), 0L);
+							timer.schedule(new ResetNoteTask(note, act), 1000L);
+							lastPlayedKey = note;
 							return true;
-							
+	        			}
+	        			if (event.getActionMasked() == MotionEvent.ACTION_MOVE)
+	        			{
+	        				int hoverKey = getKeyHovered(v, event);
+							if(hoverKey != -1 && hoverKey != lastPlayedKey) {
+								Timer timer = new Timer();
+								timer.schedule(new PlayNoteTask(hoverKey, act), 0L);
+								timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
+									
+								lastPlayedKey = hoverKey;
+								return true;
+							}
+	        			}
+	        			return false;
 					}
+	        		
 	        		
 	        	});
         	}

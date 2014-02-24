@@ -16,48 +16,13 @@
         android:id="@+id/gameModeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
         android:entries="@array/game_modes"
         android:prompt="@string/game_mode_prompt" />
-
-    <TextView
-        android:id="@+id/difficultyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/difficulty_prompt"
-        android:text="@string/difficulty_prompt"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/difficultySpinner"
-         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:entries="@array/difficulty_levels"
-        android:prompt="@string/difficulty_prompt" />
-
-    <TextView
-        android:id="@+id/scaleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:contentDescription="@string/scale_prompt"
-        android:text="@string/scale_prompt"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/scaleSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:entries="@array/scales"
-        android:prompt="@string/scale_prompt" />
 
     <TextView
         android:id="@+id/instrumentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
         android:contentDescription="@string/instrument_prompt"
         android:text="@string/instrument_prompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -66,9 +31,44 @@
         android:id="@+id/instrumentSpinner"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
-        android:layout_gravity="center_horizontal"
         android:entries="@array/instruments"
         android:prompt="@string/instrument_prompt" />
+
+    <TextView
+        android:id="@+id/scaleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:contentDescription="@string/scale_prompt"
+        android:text="@string/scale_prompt"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="invisible" />
+
+    <Spinner
+        android:id="@+id/scaleSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:entries="@array/scales"
+        android:prompt="@string/scale_prompt"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/difficultyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/difficulty_prompt"
+        android:text="@string/difficulty_prompt"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="invisible" />
+
+    <Spinner
+        android:id="@+id/difficultySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:entries="@array/difficulty_levels"
+        android:prompt="@string/difficulty_prompt"
+        android:visibility="invisible" />
 
     <Button
         android:background="@drawable/red_button"
