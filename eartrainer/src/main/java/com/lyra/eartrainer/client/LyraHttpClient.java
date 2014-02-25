@@ -36,6 +36,7 @@ public class LyraHttpClient {
     	String uri = baseURI + uriPath;
     	
     	HttpPost post = new HttpPost(uri);
+    	HttpResponse response = null;
     	
     	try {
 			if(requestData != null){
@@ -44,7 +45,7 @@ public class LyraHttpClient {
 		    	post.setEntity(requestEntity);
 			}
 
-			HttpResponse response = client.execute(post);
+			response = client.execute(post);
 			responseStatusCode = response.getStatusLine().getStatusCode();
 
 			if(responseStatusCode == ClientStatus.OK || responseStatusCode == ClientStatus.CREATED){
@@ -57,6 +58,9 @@ public class LyraHttpClient {
     	catch(Exception e){
     		e.printStackTrace();
     		return null;
+    	}
+    	finally {
+    		shutdown(response);
     	}
     	
 		if(responseStatusCode == ClientStatus.CONFLICT){
@@ -80,9 +84,10 @@ public class LyraHttpClient {
     	String uri = baseURI + uriPath;
     	HttpGet get = new HttpGet(uri);
     	
+    	HttpResponse response =  null;
     	try {
     		get.setHeader("Accept","application/json");
-    		HttpResponse response = client.execute(get);
+    		response = client.execute(get);
 			responseStatusCode = response.getStatusLine().getStatusCode();
 			
 			if(responseStatusCode == ClientStatus.OK){
@@ -93,6 +98,9 @@ public class LyraHttpClient {
     	}
     	catch(Exception e){
     		e.printStackTrace();
+    	}
+    	finally {
+    		shutdown(response);
     	}
     	
 		if(responseStatusCode == ClientStatus.NOT_FOUND){
@@ -121,5 +129,20 @@ public class LyraHttpClient {
 			}
 		}
 		return responseBody;
+    }
+    
+    private void shutdown(HttpResponse response){
+		try {
+			//No EntityUtils.consume() method for Android because Android sucks!
+			if(response != null && response.getEntity() != null){
+				HttpEntity entity = response.getEntity();
+				if(entity.isStreaming() && entity.getContent() != null){
+					entity.getContent().close();
+				}
+			}
+		} catch(Exception e){}
+		finally {
+			client.getConnectionManager().shutdown();
+		}
     }
 }

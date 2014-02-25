@@ -2,6 +2,7 @@ package com.lyra.eartrainer.dao;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -52,6 +53,7 @@ public class NicknameDaoImpl implements NicknameDao {
 				rawNicknameData = rawNicknameData.trim();
 			}
 		}
+		catch(FileNotFoundException fnfe){} //suppress error message
 		catch(Exception e){
 			//Not going to display to the user that it failed to read local nickname.txt file. 
 			//Logging error instead
