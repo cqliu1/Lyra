@@ -1,5 +1,6 @@
 package com.lyra.eartrainer.control;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -319,8 +320,10 @@ public class GameController extends Controller {
 			return;
 		}
 		
+		Timestamp ts = new Timestamp(new Date().getTime());
+		
 		LeaderBoardEntry entry = new LeaderBoardEntry();
-		entry.setDate(new Date().getTime() + "");
+		entry.setDate(ts + "");
 		entry.setUser_id(game.getNickname().getId());
 		entry.setDifficulty(game.getDifficulty());
 		entry.setInstrument(game.getInstrumentType());
