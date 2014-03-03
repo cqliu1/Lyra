@@ -1,0 +1,26 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alignmentMode="alignBounds"
+    android:columnCount="3"
+    android:columnOrderPreserved="false"
+    android:background="@drawable/black_wood"
+    android:orientation="horizontal"
+    android:useDefaultMargins="true" >
+
+    <TextView
+        android:layout_gravity="fill_horizontal"
+        android:gravity="center"
+        android:text="@string/leaderboard_col1" />
+    
+    <TextView
+        android:layout_gravity="fill_horizontal"
+        android:gravity="center"
+        android:text="@string/leaderboard_col2" />
+    
+    <TextView
+        android:layout_gravity="fill_horizontal"
+        android:gravity="center"
+        android:text="@string/leaderboard_col3" />
+
+</GridLayout>

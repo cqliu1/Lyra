@@ -110,5 +110,8 @@
 	<string name="tab34">G</string>
 	<string name="tab35">G#/Ab</string>
 	<string name="tab36">A</string>
+	<string name="leaderboard_col1">#</string>
+	<string name="leaderboard_col2">Name</string>
+	<string name="leaderboard_col3">Score</string>
     
 </resources>
