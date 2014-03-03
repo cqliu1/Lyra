@@ -52,7 +52,7 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 	public LeaderBoard getScores(int pageNumber) throws DaoParseException {
 		this.pageNumber = pageNumber;
 		entity = doGetRequest("/" + pageNumber);
-		entity = "{items: " + entity + "}";
+		entity = "{\"items\": " + entity + "}";
 		LeaderBoard leaderboard = (LeaderBoard)deSerialize(LeaderBoard.class);
 	    return leaderboard;
 	}
