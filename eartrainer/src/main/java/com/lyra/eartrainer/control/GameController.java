@@ -174,9 +174,7 @@ public class GameController extends Controller {
 								game.getCurrentRound().setFinished(true);
 								
 								if(game.isGameOver()) {
-									Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
-									timer.schedule(new EndGameTask(act), 2000L);
-									addScore();
+									
 								} else {
 									Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
 									timer.schedule(new EndRoundTask(act), 1000L);
@@ -185,6 +183,11 @@ public class GameController extends Controller {
 							} else {
 								gameView.selectIncorrectNote(note);
 								checkStrikes(timer, act);
+							}
+							if(game.isGameOver()) {
+								addScore();
+								Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
+								timer.schedule(new EndGameTask(act), 2000L);
 							}
 							timer.schedule(new ResetNoteTask(note, act), 1000L);
 								
@@ -210,9 +213,7 @@ public class GameController extends Controller {
 									game.getCurrentRound().setFinished(true);
 									
 									if(game.isGameOver()) {
-										Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
-										timer.schedule(new EndGameTask(act), 2000L);
-										addScore();
+										
 									} else {
 										Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
 										timer.schedule(new EndRoundTask(act), 1000L);
@@ -220,6 +221,11 @@ public class GameController extends Controller {
 								} else {
 									gameView.selectIncorrectNote(hoverKey);
 									checkStrikes(timer, act);
+								}
+								if(game.isGameOver()) {
+									Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
+									timer.schedule(new EndGameTask(act), 2000L);
+									addScore();
 								}
 								timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
 									
