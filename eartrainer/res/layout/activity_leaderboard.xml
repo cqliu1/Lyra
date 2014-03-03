@@ -52,7 +52,7 @@
     <GridLayout
     	android:layout_width="match_parent"
     	android:layout_height="match_parent"
-    	android:column_count="3" >
+    	android:columnCount="3" >
         
         <Button
 	        android:background="@drawable/red_button"
@@ -76,6 +76,5 @@
 	        android:text="@string/submit" />
         
     </GridLayout>
-
 
 </LinearLayout>
