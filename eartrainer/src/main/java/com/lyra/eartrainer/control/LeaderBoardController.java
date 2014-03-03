@@ -32,6 +32,7 @@ public class LeaderBoardController extends Controller {
 		activity.setContentView(R.layout.activity_leaderboard);
 		leaderBoardView = new LeaderboardView(activity);
 		fetchScores(0);
+		attachEvents();
 	}
 	
 	private void attachEvents(){
