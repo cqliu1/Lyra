@@ -54,6 +54,13 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 		entity = doGetRequest("/" + pageNumber);
 		entity = "{\"items\": " + entity + "}";
 		LeaderBoard leaderboard = (LeaderBoard)deSerialize(LeaderBoard.class);
+		
+		int size = leaderboard.getItems().size();
+		for(int i = 0;i < size;i++){
+			LeaderBoardEntry entry = leaderboard.getItems().get(i);
+			entry.setId(i + ((pageNumber - 1) * 10) + 1);
+		}
+		
 	    return leaderboard;
 	}
 	

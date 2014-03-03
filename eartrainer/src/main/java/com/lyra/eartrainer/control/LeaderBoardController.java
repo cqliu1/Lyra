@@ -15,14 +15,12 @@ public class LeaderBoardController extends Controller {
 	private LeaderboardView leaderBoardView;
 	private LeaderBoardActivity activity;
 	private LeaderBoardDao dao;
-	private int scorePage;
 	
 	public LeaderBoardController(LeaderBoardActivity leaderBoardActivity){
 		super(leaderBoardActivity);
 		
 		activity = leaderBoardActivity;
 		dao = new LeaderBoardDaoImpl();
-		scorePage = 1;
 	}
 	
 	public void initialize(){
@@ -40,7 +38,6 @@ public class LeaderBoardController extends Controller {
 		LeaderBoard scores = null;
 		try {
 			scores = dao.getScores(scorePage);
-			scorePage++;
 		} catch(DaoParseException dpe){
 			showError();
 			dpe.printStackTrace();
