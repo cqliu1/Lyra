@@ -3,6 +3,7 @@ package com.lyra.eartrainer.control;
 import android.widget.Toast;
 
 import com.lyra.eartrainer.LeaderBoardActivity;
+import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.dao.DaoParseException;
 import com.lyra.eartrainer.dao.LeaderBoardDao;
 import com.lyra.eartrainer.dao.LeaderBoardDaoImpl;
@@ -26,6 +27,7 @@ public class LeaderBoardController extends Controller {
 	
 	public void initialize(){
 		//creating the leaderboard view object
+		activity.setContentView(R.layout.activity_leaderboard);
 		leaderBoardView = new LeaderboardView(activity);
 		fetchScores();
 	}
