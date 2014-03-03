@@ -12,6 +12,5 @@ public class LeaderBoardController extends Controller {
 	public void initialize(){
 		//creating the leaderboard view object
 		leaderBoardView = new LeaderboardView();
-		
 	}
 }
