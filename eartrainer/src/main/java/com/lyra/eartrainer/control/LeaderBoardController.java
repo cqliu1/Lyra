@@ -21,7 +21,7 @@ public class LeaderBoardController extends Controller {
 		
 		activity = leaderBoardActivity;
 		dao = new LeaderBoardDaoImpl();
-		scorePage = 0;
+		scorePage = 1;
 	}
 	
 	public void initialize(){
