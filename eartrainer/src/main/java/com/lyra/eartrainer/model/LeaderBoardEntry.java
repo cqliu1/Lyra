@@ -4,7 +4,7 @@ public class LeaderBoardEntry {
 	private int id;
 	private int user_id;
 	private int score;
-	private int date;
+	private String date;
 	private byte difficulty;
 	private byte instrument;
 	private byte game;
@@ -22,10 +22,10 @@ public class LeaderBoardEntry {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public int getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(int date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public byte getDifficulty() {

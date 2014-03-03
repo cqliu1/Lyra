@@ -123,9 +123,7 @@ public class LyraHttpClient {
 			int len = -1;
 			byte[] buf = new byte[1024];
 			while ((len = is.read(buf)) != -1){
-				if(len == 0)
-					continue;
-				responseBody.append(new String(buf));
+				responseBody.append(new String(buf, 0, len));
 			}
 		}
 		return responseBody;
