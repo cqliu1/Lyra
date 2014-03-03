@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.lyra.eartrainer.LeaderBoardActivity;
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
@@ -50,7 +51,7 @@ public class MainMenuController extends Controller {
                 btnSubmit2.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                                // fill in later
+                        	goToActivity(LeaderBoardActivity.class);
                         }
                 });
         }

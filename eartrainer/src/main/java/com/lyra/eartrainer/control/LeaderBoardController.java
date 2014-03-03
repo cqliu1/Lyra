@@ -30,6 +30,6 @@ public class LeaderBoardController extends Controller {
 		
 		//creating the leaderboard view object
 		leaderBoardView = new LeaderboardView(activity, scores);
-		
+
 	}
 }
