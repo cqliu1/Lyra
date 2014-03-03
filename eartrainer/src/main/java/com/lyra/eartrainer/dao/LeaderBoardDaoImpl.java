@@ -15,11 +15,13 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 	private String entity = null;
 	
 	public LeaderBoardDaoImpl(){
-		client = new LyraHttpClient(RESOURCE_URI);
+		
 	}
     
 	//adds the user score to the leaderboard by appending it to the database via a CRUD 'create' request
 	public int addScore(LeaderBoardEntry scoreEntry) throws DaoParseException {
+		client = new LyraHttpClient(RESOURCE_URI);
+		
 		//serializing the request object into a json object
 		ObjectMapper mapper = new ObjectMapper();
 		String scoreObject = "";
@@ -51,6 +53,9 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 	//sets the page number and pulls a set of leaderboard entries (aka leaderboard scores) from the service
 	public LeaderBoard getScores(int pageNumber) throws DaoParseException {
 		this.pageNumber = pageNumber;
+		
+		client = new LyraHttpClient(RESOURCE_URI);
+		
 		entity = doGetRequest("/" + pageNumber);
 		entity = "{\"items\": " + entity + "}";
 		LeaderBoard leaderboard = (LeaderBoard)deSerialize(LeaderBoard.class);
