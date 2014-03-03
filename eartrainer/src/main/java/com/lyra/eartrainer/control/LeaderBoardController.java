@@ -8,6 +8,7 @@ import com.lyra.eartrainer.dao.DaoParseException;
 import com.lyra.eartrainer.dao.LeaderBoardDao;
 import com.lyra.eartrainer.dao.LeaderBoardDaoImpl;
 import com.lyra.eartrainer.model.LeaderBoard;
+import com.lyra.eartrainer.model.LeaderBoardEntry;
 import com.lyra.eartrainer.view.LeaderboardView;
 
 

@@ -25,6 +25,11 @@ public class LeaderboardView {
 		TableRow header = (TableRow) scoreTable.findViewById(R.id.leaderboardTableHeader);
 		LayoutParams rowParams = header.getLayoutParams();
 		
+		// Get the column layouts from the header
+		LayoutParams col1Params = header.findViewById(R.id.leaderboardTableHeaderCol1).getLayoutParams();
+		LayoutParams col2Params = header.findViewById(R.id.leaderboardTableHeaderCol2).getLayoutParams();
+		LayoutParams col3Params = header.findViewById(R.id.leaderboardTableHeaderCol3).getLayoutParams();
+		
 		// Remove all children from the scoreTable
 		scoreTable.removeAllViews();
 		
@@ -37,13 +42,16 @@ public class LeaderboardView {
 			scoreRow.setLayoutParams(rowParams);
 			
 			TextView col1 = new TextView(activity);
-			col1.setText(entry.getId());
+			col1.setText(entry.getId()  + "");
+			col1.setLayoutParams(col1Params);
 			
 			TextView col2 = new TextView(activity);
-			col2.setText(entry.getUser_id());
+			col2.setText(entry.getNickname()+ "");
+			col2.setLayoutParams(col2Params);
 			
 			TextView col3 = new TextView(activity);
-			col3.setText(entry.getScore());
+			col3.setText(entry.getScore() + "");
+			col3.setLayoutParams(col3Params);
 			
 			scoreRow.addView(col1);
 			scoreRow.addView(col2);
