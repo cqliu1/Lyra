@@ -41,6 +41,7 @@ public class LeaderBoardController extends Controller {
 			scorePage++;
 		} catch(DaoParseException dpe){
 			showError();
+			dpe.printStackTrace();
 		}
 		
 		if(scores != null){
