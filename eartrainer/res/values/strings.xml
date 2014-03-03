@@ -113,5 +113,7 @@
 	<string name="leaderboard_col1">#</string>
 	<string name="leaderboard_col2">Name</string>
 	<string name="leaderboard_col3">Score</string>
+	<string name="leaderboard_col4">Instrument</string>
+	<string name="leaderboard_col5">Date</string>
     
 </resources>
