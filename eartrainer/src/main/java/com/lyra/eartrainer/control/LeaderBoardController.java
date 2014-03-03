@@ -1,5 +1,8 @@
 package com.lyra.eartrainer.control;
 
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.lyra.eartrainer.LeaderBoardActivity;
@@ -28,17 +31,36 @@ public class LeaderBoardController extends Controller {
 		//creating the leaderboard view object
 		activity.setContentView(R.layout.activity_leaderboard);
 		leaderBoardView = new LeaderboardView(activity);
-		fetchScores();
+		fetchScores(0);
 	}
 	
 	private void attachEvents(){
-		//TODO add event handlers for buttons
+		Button prevBtn = (Button)activity.findViewById(R.id.leaderboardPreviousPage);
+		prevBtn.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				fetchScores(1);
+			}
+		});
+		
+		Button nextBtn = (Button)activity.findViewById(R.id.leaderboardNextPage);
+		nextBtn.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				fetchScores(2);
+			}
+		});
 	}
 	
-	private void fetchScores(){
+	private void fetchScores(int option){
 		LeaderBoard scores = null;
 		try {
-			scores = dao.getScores(1);
+			if(option == 1)
+				scores =  dao.getPrevPage();
+			else if(option == 2)
+				scores =  dao.getNextPage();
+			else 
+				scores = dao.getScores(1);
 		} catch(DaoParseException dpe){
 			showError();
 			dpe.printStackTrace();
@@ -51,7 +73,7 @@ public class LeaderBoardController extends Controller {
 			showError();
 		}
 	}
-	
+
 	private void showError(){
 		//move this into a method in the view
 		Toast.makeText(activity, "There was a problem while displaying the leaderboard results. Please try again later.", Toast.LENGTH_SHORT).show();
