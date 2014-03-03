@@ -113,5 +113,6 @@
 	<string name="leaderboard_col1">#</string>
 	<string name="leaderboard_col2">Name</string>
 	<string name="leaderboard_col3">Score</string>
+	<string name="leaderboard_title">Leaderboard</string>
     
 </resources>

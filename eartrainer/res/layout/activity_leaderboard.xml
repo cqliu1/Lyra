@@ -1,26 +1,49 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:alignmentMode="alignBounds"
-    android:columnCount="3"
-    android:columnOrderPreserved="false"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
     android:background="@drawable/black_wood"
-    android:orientation="horizontal"
-    android:useDefaultMargins="true" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
     <TextView
-        android:layout_gravity="fill_horizontal"
-        android:gravity="center"
-        android:text="@string/leaderboard_col1" />
-    
-    <TextView
-        android:layout_gravity="fill_horizontal"
-        android:gravity="center"
-        android:text="@string/leaderboard_col2" />
-    
-    <TextView
-        android:layout_gravity="fill_horizontal"
-        android:gravity="center"
-        android:text="@string/leaderboard_col3" />
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/leaderboard_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-</GridLayout>
+    <TableLayout
+        android:id="@+id/leaderboardTable"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:padding="5dip" >
+            
+        	    <TextView
+			        android:layout_gravity="fill_horizontal"
+			        android:gravity="center"
+			        android:layout_weight=".10"
+			        android:text="@string/leaderboard_col1" />
+			    
+			    <TextView
+			        android:layout_gravity="fill_horizontal"
+			        android:gravity="center"
+			        android:layout_weight=".60"
+			        android:text="@string/leaderboard_col2" />
+			    
+			    <TextView
+			        android:layout_gravity="fill_horizontal"
+			        android:gravity="center"
+			        android:layout_weight=".30"
+			        android:text="@string/leaderboard_col3" />
+            
+        </TableRow>
+
+
+    </TableLayout>
+
+</LinearLayout>
