@@ -67,6 +67,9 @@ public class LeaderBoardController extends Controller {
 			dpe.printStackTrace();
 		}
 		
+		// Set the page
+		leaderBoardView.setPage(dao.getPageNumber());
+		
 		if(scores != null){
 			leaderBoardView.populateList(scores);
 		}

@@ -15,4 +15,7 @@ public interface LeaderBoardDao {
 	
 	// Returns a leaderboard with scores for the previous page
 	public LeaderBoard getPrevPage() throws DaoParseException;
+
+	// Returns the page number that we are currently on
+	public int getPageNumber();
 }

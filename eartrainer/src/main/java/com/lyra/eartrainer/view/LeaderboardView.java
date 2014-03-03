@@ -17,6 +17,11 @@ public class LeaderboardView {
 		this.activity = activity;
 	}
 	
+	public void setPage(int pageNumber) {
+		TextView pageText = (TextView) activity.findViewById(R.id.leaderboardPageText);
+		pageText.setText("Page " + pageNumber);
+	}
+	
 	public void populateList(LeaderBoard board){
 		// Get reference to the layout table
 		TableLayout scoreTable = (TableLayout) activity.findViewById(R.id.leaderboardTable);

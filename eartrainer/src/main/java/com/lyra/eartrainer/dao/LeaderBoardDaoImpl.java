@@ -74,6 +74,10 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 		return getScores( ((pageNumber - 1) >= 1) ? (pageNumber - 1) : 1 );
 	}
 	
+	public int getPageNumber() {
+		return this.pageNumber;
+	}
+	
 	//performs get request over uriPath
 	private String doGetRequest(String uriPath){
 		String entity = null;
