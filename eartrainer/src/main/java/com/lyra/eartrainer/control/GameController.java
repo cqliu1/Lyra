@@ -1,5 +1,6 @@
 package com.lyra.eartrainer.control;
 
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -7,27 +8,25 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.GameOverActivity;
 import com.lyra.eartrainer.PauseActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.dao.DaoParseException;
+import com.lyra.eartrainer.dao.LeaderBoardDao;
+import com.lyra.eartrainer.dao.LeaderBoardDaoImpl;
 import com.lyra.eartrainer.model.GamePlay;
-import com.lyra.eartrainer.model.globals.InstrumentTypes;
-import com.lyra.eartrainer.model.instrument.MusicInstrument;
-import com.lyra.eartrainer.model.instrument.Piano;
-import com.lyra.eartrainer.model.instrument.Guitar;
-import com.lyra.eartrainer.view.GameInterface;
+import com.lyra.eartrainer.model.LeaderBoardEntry;
 import com.lyra.eartrainer.model.globals.Difficulties;
+import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
+import com.lyra.eartrainer.model.instrument.Piano;
+import com.lyra.eartrainer.view.GameInterface;
 
 public class GameController extends Controller {
 	private GameInterface gameView;
@@ -176,6 +175,7 @@ public class GameController extends Controller {
 								if(game.isGameOver()) {
 									Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
 									timer.schedule(new EndGameTask(act), 2000L);
+									addScore();
 								} else {
 									Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
 									timer.schedule(new EndRoundTask(act), 1000L);
@@ -211,6 +211,7 @@ public class GameController extends Controller {
 									if(game.isGameOver()) {
 										Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
 										timer.schedule(new EndGameTask(act), 2000L);
+										addScore();
 									} else {
 										Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
 										timer.schedule(new EndRoundTask(act), 1000L);
@@ -310,6 +311,28 @@ public class GameController extends Controller {
 			int oldScore = game.getScore();
 			game.setScore(oldScore+10);
 			gameView.updateScore();
+		}
+	}
+	
+	private void addScore(){
+		if(GamePlay.instance().getMode() != Modes.CHALLENGE){
+			return;
+		}
+		
+		LeaderBoardEntry entry = new LeaderBoardEntry();
+		entry.setDate(new Date().getTime() + "");
+		entry.setUser_id(game.getNickname().getId());
+		entry.setDifficulty(game.getDifficulty());
+		entry.setInstrument(game.getInstrumentType());
+		entry.setGame(game.getMode());
+		entry.setScore(game.getScore());
+		
+		LeaderBoardDao lbDao = new LeaderBoardDaoImpl();
+		try {
+			lbDao.addScore(entry);
+		} catch(DaoParseException dpe){
+			System.out.println("Failed to save Leaderboard score entry.");
+			dpe.printStackTrace();
 		}
 	}
 	
