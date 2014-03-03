@@ -8,6 +8,7 @@ public class LeaderBoardEntry {
 	private byte difficulty;
 	private byte instrument;
 	private byte game;
+	private String nickname;
 	
 	public int getUser_id() {
 		return user_id;
@@ -50,5 +51,11 @@ public class LeaderBoardEntry {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 }
