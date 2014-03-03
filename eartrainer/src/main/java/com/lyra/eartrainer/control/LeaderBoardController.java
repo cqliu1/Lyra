@@ -37,7 +37,7 @@ public class LeaderBoardController extends Controller {
 	private void fetchScores(){
 		LeaderBoard scores = null;
 		try {
-			scores = dao.getScores(scorePage);
+			scores = dao.getScores(1);
 		} catch(DaoParseException dpe){
 			showError();
 			dpe.printStackTrace();
