@@ -325,6 +325,9 @@ public class GameController extends Controller {
 		if(GamePlay.instance().getMode() != Modes.CHALLENGE){
 			return;
 		}
+		if(game.getScore() <= 0) {
+			return;
+		}
 		
 		Timestamp ts = new Timestamp(new Date().getTime());
 		
