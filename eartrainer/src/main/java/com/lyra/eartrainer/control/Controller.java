@@ -15,7 +15,7 @@ public class Controller {
 	}
 	
 	protected void goToActivity(Class<?> activityType){
-		activity.finish();
+		//activity.finish();
 		Intent intent = new Intent(activity, activityType);
 		activity.startActivity(intent);
 	}
