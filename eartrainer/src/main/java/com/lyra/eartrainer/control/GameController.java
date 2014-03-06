@@ -1,6 +1,7 @@
 package com.lyra.eartrainer.control;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -201,37 +202,38 @@ public class GameController extends Controller {
 								return true;
 							}
 							
-							int hoverKey = getKeyHovered(v, event);
-							//Log.d("Piano", "hoverKey = " + hoverKey);
-							if(hoverKey != -1 && hoverKey != lastPlayedKey) {
-								Timer timer = new Timer();
-								timer.schedule(new PlayNoteTask(hoverKey, act), 0L);
-								
-								if(game.getCurrentRound().isCorrect(hoverKey)) {
-									updateGameScore();
-									gameView.selectCorrectNote(hoverKey);
-									game.getCurrentRound().setFinished(true);
+	        				for(Integer hoverKey : getKeysHovered(v, event)) {
+								//Log.d("Piano", "hoverKey = " + hoverKey);
+								if(hoverKey != -1 && hoverKey != lastPlayedKey) {
+									Timer timer = new Timer();
+									timer.schedule(new PlayNoteTask(hoverKey, act), 0L);
 									
-									if(game.isGameOver()) {
+									if(game.getCurrentRound().isCorrect(hoverKey)) {
+										updateGameScore();
+										gameView.selectCorrectNote(hoverKey);
+										game.getCurrentRound().setFinished(true);
 										
+										if(game.isGameOver()) {
+											
+										} else {
+											Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
+											timer.schedule(new EndRoundTask(act), 1000L);
+										}
 									} else {
-										Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
-										timer.schedule(new EndRoundTask(act), 1000L);
+										gameView.selectIncorrectNote(hoverKey);
+										checkStrikes(timer, act);
 									}
-								} else {
-									gameView.selectIncorrectNote(hoverKey);
-									checkStrikes(timer, act);
-								}
-								if(game.isGameOver()) {
-									Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
-									timer.schedule(new EndGameTask(act), 2000L);
-									addScore();
-								}
-								timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
-									
-								lastPlayedKey = hoverKey;
-								return true;
-							}						
+									if(game.isGameOver()) {
+										Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
+										timer.schedule(new EndGameTask(act), 2000L);
+										addScore();
+									}
+									timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
+										
+									lastPlayedKey = hoverKey;
+									return true;
+								}	
+	        				} // for hoverKey in getKeysHovered
 						}
 						return false;
 					}
@@ -263,15 +265,16 @@ public class GameController extends Controller {
 	        			}
 	        			if (event.getActionMasked() == MotionEvent.ACTION_MOVE)
 	        			{
-	        				int hoverKey = getKeyHovered(v, event);
-							if(hoverKey != -1 && hoverKey != lastPlayedKey) {
-								Timer timer = new Timer();
-								timer.schedule(new PlayNoteTask(hoverKey, act), 0L);
-								timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
-									
-								lastPlayedKey = hoverKey;
-								return true;
-							}
+	        				for(Integer hoverKey : getKeysHovered(v, event)){
+								if(hoverKey != -1 && hoverKey != lastPlayedKey) {
+									Timer timer = new Timer();
+									timer.schedule(new PlayNoteTask(hoverKey, act), 0L);
+									timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
+										
+									lastPlayedKey = hoverKey;
+									return true;
+								}
+	        				}
 	        			}
 	        			return false;
 					}
@@ -349,14 +352,33 @@ public class GameController extends Controller {
 	}
 	
 	// Loops through the keys to see which one contains the event using x/y coords
-	private int getKeyHovered(View v, MotionEvent event) {
+	private ArrayList<Integer> getKeysHovered(View v, MotionEvent event) {
+		System.out.println("MotionEvent group");
 		int[] location = new int[2];
 		v.getLocationOnScreen(location);
 		
-		// Get the event coordinates offset by the location of the view
-		float eventRealX = event.getX() + location[0];
-		float eventRealY = event.getY() + location[1];
+		ArrayList<Integer> keysHovered = new ArrayList<Integer>();
 		
+		// For each historical event get the key hovered
+		for(int i=0; i<event.getHistorySize(); i++) {
+			v.getLocationOnScreen(location);
+			float eventX = event.getHistoricalX(i) + location[0];
+			float eventY = event.getHistoricalY(i) + location[1];
+			
+			keysHovered.add(getKeyHovered(location, eventX, eventY));
+		}
+		
+		// Get the key hovered for the current coordinates
+		v.getLocationOnScreen(location);
+		float eventX = event.getX() + location[0];
+		float eventY = event.getY() + location[1];
+		
+		keysHovered.add(getKeyHovered(location, eventX, eventY));	
+		
+		return keysHovered;
+	}
+	
+	private int getKeyHovered(int[] location, float eventRealX, float eventRealY) {
 		// Iterate through the keys forwards
 		for(int i=0; i<keys.length; i++) {
 			ImageButton thisKey = keys[i], nextKey = null;		
@@ -408,8 +430,7 @@ public class GameController extends Controller {
 				
 				// No special cases, Return the key we are in the bounds of
 				return i;
-			}
-			
+			}		
 		}
 		return -1;
 	}
@@ -446,6 +467,7 @@ public class GameController extends Controller {
 	   public PlayNoteTask(int note, Activity act) {
 		   this.note = note;
 		   this.act = act;
+		   //System.out.println("Playing note " + note);
 	   }
 	   
 	   @Override

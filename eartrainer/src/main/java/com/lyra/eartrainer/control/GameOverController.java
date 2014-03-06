@@ -6,6 +6,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.lyra.eartrainer.GameOverActivity;
+import com.lyra.eartrainer.LeaderBoardActivity;
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
@@ -67,7 +68,6 @@ public class GameOverController extends Controller {
 			activity.finish();
 		}
 		public void goToLeaderboard() {
-			// TODO Auto-generated method stub
-			// direct to leaderboard
+			goToActivity(LeaderBoardActivity.class);
 		}
 }

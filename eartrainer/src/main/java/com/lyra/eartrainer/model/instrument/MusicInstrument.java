@@ -13,6 +13,7 @@ public class MusicInstrument implements IMusicInstrument {
 	protected int maxNote;
 	protected SoundPool sp;
 	protected GamePlay game;
+	protected float volumeMultiplier = 1.0f;
 	
 	public MusicInstrument(SoundInfo musicInfo){
 		this.sp = musicInfo.getSoundPool();
@@ -26,7 +27,7 @@ public class MusicInstrument implements IMusicInstrument {
 		// this is where we set the volume
 		//float vol = (float)newVolume/100;
     	float vol = game.getVolume();
-		sp.play(notes[note].getSoundId(), vol, vol, 0, 0, 1.0f);
+		sp.play(notes[note].getSoundId(), vol*volumeMultiplier, vol*volumeMultiplier, 0, 0, 1.0f);
 	}
     
     public int getMinNote() {

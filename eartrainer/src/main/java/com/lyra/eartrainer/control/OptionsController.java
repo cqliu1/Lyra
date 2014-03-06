@@ -1,6 +1,7 @@
 package com.lyra.eartrainer.control;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -135,7 +136,7 @@ public class OptionsController extends Controller {
     }
     
     private SoundInfo loadNotes(){
-		SoundPool sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+		SoundPool sp = new SoundPool(12, AudioManager.STREAM_MUSIC, 0);
         
         SoundInfo mi = new SoundInfo();
         
@@ -145,12 +146,12 @@ public class OptionsController extends Controller {
         if(game.getInstrumentType() == InstrumentTypes.PIANO) {
         	Class<raw> raw = R.raw.class;
         	Field[] fields = raw.getFields();
-        	notes = new int[fields.length];
+        	ArrayList<Integer> notesList = new ArrayList<Integer>();
         	for(int i=0; i<fields.length; i++) {
         		Field f = fields[i];
         		if(f.getName().startsWith("p")) {
         			try {
-						notes[i] = sp.load(activity, f.getInt(null), 1);
+						notesList.add(sp.load(activity, f.getInt(null), 1));
 					} catch (IllegalArgumentException e) {
 						e.printStackTrace();
 					} catch (IllegalAccessException e) {
@@ -158,10 +159,37 @@ public class OptionsController extends Controller {
 					}
         		}
         	}
+        	
+        	// Convert it to an int array
+        	notes = new int[notesList.size()];
+        	for(int i=0; i<notesList.size(); i++) {
+        		notes[i] = notesList.get(i).intValue();
+        	}
         }
         else if (game.getInstrumentType() == InstrumentTypes.GUITAR)
         {
             // TODO: load the guitar sounds
+        	Class<raw> raw = R.raw.class;
+        	Field[] fields = raw.getFields();
+        	ArrayList<Integer> notesList = new ArrayList<Integer>();
+        	for(int i=0; i<fields.length; i++) {
+        		Field f = fields[i];
+        		if(f.getName().startsWith("g")) {
+        			try {
+						notesList.add(sp.load(activity, f.getInt(null), 1));
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+        		}
+        	}
+        	
+        	// Convert it to an int array
+        	notes = new int[notesList.size()];
+        	for(int i=0; i<notesList.size(); i++) {
+        		notes[i] = notesList.get(i).intValue();
+        	}
         }
         
         mi.setSoundNotes(notes);

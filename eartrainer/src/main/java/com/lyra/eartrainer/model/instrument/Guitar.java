@@ -8,7 +8,9 @@ public class Guitar extends MusicInstrument implements IMusicInstrument {
 	public Guitar(SoundInfo musicInfo){
 		super(musicInfo);
 		
-		// TODO: these values probably need to change
+		// Set the volume multiplier to be higher since our files are low 
+		volumeMultiplier = 4.0f;
+		
 		minNote = 1;
 		maxNote = 36;
 		
@@ -17,9 +19,9 @@ public class Guitar extends MusicInstrument implements IMusicInstrument {
 
 		notes = new Note[maxNote-minNote+1];
 		
-//		if(soundNotes.length < notes.length) {
-//			Log.e("Guitar", "Only " + soundNotes.length + " soundNotes but " + notes.length + " Notes");
-//		}
+		if(soundNotes.length < notes.length) {
+			Log.e("Guitar", "Only " + soundNotes.length + " soundNotes but " + notes.length + " Notes");
+		}
 		
 		
 		for(int i=0; i<=(maxNote-minNote); i++) {
@@ -92,7 +94,29 @@ public class Guitar extends MusicInstrument implements IMusicInstrument {
 			}
 			
 			// Set the note from musicInfo
-//			notes[i].setSoundId(soundNotes[i]);
+			if(notes[i].getId() <= 6) {
+				notes[i].setSoundId(soundNotes[i]);
+			}
+			// First open string, so offset by 1
+			if(notes[i].getId() > 6) {
+				notes[i].setSoundId(soundNotes[i-1]);
+			}
+			// Second open string, offset by 2
+			if(notes[i].getId() > 12) {
+				notes[i].setSoundId(soundNotes[i-2]);
+			}
+			// Third open string, offset by 3
+			if(notes[i].getId() > 18) {
+				notes[i].setSoundId(soundNotes[i-3]);
+			}
+			// Fourth open string on fourth fret, offset by 5
+			if(notes[i].getId() > 24) {
+				notes[i].setSoundId(soundNotes[i-5]);
+			}
+			// Fifth open string, fifth fret, offset by 6
+			if(notes[i].getId() > 30) {
+				notes[i].setSoundId(soundNotes[i-6]);
+			}
 		}	
 	}
 }
