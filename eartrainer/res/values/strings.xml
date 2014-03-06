@@ -10,10 +10,10 @@
     <string name="title_activity_test">TestActivity</string> 
     <string name="title_activity_nick">NickActivity</string>
     
-    <string name ="volume">Volume</string>
-    <string name = "restart">Restart Game</string>
-    <string name = "resume">Resume Game</string>
-    <string name = "quit">Quit Game</string> 
+    <string name ="volume">VOLUME</string>
+    <string name = "restart">RESTART GAME</string>
+    <string name = "resume">RESUME GAME</string>
+    <string name = "quit">QUIT GAME</string> 
     <string name = "volume_val"> volume_val</string>
 
     <string name="game_mode_prompt">Game Mode:</string>
@@ -71,6 +71,7 @@
     <string name="main_menu_description">Main Menu description placeholder</string>
     <string name="game_over">GAME OVER!</string>
     <string name="game_over_main_menu">MAIN MENU</string>
+    <string name="game_over_restart">RESTART</string>
     <string name="game_over_description">This game has ended but will you play again?</string>
     <string name="strikes">Strikes</string>
     <string name="guitar">Guitar Layout</string>

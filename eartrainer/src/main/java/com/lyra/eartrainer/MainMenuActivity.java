@@ -3,6 +3,7 @@ package com.lyra.eartrainer;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -13,6 +14,7 @@ public class MainMenuActivity extends Activity {
         @Override
         public void onCreate(Bundle savedInstanceBundle) {
                 super.onCreate(savedInstanceBundle);
+        		setVolumeControlStream(AudioManager.STREAM_MUSIC);
                 MainMenuController mmController = new MainMenuController(this);
                 mmController.initialize();
         }

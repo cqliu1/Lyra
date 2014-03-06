@@ -1,6 +1,7 @@
 package com.lyra.eartrainer;
 
 import android.app.Activity;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -16,6 +17,7 @@ public class PauseActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		PauseController pController = new PauseController(this);
 		pController.initialize();
 	}

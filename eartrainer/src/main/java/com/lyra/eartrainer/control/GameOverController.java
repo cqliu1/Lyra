@@ -50,7 +50,7 @@ public class GameOverController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 //fill in later
-                        	goToLeaderboard();
+                        	goToActivity(LeaderBoardActivity.class);
                         }
                 });
         }
