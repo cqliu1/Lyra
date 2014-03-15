@@ -120,9 +120,7 @@ public class NicknameController extends Controller {
 		}
 		
 		//no duplicate nickname, some other error happened
-		nickname = new Nickname("Guest");
-		setContinueEvent();
-		nView.displayFailedSaveMessage();
+		doSaveFailure();
 	}
 	
 	private void handleSaveSuccess(Object nicknameObject){
@@ -132,15 +130,20 @@ public class NicknameController extends Controller {
 			nickname = (Nickname)nicknameObject;
 			System.out.println("Saved Nick: " + nickname.getName() + " Loading Main Menu Screen...");
 		} catch(ClassCastException cce){
-			nickname = new Nickname("Guest");
 			System.out.println("Failed to save Nickname.");
-			nView.displayFailedSaveMessage();
+			doSaveFailure();
 			cce.printStackTrace();
 			return;
 		}
 		
 		//success
 		loadNextScreen();
+	}
+	
+	private void doSaveFailure(){
+		nickname = new Nickname("Guest");
+		setContinueEvent();
+		nView.displayFailedSaveMessage();
 	}
 	
 	private void setContinueEvent(){
