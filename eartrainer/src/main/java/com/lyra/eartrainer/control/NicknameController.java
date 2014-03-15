@@ -1,6 +1,5 @@
 package com.lyra.eartrainer.control;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,8 +9,9 @@ import android.widget.EditText;
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.NickActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.dao.DAOEventListener;
+import com.lyra.eartrainer.dao.DaoErrorInfo;
 import com.lyra.eartrainer.dao.DaoParseException;
-import com.lyra.eartrainer.dao.DuplicateNicknameException;
 import com.lyra.eartrainer.dao.NicknameDao;
 import com.lyra.eartrainer.dao.NicknameDaoImpl;
 import com.lyra.eartrainer.model.GamePlay;
@@ -22,6 +22,7 @@ public class NicknameController extends Controller {
 	private NicknameView nView;
 	private Nickname nickname;
 	private GamePlay game;
+	private NicknameDao nicknameDao;
 
 	public NicknameController(NickActivity nickActivity){
 		super(nickActivity);
@@ -32,11 +33,12 @@ public class NicknameController extends Controller {
 		//instantiating relevant model classes
 		game = GamePlay.instance(); //creates initial instance of GamePlay
 		
+		initializeNicknameDao();
+		
 		//try to read nickname object from local file
 		nickname = null;
-		NicknameDao nickDao = new NicknameDaoImpl();
 		try {
-			nickname = nickDao.getLocalNickname(activity.getFilesDir());
+			nickname = nicknameDao.getLocalNickname();
 		} catch(DaoParseException dpe){}
 		
 		//uncomment the line below in order to force re-creation of the nickname
@@ -56,6 +58,29 @@ public class NicknameController extends Controller {
 			attachEvents();
 		}
 	}
+	
+	private void initializeNicknameDao(){
+		//creating instance of nickname dao
+		nicknameDao = new NicknameDaoImpl(activity.getFilesDir());
+		
+		//attaching dao event handlers
+		nicknameDao.addEventListener(new DAOEventListener(){
+			public void onSuccess(final Object pushObject){
+				activity.runOnUiThread(new Runnable() {
+					public void run(){
+						handleSaveSuccess(pushObject);
+					}
+				});
+			}
+			public void onError(final Object pushObject){
+				activity.runOnUiThread(new Runnable() {
+					public void run(){
+						handleSaveFailure(pushObject);
+					}
+				});
+			}
+		});
+	}
 
 	private void attachEvents(){
 		//adding submit button click handler
@@ -70,39 +95,62 @@ public class NicknameController extends Controller {
 	
 	//the submit button handler
 	private void submitNick(){
+		//saving the nickname into the remote database
+		nView.beginSaveProgress();
+		
 		//attempting to create the nickname
 		String userInputNick = ((EditText)activity.findViewById(R.id.editNick)).getText().toString();
+		nicknameDao.storeNickname(userInputNick);
+	}
+	
+	private void handleSaveFailure(Object errorObject){
+		//duplicate nickname code below
+		nView.endSaveProgress();
 		
-		//saving the nickname into the remote database
-		NicknameDao nicknameDao = new NicknameDaoImpl();
+		DaoErrorInfo errorInfo = null;
 		try {
-			nickname = nicknameDao.storeNickname(activity.getFilesDir(), userInputNick);
-		} catch(DuplicateNicknameException dne){
+			errorInfo = (DaoErrorInfo)errorObject;
+		} catch(ClassCastException cce){}
+		
+		//duplicate nickname check
+		if(errorInfo != null && ("Duplicate Nickname").equals(errorInfo.getMessage())){
 			System.out.println("Duplicate Nickname Detected!");
 			nView.displayInvalidNickMessage();
 			return;
 		}
 		
-		if(nickname != null){
+		//no duplicate nickname, some other error happened
+		nickname = new Nickname("Guest");
+		setContinueEvent();
+		nView.displayFailedSaveMessage();
+	}
+	
+	private void handleSaveSuccess(Object nicknameObject){
+		nView.endSaveProgress();
+		
+		try {
+			nickname = (Nickname)nicknameObject;
 			System.out.println("Saved Nick: " + nickname.getName() + " Loading Main Menu Screen...");
-			loadNextScreen();
-		}
-		else {
+		} catch(ClassCastException cce){
+			nickname = new Nickname("Guest");
+			System.out.println("Failed to save Nickname.");
 			nView.displayFailedSaveMessage();
-			
-			//TODO get rid of this and use a button instead
-			//waiting a few seconds and then automatically loading the next screen
-			new Thread(new Runnable(){
-				public void run(){
-					try {
-						Thread.currentThread().sleep(3000);
-						loadNextScreen();
-					} catch(InterruptedException ie){
-						return; //app was closed or another thread interrupted this one for some reason
-					}
-				}
-			}).start();
+			cce.printStackTrace();
+			return;
 		}
+		
+		//success
+		loadNextScreen();
+	}
+	
+	private void setContinueEvent(){
+		Button btnSubmit = (Button)activity.findViewById(R.id.btnSubmitNick);
+		btnSubmit.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				loadNextScreen();
+			}
+		});
 	}
 	
 	private void loadNextScreen(){
@@ -110,7 +158,6 @@ public class NicknameController extends Controller {
 		activity.finish(); //finish the NickActivity
 		
 		//begin the MainMenuActivity
-		Intent mainmenu = new Intent(activity, MainMenuActivity.class);
-		activity.startActivity(mainmenu);
+		goToActivity(MainMenuActivity.class);
 	}
 }

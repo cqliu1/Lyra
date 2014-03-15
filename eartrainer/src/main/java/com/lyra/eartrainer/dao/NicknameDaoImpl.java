@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -15,36 +16,44 @@ public class NicknameDaoImpl implements NicknameDao {
 	private static final String NICK_FILE = "nickname.txt";
 	private static final String RESOURCE_URI = "http://data-lyraeartrainer.rhcloud.com/users";
 	private LyraHttpClient client = null;
+	private ArrayList<DAOEventListener> listeners = null;
+	private File nicknameFolder = null;
 	
-	public NicknameDaoImpl(){
-		client = new LyraHttpClient(RESOURCE_URI);
+	public NicknameDaoImpl(File dir){
+		nicknameFolder = dir;
+		listeners = new ArrayList<DAOEventListener>();
 	}
     
-	public Nickname storeNickname(File dir, String nickName) throws DuplicateNicknameException {
-		Nickname resultNickname = null;
-		
-		try {
-			String entity = client.executePost("/" + nickName, null);
-			if(entity != null){
-				resultNickname = new Nickname(Integer.parseInt(entity.trim()), nickName);
-				storeLocalNickname(dir, resultNickname);
+	public void storeNickname(final String nickName){
+		new Thread(new Runnable(){
+			public void run(){
+				try {
+					client = new LyraHttpClient(RESOURCE_URI);
+					String entity = client.executePost("/" + nickName, null);
+					if(entity != null){
+						Nickname resultNickname = new Nickname(Integer.parseInt(entity.trim()), nickName);
+						storeLocalNickname(resultNickname);
+						fireEvent(1, resultNickname);
+						return;
+					}
+					fireEvent(2, new DaoErrorInfo(client.getResponseStatusCode(), "Failed", null));
+				} catch(ConflictException ce){
+					//duplicate nickname error
+					fireEvent(2, new DaoErrorInfo(client.getResponseStatusCode(), "Duplicate Nickname", ce));
+				} catch(Exception e){
+					//A BadRequestException or ServerErrorException or NullPointerException (maybe no id was returned in the response)
+					e.printStackTrace();
+					fireEvent(2, new DaoErrorInfo(client.getResponseStatusCode(), "Exception", e));
+				}
 			}
-		} catch(ConflictException ce){
-			throw new DuplicateNicknameException("The nickname provide was already taken by another user.");
-		} catch(Exception e){
-			//A BadRequestException or ServerErrorException or NullPointerException (maybe no id was returned in the response)
-			e.printStackTrace();
-			resultNickname = null;
-		}
-		
-		return resultNickname;
+		}).start();
 	}
 	
-	public Nickname getLocalNickname(File dir) throws DaoParseException {
+	public Nickname getLocalNickname() throws DaoParseException {
 		String rawNicknameData = "";
 		FileInputStream fis = null;
 		try {
-			File nickFile = getNicknameFile(dir);
+			File nickFile = getNicknameFile();
 			fis = new FileInputStream(nickFile);
 			byte[] buff = new byte[(int)nickFile.length()];
 			int read = fis.read(buff);
@@ -71,8 +80,8 @@ public class NicknameDaoImpl implements NicknameDao {
 		return nickname;
 	}
 	
-	private void storeLocalNickname(File dir, Nickname nickName){
-		File nickFile = getNicknameFile(dir);
+	private void storeLocalNickname(Nickname nickName){
+		File nickFile = getNicknameFile();
 		writeLocalNickname(nickFile, nickName);
 	}
 	
@@ -86,7 +95,7 @@ public class NicknameDaoImpl implements NicknameDao {
 			fos.flush();
 		}
 		catch(Exception e){
-			System.out.println("Exception while reading local nickname file.\n" + e.getMessage());
+			System.out.println("Exception while writing local nickname file.\n" + e.getMessage());
 			e.printStackTrace();
 		}
 		finally {
@@ -96,8 +105,8 @@ public class NicknameDaoImpl implements NicknameDao {
 		}
 	}
 	
-	private File getNicknameFile(File dir){
-		String filePath = dir.getAbsoluteFile() + "/" + NICK_FILE;
+	private File getNicknameFile(){
+		String filePath = nicknameFolder.getAbsoluteFile() + "/" + NICK_FILE;
 		File nickFile = new File(filePath);
 		return nickFile;
 	}
@@ -112,6 +121,25 @@ public class NicknameDaoImpl implements NicknameDao {
 			throw new DaoParseException("Failed to deserialize response object.\n" + e.getMessage());
 		}
 	    return result;
+	}
+	
+	private void fireEvent(int type, Object pushObject){
+		int size = listeners.size();
+		for(int i = 0;i < size;i++){
+			DAOEventListener listener = listeners.get(i);
+			if(type == 1) //success
+				listener.onSuccess(pushObject);
+			else //failure
+				listener.onError(pushObject);
+		}
+	}
+	
+	public void addEventListener(DAOEventListener listener){
+		listeners.add(listener);
+	}
+	
+	public void removeListener(DAOEventListener listener){
+		listeners.remove(listener);
 	}
 	
 	/*

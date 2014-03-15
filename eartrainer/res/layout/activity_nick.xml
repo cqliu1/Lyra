@@ -9,6 +9,7 @@
     android:useDefaultMargins="true" >
 
     <TextView
+        android:id="@+id/textPromptForNick"
         android:layout_gravity="fill_horizontal"
         android:gravity="center"
         android:text="@string/enter_nick" />

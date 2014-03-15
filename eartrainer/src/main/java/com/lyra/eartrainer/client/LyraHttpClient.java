@@ -8,6 +8,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 
 import android.os.StrictMode;
@@ -20,13 +23,19 @@ import com.lyra.eartrainer.client.exception.ServerErrorException;
 public class LyraHttpClient {
 	public static final String REQUEST_GET = "GET";
 	public static final String REQUEST_POST = "POST";
+	private static final int REQUEST_TIMEOUT = 5; //number of seconds to wait for timing out, this doesn't apply to name lookups
     private String baseURI; //the http url (including path) to the nickname service
     private int responseStatusCode;
-    DefaultHttpClient client;
+    private DefaultHttpClient client;
     
     public LyraHttpClient(String baseURI){
     	this.baseURI = baseURI;
-    	client = new DefaultHttpClient();
+    	
+		HttpParams params = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(params, 1000 * REQUEST_TIMEOUT);
+		HttpConnectionParams.setSoTimeout(params, 1000 * REQUEST_TIMEOUT);
+    	client = new DefaultHttpClient(params);
+    	
     	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
    		StrictMode.setThreadPolicy(policy); 
     }
@@ -142,5 +151,9 @@ public class LyraHttpClient {
 		finally {
 			client.getConnectionManager().shutdown();
 		}
+    }
+    
+    public int getResponseStatusCode(){
+    	return responseStatusCode;
     }
 }
