@@ -70,7 +70,7 @@
         android:layout_alignParentLeft="true"
         android:background="@drawable/blank_tab"
         android:contentDescription="@string/tab1"
-        android:paddingBottom="8dp"
+        android:paddingBottom="12dp"
         android:paddingRight="12dp"
         android:paddingTop="5dp"
         android:src="@drawable/e_tab" />
