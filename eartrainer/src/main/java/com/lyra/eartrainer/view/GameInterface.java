@@ -158,13 +158,26 @@ public class GameInterface extends View {
 			// TODO: resetting guitar notes
 //			Guitar guitar = (Guitar) GamePlay.instance().getInstrument();
 			switch(note){
-				case 1: keys[note].setImageResource(R.drawable.e_tab); // reset open e tab 
-				case 7: keys[note].setImageResource(R.drawable.a_tab); // reset open a tab
-				case 13: keys[note].setImageResource(R.drawable.d_tab); // reset open d tab
-				case 19: keys[note].setImageResource(R.drawable.g_tab); // reset open g tab
-				case 25: keys[note].setImageResource(R.drawable.b_tab); // reset open b tab
-				case 31: keys[note].setImageResource(R.drawable.e_tab); // reset open e tab
-				default: keys[note].setImageResource(R.drawable.blank_tab); //reset rest to blank tab
+				case 0: //tab 1
+					keys[note].setImageResource(R.drawable.e_tab); // reset open e tab 
+					break;
+				case 6: //tab 7
+					keys[note].setImageResource(R.drawable.a_tab); // reset open a tab
+					break;
+				case 12: //tab 13
+					keys[note].setImageResource(R.drawable.d_tab); // reset open d tab
+					break;
+				case 18: //tab 19
+					keys[note].setImageResource(R.drawable.g_tab); // reset open g tab
+					break;
+				case 24: //tab 25 
+					keys[note].setImageResource(R.drawable.b_tab); // reset open b tab
+					break;
+				case 30: //tab 31
+					keys[note].setImageResource(R.drawable.e_tab); // reset open e tab
+					break;
+				default: 
+					keys[note].setImageResource(R.drawable.blank_tab); //reset rest to blank tab
 			}
 			
 		}
