@@ -9,6 +9,7 @@
         android:id="@+id/gameModePrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/game_mode_prompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -16,6 +17,7 @@
         android:id="@+id/gameModeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
         android:entries="@array/game_modes"
         android:prompt="@string/game_mode_prompt" />
 
@@ -23,6 +25,7 @@
         android:id="@+id/instrumentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:contentDescription="@string/instrument_prompt"
         android:text="@string/instrument_prompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -31,6 +34,7 @@
         android:id="@+id/instrumentSpinner"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
         android:entries="@array/instruments"
         android:prompt="@string/instrument_prompt" />
 
