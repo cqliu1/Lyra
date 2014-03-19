@@ -118,23 +118,4 @@ public class LeaderBoardController extends Controller {
 		//move this into a method in the view
 		Toast.makeText(activity, "There was a problem while displaying the leaderboard results. Please try again later.", Toast.LENGTH_SHORT).show();
 	}
-	
-	/*
-	 * 
-			public void onSaveScoreSuccess(final Integer recordId){
-				activity.runOnUiThread(new Runnable(){
-					public void run(){
-						
-					}
-				});
-			}
-			public void onSaveScoreFailure(final DaoErrorInfo errorObject){
-				activity.runOnUiThread(new Runnable(){
-					public void run(){
-						
-					}
-				});
-			}
-	 * 
-	 */
 }
