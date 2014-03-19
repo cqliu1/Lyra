@@ -16,15 +16,16 @@ public class NicknameDaoImpl implements NicknameDao {
 	private static final String NICK_FILE = "nickname.txt";
 	private static final String RESOURCE_URI = "http://data-lyraeartrainer.rhcloud.com/users";
 	private LyraHttpClient client = null;
-	private ArrayList<DAOEventListener> listeners = null;
 	private File nicknameFolder = null;
+	private ArrayList<NicknameDaoEventListener> listeners = null;
 	
 	public NicknameDaoImpl(File dir){
 		nicknameFolder = dir;
-		listeners = new ArrayList<DAOEventListener>();
+		listeners = new ArrayList<NicknameDaoEventListener>();
 	}
     
 	public void storeNickname(final String nickName){
+		//FYI: Not using AsyncTask since there was no need to make changes to the UI thread in the thread below
 		new Thread(new Runnable(){
 			public void run(){
 				try {
@@ -42,7 +43,6 @@ public class NicknameDaoImpl implements NicknameDao {
 					fireEvent(2, new DaoErrorInfo(client.getResponseStatusCode(), "Duplicate Nickname", ce));
 				} catch(Exception e){
 					//A BadRequestException or ServerErrorException or NullPointerException (maybe no id was returned in the response)
-					e.printStackTrace();
 					fireEvent(2, new DaoErrorInfo(client.getResponseStatusCode(), "Exception", e));
 				}
 			}
@@ -126,19 +126,23 @@ public class NicknameDaoImpl implements NicknameDao {
 	private void fireEvent(int type, Object pushObject){
 		int size = listeners.size();
 		for(int i = 0;i < size;i++){
-			DAOEventListener listener = listeners.get(i);
-			if(type == 1) //success
-				listener.onSuccess(pushObject);
-			else //failure
-				listener.onError(pushObject);
+			NicknameDaoEventListener listener = listeners.get(i);
+			try {
+				if(type == 1) //success
+					listener.onStoreNicknameSuccess((Nickname)pushObject);
+				else //failure
+					listener.onStoreNicknameError((DaoErrorInfo)pushObject);
+			} catch(ClassCastException cce){
+				listener.onStoreNicknameError(new DaoErrorInfo(-1, "Class Cast Error", cce));
+			}
 		}
 	}
 	
-	public void addEventListener(DAOEventListener listener){
+	public void addEventListener(NicknameDaoEventListener listener){
 		listeners.add(listener);
 	}
 	
-	public void removeListener(DAOEventListener listener){
+	public void removeListener(NicknameDaoEventListener listener){
 		listeners.remove(listener);
 	}
 	

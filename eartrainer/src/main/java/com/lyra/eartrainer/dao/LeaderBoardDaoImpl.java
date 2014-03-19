@@ -1,5 +1,7 @@
 package com.lyra.eartrainer.dao;
 
+import java.util.ArrayList;
+
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.lyra.eartrainer.client.LyraHttpClient;
@@ -13,13 +15,15 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 	private LyraHttpClient client = null;
 	private int pageNumber = 1;
 	private String entity = null;
+	private ArrayList<LeaderBoardDaoEventListener> listeners = null;
 	
 	public LeaderBoardDaoImpl(){
-		
+		listeners = new ArrayList<LeaderBoardDaoEventListener>();
 	}
     
 	//adds the user score to the leaderboard by appending it to the database via a CRUD 'create' request
-	public int addScore(LeaderBoardEntry scoreEntry) throws DaoParseException {
+	public void addScore(LeaderBoardEntry scoreEntry) throws DaoParseException {
+		//FYI: Not using AsyncTask since the background thread defined here has no need to communicate with the UI thread.
 		client = new LyraHttpClient(RESOURCE_URI);
 		
 		//serializing the request object into a json object
@@ -31,70 +35,87 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 			throw new DaoParseException("Failed to serialize request object.\n" + e.getMessage());
 		}
 		
-		entity = null;
-		try {
-			entity = client.executePost("/", scoreObject);
-		} catch(Exception e){
-			//ConflictException - Not worrying about this one so much since we are appending a score entry 
-			//to the remote db it shouldn't happen
-			//BadRequestException / ServerErrorException are valid possible statuses
-			return -1;
-		}
+		final String scoreJson = scoreObject;
 		
-		int recordId = -1;
-		
-		try {
-			recordId = Integer.parseInt(entity.trim());
-		} catch(Exception e){} //result was invalid so rec id will return as -1
-		
-		return recordId;
+		new Thread(new Runnable(){
+			public void run(){
+				String scoreEntity = null;
+				try {
+					scoreEntity = client.executePost("/", scoreJson);
+				} catch(Exception e){
+					//ConflictException - Not worrying about this one so much since we are appending a score entry 
+					//to the remote db it shouldn't happen
+					//BadRequestException / ServerErrorException are valid possible statuses
+					fireEvent(LeaderBoardEvents.ADD_SCORE_FAILURE, new DaoErrorInfo(client.getResponseStatusCode(), "Failed", e));
+					return;
+				}
+
+				int recordId = -1; //defaults to -1 indicating an unknown id
+				try {
+					recordId = Integer.parseInt(scoreEntity.trim());
+				} catch(Exception e){
+					//result was invalid so rec id will remain -1
+					fireEvent(LeaderBoardEvents.ADD_SCORE_FAILURE, new DaoErrorInfo(client.getResponseStatusCode(), "Bad Response Data", e));
+					return;
+				}
+				
+				fireEvent(LeaderBoardEvents.ADD_SCORE_SUCCESS, new Integer(recordId));
+			}
+		}).start();
 	}
 	
 	//sets the page number and pulls a set of leaderboard entries (aka leaderboard scores) from the service
-	public LeaderBoard getScores(int pageNumber) throws DaoParseException {
+	public void getScores(int pageNumber){
 		this.pageNumber = pageNumber;
 		
-		client = new LyraHttpClient(RESOURCE_URI);
-		
-		entity = doGetRequest("/" + pageNumber);
-		entity = "{\"items\": " + entity + "}";
-		LeaderBoard leaderboard = (LeaderBoard)deSerialize(LeaderBoard.class);
-		
-		int size = leaderboard.getItems().size();
-		for(int i = 0;i < size;i++){
-			LeaderBoardEntry entry = leaderboard.getItems().get(i);
-			entry.setId(i + ((pageNumber - 1) * 10) + 1);
-		}
-		
-	    return leaderboard;
+		final int reqPageNumber = pageNumber;
+		new Thread(new Runnable(){
+			public void run(){
+				
+				client = new LyraHttpClient(RESOURCE_URI);
+				try {
+					entity = client.executeGet("/" + reqPageNumber);
+				} catch(NotFoundException ne){
+					fireEvent(LeaderBoardEvents.GET_SCORE_FAILURE, new DaoErrorInfo(client.getResponseStatusCode(), "Not Found", ne));
+					return;
+				} catch(ServerErrorException se){
+					fireEvent(LeaderBoardEvents.GET_SCORE_FAILURE, new DaoErrorInfo(client.getResponseStatusCode(), "Server Error", se));
+					return;
+				}
+				
+				entity = "{\"items\": " + entity + "}";
+				
+				LeaderBoard leaderboard = null;
+				try {
+					leaderboard = (LeaderBoard)deSerialize(LeaderBoard.class);
+				} catch(DaoParseException dpe){
+					fireEvent(LeaderBoardEvents.GET_SCORE_FAILURE, new DaoErrorInfo(client.getResponseStatusCode(), "Parse Error", dpe));
+					return;
+				}
+				
+				int size = leaderboard.getItems().size();
+				for(int i = 0;i < size;i++){
+					LeaderBoardEntry entry = leaderboard.getItems().get(i);
+					entry.setId(i + ((reqPageNumber - 1) * 10) + 1);
+				}
+				
+				fireEvent(LeaderBoardEvents.GET_SCORE_SUCCESS, leaderboard);
+			}
+		}).start();
 	}
 	
 	//gets the next page of leaderboard scores
-	public LeaderBoard getNextPage() throws DaoParseException {
-		return getScores(pageNumber + 1);
+	public void getNextPage(){
+		getScores(pageNumber + 1);
 	}
 	
 	//gets the previous page of leaderboard scores, or refreshes the first page
-	public LeaderBoard getPrevPage() throws DaoParseException {
-		return getScores( ((pageNumber - 1) >= 1) ? (pageNumber - 1) : 1 );
+	public void getPrevPage(){
+		getScores( ((pageNumber - 1) >= 1) ? (pageNumber - 1) : 1 );
 	}
 	
 	public int getPageNumber() {
 		return this.pageNumber;
-	}
-	
-	//performs get request over uriPath
-	private String doGetRequest(String uriPath){
-		String entity = null;
-		try {
-			entity = client.executeGet(uriPath);
-		} catch(NotFoundException ne){
-			//TODO Thinking about what I want to do here, will decide a little later when svc is available
-			return null;
-		} catch(ServerErrorException se){
-			return null;
-		}
-		return entity;
 	}
 	
 	//deserializes json response objects into hydrated java objects of type: valueType
@@ -107,6 +128,33 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 			throw new DaoParseException("Failed to deserialize response object.\n" + e.getMessage());
 		}
 	    return result;
+	}
+	
+	private void fireEvent(byte eventType, Object pushObject){
+		int size = listeners.size();
+		for(int i = 0;i < size;i++){
+			LeaderBoardDaoEventListener listener = listeners.get(i);
+			try {
+				if(eventType == LeaderBoardEvents.ADD_SCORE_SUCCESS)
+					listener.onSaveScoreSuccess((Integer)pushObject);
+				else if(eventType == LeaderBoardEvents.ADD_SCORE_FAILURE)
+					listener.onSaveScoreFailure((DaoErrorInfo)pushObject);
+				else if(eventType == LeaderBoardEvents.GET_SCORE_SUCCESS)
+					listener.onGetScoreSuccess((LeaderBoard)pushObject);
+				else if(eventType == LeaderBoardEvents.GET_SCORE_FAILURE)
+					listener.onGetScoreFailure((DaoErrorInfo)pushObject);
+			} catch(Exception e){
+				listener.onError(new DaoErrorInfo(-1, "Failed", e));
+			}
+		}
+	}
+	
+	public void addEventListener(LeaderBoardDaoEventListener listener){
+		listeners.add(listener);
+	}
+	
+	public void removeListener(LeaderBoardDaoEventListener listener){
+		listeners.remove(listener);
 	}
 	
 	/*

@@ -1,17 +1,20 @@
 package com.lyra.eartrainer.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.lyra.eartrainer.control.LyraView;
 import com.lyra.eartrainer.model.LeaderBoard;
 import com.lyra.eartrainer.model.LeaderBoardEntry;
 import com.lyra.eartrainer.R;
 
-public class LeaderboardView {
+public class LeaderboardView extends LyraView {
 	private Activity activity;
+	private ProgressDialog spinner;
 	
 	public LeaderboardView(Activity activity) {
 		this.activity = activity;

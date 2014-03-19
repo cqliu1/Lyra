@@ -19,8 +19,10 @@ import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.GameOverActivity;
 import com.lyra.eartrainer.PauseActivity;
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.dao.DaoErrorInfo;
 import com.lyra.eartrainer.dao.DaoParseException;
 import com.lyra.eartrainer.dao.LeaderBoardDao;
+import com.lyra.eartrainer.dao.LeaderBoardDaoEventListener;
 import com.lyra.eartrainer.dao.LeaderBoardDaoImpl;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.LeaderBoardEntry;
@@ -38,13 +40,14 @@ public class GameController extends Controller {
 	private int currentNote;
 	private int MAX_STRIKES;	// varies depending on difficulty
 	ImageButton[] keys;
+	private LeaderBoardDao leaderBoardDao;
 
 	public GameController(GameActivity gameActivity) {
 		super(gameActivity);
 	}
 
 	public void initialize() {
-		
+		initializeLeaderBoardDao();
 		
 		game = GamePlay.instance();
 		
@@ -61,8 +64,28 @@ public class GameController extends Controller {
 		if (game.getDifficulty() == Difficulties.BEGINNER) MAX_STRIKES = 10; 
 		else if (game.getDifficulty() == Difficulties.INTERMEDIATE) MAX_STRIKES = 5;
 		else if (game.getDifficulty() == Difficulties.ADVANCED) MAX_STRIKES = 3; 
-
+		
 		attachEvents();
+	}
+	
+	private void initializeLeaderBoardDao(){
+		leaderBoardDao = new LeaderBoardDaoImpl();
+		leaderBoardDao.addEventListener(new LeaderBoardDaoEventListener(){
+			public void onSaveScoreSuccess(final Integer recordId){
+				activity.runOnUiThread(new Runnable(){
+					public void run(){
+						saveScoreSuccess(recordId);
+					}
+				});
+			}
+			public void onSaveScoreFailure(final DaoErrorInfo errorObject){
+				activity.runOnUiThread(new Runnable(){
+					public void run(){
+						saveScoreFailed(errorObject);
+					}
+				});
+			}
+		});
 	}
 	
 	private void attachEvents(){
@@ -342,12 +365,26 @@ public class GameController extends Controller {
 		entry.setGame(game.getMode());
 		entry.setScore(game.getScore());
 		
-		LeaderBoardDao lbDao = new LeaderBoardDaoImpl();
+		gameView.startSpinner(activity, "Saving Score", "Please wait...");
+		
 		try {
-			lbDao.addScore(entry);
+			leaderBoardDao.addScore(entry);
 		} catch(DaoParseException dpe){
 			System.out.println("Failed to save Leaderboard score entry.");
 			dpe.printStackTrace();
+		}
+	}
+	
+	private void saveScoreSuccess(Integer recordId){
+		gameView.stopSpinner();
+		System.out.println("Successfully saved score!");
+	}
+	
+	private void saveScoreFailed(DaoErrorInfo errorInfo){
+		gameView.stopSpinner();
+		System.out.println("Failed to save score!");
+		if(errorInfo != null && errorInfo.getEx() != null){
+			errorInfo.getEx().printStackTrace();
 		}
 	}
 	
