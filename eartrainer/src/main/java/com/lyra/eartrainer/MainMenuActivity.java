@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.media.MediaPlayer;
+import android.widget.MediaController;
 
 import com.lyra.eartrainer.control.MainMenuController;
 
