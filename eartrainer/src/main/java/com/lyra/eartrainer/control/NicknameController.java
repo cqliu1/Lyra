@@ -9,10 +9,10 @@ import android.widget.EditText;
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.NickActivity;
 import com.lyra.eartrainer.R;
-import com.lyra.eartrainer.dao.DAOEventListener;
 import com.lyra.eartrainer.dao.DaoErrorInfo;
 import com.lyra.eartrainer.dao.DaoParseException;
 import com.lyra.eartrainer.dao.NicknameDao;
+import com.lyra.eartrainer.dao.NicknameDaoEventListener;
 import com.lyra.eartrainer.dao.NicknameDaoImpl;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.Nickname;
@@ -64,18 +64,18 @@ public class NicknameController extends Controller {
 		nicknameDao = new NicknameDaoImpl(activity.getFilesDir());
 		
 		//attaching dao event handlers
-		nicknameDao.addEventListener(new DAOEventListener(){
-			public void onSuccess(final Object pushObject){
-				activity.runOnUiThread(new Runnable() {
+		nicknameDao.addEventListener(new NicknameDaoEventListener(){
+			public void onStoreNicknameSuccess(final Nickname nickNameObject){
+				activity.runOnUiThread(new Runnable(){
 					public void run(){
-						handleSaveSuccess(pushObject);
+						handleSaveSuccess(nickNameObject);
 					}
 				});
 			}
-			public void onError(final Object pushObject){
-				activity.runOnUiThread(new Runnable() {
+			public void onStoreNicknameError(final DaoErrorInfo errorObject){
+				activity.runOnUiThread(new Runnable(){
 					public void run(){
-						handleSaveFailure(pushObject);
+						handleSaveFailure(errorObject);
 					}
 				});
 			}
@@ -103,14 +103,9 @@ public class NicknameController extends Controller {
 		nicknameDao.storeNickname(userInputNick);
 	}
 	
-	private void handleSaveFailure(Object errorObject){
+	private void handleSaveFailure(DaoErrorInfo errorInfo){
 		//duplicate nickname code below
 		nView.endSaveProgress();
-		
-		DaoErrorInfo errorInfo = null;
-		try {
-			errorInfo = (DaoErrorInfo)errorObject;
-		} catch(ClassCastException cce){}
 		
 		//duplicate nickname check
 		if(errorInfo != null && ("Duplicate Nickname").equals(errorInfo.getMessage())){
@@ -120,21 +115,19 @@ public class NicknameController extends Controller {
 		}
 		
 		//no duplicate nickname, some other error happened
+		
+		if(errorInfo != null && errorInfo.getEx() != null){
+			errorInfo.getEx().printStackTrace();
+		}
+		
 		doSaveFailure();
 	}
 	
-	private void handleSaveSuccess(Object nicknameObject){
+	private void handleSaveSuccess(Nickname nicknameObject){
 		nView.endSaveProgress();
 		
-		try {
-			nickname = (Nickname)nicknameObject;
-			System.out.println("Saved Nick: " + nickname.getName() + " Loading Main Menu Screen...");
-		} catch(ClassCastException cce){
-			System.out.println("Failed to save Nickname.");
-			doSaveFailure();
-			cce.printStackTrace();
-			return;
-		}
+		nickname = nicknameObject;
+		System.out.println("Saved Nick: " + nickname.getName() + " Loading Main Menu Screen...");
 		
 		//success
 		loadNextScreen();
