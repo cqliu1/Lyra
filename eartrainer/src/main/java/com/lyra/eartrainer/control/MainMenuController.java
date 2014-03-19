@@ -5,6 +5,9 @@ import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.media.MediaPlayer;
+import android.content.Context;
+import android.view.Surface;
 
 import com.lyra.eartrainer.LeaderBoardActivity;
 import com.lyra.eartrainer.MainMenuActivity;
@@ -14,9 +17,12 @@ import com.lyra.eartrainer.view.MainMenu;
 
 public class MainMenuController extends Controller {
         private MainMenu mmView;
+        private MediaPlayer mPlayer;
+        private MainMenuActivity newMMActivity;
 
         public MainMenuController(MainMenuActivity mmActivity) {
                 super(mmActivity);
+                newMMActivity = mmActivity;
         }
 
         public void initialize() {
@@ -25,6 +31,9 @@ public class MainMenuController extends Controller {
                 
         		// creating the view
                 mmView = new MainMenu(activity);
+                // create player for video
+                mPlayer = newMMActivity.getPlayer();
+                
                 // attaching event listeners to view widgets
                 attachEvents();
         }
@@ -44,6 +53,7 @@ public class MainMenuController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 // fill in later
+                        	mPlayer.start();
                         }
                 });
                 Button btnSubmit2 = (Button) activity
