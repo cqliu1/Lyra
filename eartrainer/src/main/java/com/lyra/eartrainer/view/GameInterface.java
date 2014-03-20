@@ -2,6 +2,7 @@ package com.lyra.eartrainer.view;
 
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.GamePlay;
+import com.lyra.eartrainer.model.Round;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
 import com.lyra.eartrainer.model.instrument.Guitar;
@@ -145,39 +146,50 @@ public class GameInterface extends View {
 	}
 	
 	public void resetNote(int note) {
+		Round round = GamePlay.instance().getCurrentRound();
+		
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
 			Piano piano = (Piano) GamePlay.instance().getInstrument();
 			
 			if(piano.isBlackKey(note)) {
-				keys[note].setImageResource(R.drawable.black_key_selection);
+				if(round != null && !round.getFinished() && round.getFirstNote() == note) // if first note played, keep highlighted
+					keys[note].setImageResource(R.drawable.correct_black_key);
+				else
+					keys[note].setImageResource(R.drawable.black_key_selection);
 			} else {
+				if(round != null && !round.getFinished() && round.getFirstNote() == note)
+					keys[note].setImageResource(R.drawable.correct_white_key);
+				else
 				keys[note].setImageResource(R.drawable.white_key_selection);
 			}	
 		}
 		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR) {
-			// TODO: resetting guitar notes
 //			Guitar guitar = (Guitar) GamePlay.instance().getInstrument();
-			switch(note){
-				case 0: //tab 1
-					keys[note].setImageResource(R.drawable.e_tab); // reset open e tab 
-					break;
-				case 6: //tab 7
-					keys[note].setImageResource(R.drawable.a_tab); // reset open a tab
-					break;
-				case 12: //tab 13
-					keys[note].setImageResource(R.drawable.d_tab); // reset open d tab
-					break;
-				case 18: //tab 19
-					keys[note].setImageResource(R.drawable.g_tab); // reset open g tab
-					break;
-				case 24: //tab 25 
-					keys[note].setImageResource(R.drawable.b_tab); // reset open b tab
-					break;
-				case 30: //tab 31
-					keys[note].setImageResource(R.drawable.e_tab); // reset open e tab
-					break;
-				default: 
-					keys[note].setImageResource(R.drawable.blank_tab); //reset rest to blank tab
+			if(round != null && !round.getFinished() && round.getFirstNote() == note)
+				keys[note].setImageResource(R.drawable.correct_tab);
+			else{
+				switch(note){
+					case 0: //tab 1
+						keys[note].setImageResource(R.drawable.e_tab); // reset open e tab 
+						break;
+					case 6: //tab 7
+						keys[note].setImageResource(R.drawable.a_tab); // reset open a tab
+						break;
+					case 12: //tab 13
+						keys[note].setImageResource(R.drawable.d_tab); // reset open d tab
+						break;
+					case 18: //tab 19
+						keys[note].setImageResource(R.drawable.g_tab); // reset open g tab
+						break;
+					case 24: //tab 25 
+						keys[note].setImageResource(R.drawable.b_tab); // reset open b tab
+						break;
+					case 30: //tab 31
+						keys[note].setImageResource(R.drawable.e_tab); // reset open e tab
+						break;
+					default: 
+						keys[note].setImageResource(R.drawable.blank_tab); //reset rest to blank tab
+				}
 			}
 			
 		}

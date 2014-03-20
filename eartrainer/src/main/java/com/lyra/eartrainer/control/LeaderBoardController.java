@@ -1,5 +1,6 @@
 package com.lyra.eartrainer.control;
 
+import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -30,6 +31,7 @@ public class LeaderBoardController extends Controller {
 	public void initialize(){
 		//creating the leaderboard view object
 		activity.setContentView(R.layout.activity_leaderboard);
+		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		leaderBoardView = new LeaderboardView(activity);
 		fetchScores(0);
 		attachEvents();

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/black_wood" >
 
+
     <ImageButton
         android:id="@+id/pause_button"
         style="@style/AppBaseTheme"
@@ -13,9 +14,9 @@
         android:layout_marginLeft="26dp"
         android:layout_toRightOf="@+id/replay_button"
         android:background="@null"
+        android:clickable="true"
         android:contentDescription="@string/pause"
-        android:src="@drawable/pause" 
-        android:clickable="true"/>
+        android:src="@drawable/pause" />
 
     <TextView
         android:id="@+id/score"
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/replay_button"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="90dp"
         android:text="@string/score"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white" />
@@ -33,18 +34,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="225dp"
+        android:layout_marginLeft="270dp"
         android:layout_marginTop="30dp"
         android:background="@null"
         android:clickable="true"
         android:contentDescription="@string/replay"
         android:src="@drawable/play" />
 
+    <TextView
+        android:id="@+id/strikesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/pause_button"
+        android:layout_marginLeft="110dp"
+        android:layout_toRightOf="@+id/pause_button"
+        android:text="@string/strikes"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white" />
+
     <ImageButton
         android:id="@+id/key1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="78dp"
         android:layout_alignParentBottom="true"
         android:background="@null"
         android:clickable="true"
@@ -140,7 +152,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/key1"
-        android:layout_marginLeft="61dp"
+        android:layout_marginLeft="115dp"
         android:background="@null"
         android:clickable="true"
         android:contentDescription="@string/key2"
@@ -193,16 +205,5 @@
         android:clickable="true"
         android:contentDescription="@string/key11"
         android:src="@drawable/black_key_selection" />
-
-    <TextView
-        android:id="@+id/strikesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/pause_button"
-        android:layout_marginLeft="100dp"
-        android:layout_toRightOf="@+id/pause_button"
-        android:text="@string/strikes"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/white" />
 
 </RelativeLayout>

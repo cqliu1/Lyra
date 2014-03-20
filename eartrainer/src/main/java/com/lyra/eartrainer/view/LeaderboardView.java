@@ -48,14 +48,20 @@ public class LeaderboardView {
 			
 			TextView col1 = new TextView(activity);
 			col1.setText(entry.getId()  + "");
+			col1.setTextSize(20);
+			col1.setGravity(0x11); //center
+			col1.setPadding(10, 10, 10, 10);
 			col1.setLayoutParams(col1Params);
 			
 			TextView col2 = new TextView(activity);
 			col2.setText(entry.getNickname()+ "");
+			col2.setTextSize(20);
+			col2.setPadding(10, 0, 0, 0);
 			col2.setLayoutParams(col2Params);
 			
 			TextView col3 = new TextView(activity);
 			col3.setText(entry.getScore() + "");
+			col3.setTextSize(20);
 			col3.setLayoutParams(col3Params);
 			
 			scoreRow.addView(col1);

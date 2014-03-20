@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
+import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.GameOverActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.PauseActivity;
@@ -25,7 +26,7 @@ public class PauseController extends Controller {
 	public void initialize(){
 		//creating the view
 		activity.setContentView(R.layout.activity_pause);
-		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		pView = new Pause(activity);
 		game = GamePlay.instance();
 		//attaching event listeners to view widgets
@@ -92,16 +93,16 @@ public class PauseController extends Controller {
 
 	public void restartGame(){
 		Intent intent = new Intent(activity,OptionsActivity.class);
-		activity.startActivity(intent);
-
+		activity.startActivity(intent); 
+		activity.setResult(GameActivity.GAME_CANCELLED);
 		//this.getParent().finish();
 		activity.finish();
 	}
 
 	public void quitGame() {
 		Intent intent = new Intent(activity,GameOverActivity.class);
-		activity.startActivity(intent);
-		
+		activity.startActivity(intent); 
+		activity.setResult(GameActivity.GAME_CANCELLED);
 		//this.getParent().finish();
 		activity.finish();
 	}

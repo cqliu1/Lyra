@@ -1,6 +1,7 @@
 package com.lyra.eartrainer.control;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,6 +23,7 @@ public class GameOverController extends Controller {
         public void initialize(){
                 //creating the view
         		activity.setContentView(R.layout.activity_gameover);
+        		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 cgoView = new GameOver(activity);
                 //attaching event listeners to view widgets
                 attachEvents();
@@ -50,24 +52,26 @@ public class GameOverController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 //fill in later
-                        	goToActivity(LeaderBoardActivity.class);
+//                        	goToActivity(LeaderBoardActivity.class);
+                        	goToLeaderboard();
                         }
                 });
         }
         
 		public void goToOptions() {
-			// TODO Auto-generated method stub
 			Intent intent = new Intent(activity,OptionsActivity.class);
 			activity.startActivity(intent);
 			activity.finish();
 		}
 		public void goToMain() {
-			// TODO Auto-generated method stub
-			Intent intent = new Intent(activity,MainMenuActivity.class);
-			activity.startActivity(intent);
+//			Intent intent = new Intent(activity,MainMenuActivity.class);
+//			activity.startActivity(intent);
 			activity.finish();
 		}
 		public void goToLeaderboard() {
-			goToActivity(LeaderBoardActivity.class);
+//			goToActivity(LeaderBoardActivity.class);
+			Intent intent = new Intent(activity,LeaderBoardActivity.class);
+			activity.startActivity(intent);
+			activity.finish();
 		}
 }

@@ -8,8 +8,14 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:text="@string/leaderboard_title"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textColor="@color/white"
+        android:textSize="44sp"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TableLayout
@@ -20,21 +26,28 @@
         <TableRow
             android:id="@+id/leaderboardTableHeader"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" 
+            android:layout_height="wrap_content"
             android:padding="5dip" >
             
         	    <TextView
         	        android:id="@+id/leaderboardTableHeaderCol1"
         	        android:layout_width="match_parent"
         	        android:layout_height="match_parent"
-        	        android:layout_weight=".10"
-        	        android:text="@string/leaderboard_col1" />
+        	        android:layout_weight=".15"
+        	        android:gravity="center"
+        	        android:paddingBottom="20dp"
+        	        android:text="@string/leaderboard_col1"
+        	        android:textColor="@color/white"
+        	        android:textSize="20sp" />
 			    
 			    <TextView
 			        android:id="@+id/leaderboardTableHeaderCol2"
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
-			        android:layout_weight=".60"
+			        android:layout_weight=".55"
+			        android:paddingBottom="20dp"
+			        android:textColor="@color/white"
+			        android:textSize="20sp"
 			        android:text="@string/leaderboard_col2" />
 			    
 			    <TextView
@@ -42,6 +55,9 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:layout_weight=".30"
+			        android:paddingBottom="20dp"
+			        android:textColor="@color/white"
+			        android:textSize="20sp"
 			        android:text="@string/leaderboard_col3" />
             
         </TableRow>
@@ -53,6 +69,7 @@
         android:orientation="horizontal"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
+    	android:paddingTop="25dp"
     	>
         
         <Button
@@ -63,7 +80,8 @@
             android:background="@drawable/red_button"
             android:gravity="center"
             android:text="@string/leaderboard_prev"
-            android:layout_weight=".2"
+            android:layout_weight=".3"
+            android:textSize="20sp"
             android:textColor="@color/white" />
         
         <TextView
@@ -71,8 +89,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="fill_horizontal"
             android:gravity="center"
-            android:layout_weight=".6"
+            android:layout_weight=".4"
             android:id="@+id/leaderboardPageText"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:text="Page 1" />
         
         <Button
@@ -83,7 +103,8 @@
             android:background="@drawable/red_button"
             android:gravity="center"
             android:text="@string/leaderboard_next"
-            android:layout_weight=".2"
+            android:layout_weight=".3"
+            android:textSize="20sp"
             android:textColor="@color/white" />
         
     </LinearLayout>

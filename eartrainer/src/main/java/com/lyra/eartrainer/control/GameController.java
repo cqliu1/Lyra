@@ -35,7 +35,6 @@ public class GameController extends Controller {
 	private Context con;
 	private String note;
 	private GamePlay game;
-	private int currentNote;
 	private int MAX_STRIKES;	// varies depending on difficulty
 	ImageButton[] keys;
 
@@ -298,7 +297,8 @@ public class GameController extends Controller {
 
 	public void goToPause(){
 		Intent intent = new Intent(activity,PauseActivity.class);
-		activity.startActivity(intent);
+		activity.startActivityForResult(intent,GameActivity.GAME_CANCELLED);
+//		activity.finish();
 	}
 	
 	public void checkStrikes(Timer timer, Activity act)
@@ -546,11 +546,10 @@ public class GameController extends Controller {
 
                @Override
                public void run() {
-	           		Intent intent = new Intent(act,GameOverActivity.class);
-	        		act.startActivity(intent);
-	        		
+	           		Intent intent = new Intent(activity,GameOverActivity.class);
+	        		activity.startActivity(intent);
 	        		//this.getParent().finish();
-	        		act.finish();
+	        		activity.finish();
                }
            });
        }
