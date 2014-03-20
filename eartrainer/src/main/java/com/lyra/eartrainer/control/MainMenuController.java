@@ -5,6 +5,12 @@ import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.media.MediaPlayer;
+import android.content.Context;
+import android.view.Surface;
+import android.widget.VideoView;
+import android.widget.MediaController;
+import android.net.Uri;
 
 import com.lyra.eartrainer.LeaderBoardActivity;
 import com.lyra.eartrainer.MainMenuActivity;
@@ -14,9 +20,13 @@ import com.lyra.eartrainer.view.MainMenu;
 
 public class MainMenuController extends Controller {
         private MainMenu mmView;
+        private MediaPlayer mPlayer;
+        private MainMenuActivity newMMActivity;
+        private VideoView mmVideo;
 
         public MainMenuController(MainMenuActivity mmActivity) {
                 super(mmActivity);
+                newMMActivity = mmActivity;
         }
 
         public void initialize() {
@@ -25,6 +35,8 @@ public class MainMenuController extends Controller {
                 
         		// creating the view
                 mmView = new MainMenu(activity);
+                
+               
                 // attaching event listeners to view widgets
                 attachEvents();
         }
@@ -44,6 +56,12 @@ public class MainMenuController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 // fill in later
+                        	activity.findViewById(R.id.videoView1).setVisibility(View.VISIBLE);
+                        	mmVideo = (VideoView) activity.findViewById(R.id.videoView1);
+                            mmVideo.setVideoURI(Uri.parse("android.resource://" + activity.getPackageName() + "/" + R.raw.tutorial));
+                            mmVideo.setMediaController(new MediaController(newMMActivity));
+                        	mmVideo.requestFocus();
+                        	mmVideo.start();
                         }
                 });
                 Button btnSubmit2 = (Button) activity

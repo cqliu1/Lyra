@@ -3,12 +3,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/black_wood"
     android:columnCount="1" >
-    android:alignmentMode="alignBounds"
-    android:columnCount="1"
-    android:columnOrderPreserved="false"
-    android:orientation="horizontal"
-    android:useDefaultMargins="true"
-
 
     <Button
         android:id="@+id/btnToGame"
@@ -36,9 +30,9 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_row="5"
         android:background="@drawable/red_button"
-        android:text="@string/main_menu_settings"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp" 
+        android:text="@string/main_menu_tutorial" />
 
     <TextView
         android:layout_width="match_parent"
@@ -83,5 +77,14 @@
         android:text="@string/main_menu_leaderboards"
         android:textColor="@color/white"
         android:textSize="20sp" />
+    
+    <VideoView
+        android:id="@+id/videoView1"
+        android:layout_width="match_parent"
+        android:layout_height="195dp"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="1" 
+        android:visibility="invisible"/>
 
 </GridLayout>

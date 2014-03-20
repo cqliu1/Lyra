@@ -1,21 +1,18 @@
 package com.lyra.eartrainer.view;
 
+import android.app.Activity;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.control.LyraView;
 import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.Round;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
-import com.lyra.eartrainer.model.instrument.Guitar;
 import com.lyra.eartrainer.model.instrument.Piano;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
-public class GameInterface extends View {
+public class GameInterface extends LyraView {
 	
 //	private ImageButton replay;
 //	private ImageButton pause;
@@ -29,7 +26,6 @@ public class GameInterface extends View {
 //	int currentNote;
 	
     public GameInterface(Activity activity, GamePlay game) {
-    	super(activity);
 //    	replay = (ImageButton) activity.findViewById(R.id.replay_button);
 //      pause = (ImageButton) activity.findViewById(R.id.pause_button);
     	gameplay = game;

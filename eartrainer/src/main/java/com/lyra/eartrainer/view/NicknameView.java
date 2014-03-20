@@ -8,14 +8,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.control.LyraView;
 
-public class NicknameView {
+public class NicknameView extends LyraView {
 	private Activity activity;
 	private EditText editNick;
 	private TextView textDisplay;
 	private TextView textPromptNick;
 	private Button btnSubmit;
-	private ProgressDialog spinner;
 	
 	private NicknameView(){}
 	
@@ -27,26 +27,8 @@ public class NicknameView {
 		this.textPromptNick = (TextView)activity.findViewById(R.id.textPromptForNick);
 	}
 	
-	public void beginSaveProgress(){
-		btnSubmit.setEnabled(false);
-		
-	    spinner = new ProgressDialog(activity);
-	    spinner.setCancelable(false);
-	    spinner.setMessage("Please Wait...");
-	    spinner.setTitle("Saving Nickname");
-	    spinner.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-	    spinner.setProgress(0);
-	    spinner.setMax(100);
-	    spinner.show();
-	}
-	
-	public void endSaveProgress(){
-		spinner.dismiss();
-		btnSubmit.setEnabled(true);
-	}
-	
 	public void displayInvalidNickMessage(){
-		textPromptNick.setText("The nickname: \"" + editNick.getText().toString() + "\" was already taken by another user. Please use the box to enter a different nickname.");
+		textPromptNick.setText("The nickname \"" + editNick.getText().toString() + "\" was already taken by another user. Please use the box to enter a different nickname.");
 	}
 	
 	public void displayFailedSaveMessage(){
@@ -54,5 +36,15 @@ public class NicknameView {
 		textDisplay.setVisibility(View.INVISIBLE);
 		textPromptNick.setText("\nFailed to save nickname. Please try again later."); //\n\nThe leaderboard is currently disabled.\n\nLoading game...
 		btnSubmit.setText("Continue as Guest");
+	}
+	
+	public void beginSaveProgress(){
+		btnSubmit.setEnabled(false);
+		startSpinner(activity, "Saving Nickname", "Please Wait...");
+	}
+	
+	public void endSaveProgress(){
+		stopSpinner();
+		btnSubmit.setEnabled(true);
 	}
 }
