@@ -20,7 +20,6 @@ import com.lyra.eartrainer.view.MainMenu;
 
 public class MainMenuController extends Controller {
         private MainMenu mmView;
-        private MediaPlayer mPlayer;
         private MainMenuActivity newMMActivity;
         private VideoView mmVideo;
 
@@ -35,8 +34,7 @@ public class MainMenuController extends Controller {
                 
         		// creating the view
                 mmView = new MainMenu(activity);
-                
-               
+                      
                 // attaching event listeners to view widgets
                 attachEvents();
         }
@@ -55,13 +53,23 @@ public class MainMenuController extends Controller {
                 btnSubmit1.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                                // fill in later
-                        	activity.findViewById(R.id.videoView1).setVisibility(View.VISIBLE);
+                            // play our video
+                        	Button btnSubmit2 = (Button) activity.findViewById(R.id.btnToSettings);
                         	mmVideo = (VideoView) activity.findViewById(R.id.videoView1);
-                            mmVideo.setVideoURI(Uri.parse("android.resource://" + activity.getPackageName() + "/" + R.raw.tutorial));
-                            mmVideo.setMediaController(new MediaController(newMMActivity));
-                        	mmVideo.requestFocus();
-                        	mmVideo.start();
+                        	if (mmVideo.isShown())
+                        	{
+                        		mmVideo.setVisibility(View.INVISIBLE);
+                        		btnSubmit2.setText(R.string.tutorial);
+                        	}
+                        	else
+                        	{
+                        		mmVideo.setVisibility(View.VISIBLE);
+                        		mmVideo.setVideoURI(Uri.parse("android.resource://" + activity.getPackageName() + "/" + R.raw.tutorial));
+                            	mmVideo.setMediaController(new MediaController(newMMActivity));
+                            	btnSubmit2.setText(R.string.close_tutorial);
+                        		mmVideo.requestFocus();
+                        		mmVideo.start();
+                        	}
                         }
                 });
                 Button btnSubmit2 = (Button) activity
