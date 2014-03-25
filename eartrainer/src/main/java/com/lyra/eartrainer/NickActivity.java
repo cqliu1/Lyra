@@ -1,7 +1,7 @@
 package com.lyra.eartrainer;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
+//import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;

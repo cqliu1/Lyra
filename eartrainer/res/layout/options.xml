@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/black_wood"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/options_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:paddingBottom="15dp"
-        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="20dp"
         android:text="@string/options_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="48sp"
@@ -25,69 +25,139 @@
         android:textSize="20sp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Spinner
-        android:id="@+id/gameModeSpinner"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+<!--     <Spinner -->
+<!--         android:id="@+id/gameModeSpinner" -->
+<!--         android:layout_width="150dp" -->
+<!--         android:layout_height="50dp" -->
+<!--         android:layout_gravity="center_horizontal" -->
+<!--         android:entries="@array/game_modes" -->
+<!--         android:prompt="@string/game_mode_prompt" /> -->
+    
+    <RadioGroup
+        android:id="@+id/game_mode_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:entries="@array/game_modes"
-        android:prompt="@string/game_mode_prompt" />
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
 
+    <RadioButton
+        android:id="@+id/freeplay_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:background="@drawable/freeplay_selection"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center" />
+
+    <RadioButton
+        android:id="@+id/practice_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:background="@drawable/practice_selection"
+        android:button="@null"
+        android:gravity="center" />
+
+    <RadioButton
+        android:id="@+id/challenge_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:background="@drawable/challenge_selection"
+        android:button="@null"
+        android:gravity="center" />
+    
+    </RadioGroup>
+    
     <TextView
         android:id="@+id/instrumentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/instrument_prompt"
         android:text="@string/instrument_prompt"
         android:textSize="20sp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <RadioGroup
+    android:id="@+id/instrument_group"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="10dp"
+    android:gravity="center"
+    android:orientation="horizontal" >
 
-    <Spinner
-        android:id="@+id/instrumentSpinner"
-        android:layout_width="150dp"
-        android:layout_height="52dp"
-        android:layout_gravity="center_horizontal"
-        android:entries="@array/instruments"
-        android:prompt="@string/instrument_prompt" />
-
-    <TextView
-        android:id="@+id/scaleText"
+    <RadioButton
+        android:id="@+id/piano_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:contentDescription="@string/scale_prompt"
-        android:text="@string/scale_prompt"
-        android:textSize="20sp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:visibility="invisible" />
+        android:layout_margin="0dp"
+        android:background="@drawable/piano_selection"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center" />
 
-    <Spinner
-        android:id="@+id/scaleSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:entries="@array/scales"
-        android:prompt="@string/scale_prompt"
-        android:visibility="invisible" />
-
-    <TextView
-        android:id="@+id/difficultyText"
+    <RadioButton
+        android:id="@+id/guitar_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/difficulty_prompt"
-        android:text="@string/difficulty_prompt"
-        android:textSize="20sp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:visibility="invisible" />
+        android:layout_margin="0dp"
+        android:background="@drawable/guitar_selection"
+        android:button="@null"
+        android:gravity="center" />
+    
+    </RadioGroup>
 
-    <Spinner
-        android:id="@+id/difficultySpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:entries="@array/difficulty_levels"
-        android:prompt="@string/difficulty_prompt"
-        android:visibility="invisible" />
+<!--     <Spinner -->
+<!--         android:id="@+id/instrumentSpinner" -->
+<!--         android:layout_width="150dp" -->
+<!--         android:layout_height="52dp" -->
+<!--         android:layout_gravity="center_horizontal" -->
+<!--         android:entries="@array/instruments" -->
+<!--         android:prompt="@string/instrument_prompt" /> -->
+
+<!--     <TextView -->
+<!--         android:id="@+id/scaleText" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_gravity="left" -->
+<!--         android:contentDescription="@string/scale_prompt" -->
+<!--         android:text="@string/scale_prompt" -->
+<!--         android:textSize="20sp" -->
+<!--         android:textAppearance="?android:attr/textAppearanceMedium" -->
+<!--         android:visibility="invisible" /> -->
+
+<!--     <Spinner -->
+<!--         android:id="@+id/scaleSpinner" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="50dp" -->
+<!--         android:layout_gravity="center_horizontal" -->
+<!--         android:entries="@array/scales" -->
+<!--         android:prompt="@string/scale_prompt" -->
+<!--         android:visibility="invisible" /> -->
+
+<!--     <TextView -->
+<!--         android:id="@+id/difficultyText" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:contentDescription="@string/difficulty_prompt" -->
+<!--         android:text="@string/difficulty_prompt" -->
+<!--         android:textSize="20sp" -->
+<!--         android:textAppearance="?android:attr/textAppearanceMedium" -->
+<!--         android:visibility="invisible" /> -->
+
+<!--     <Spinner -->
+<!--         android:id="@+id/difficultySpinner" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="50dp" -->
+<!--         android:entries="@array/difficulty_levels" -->
+<!--         android:prompt="@string/difficulty_prompt" -->
+<!--         android:visibility="invisible" /> -->
 
     <Button
         android:background="@drawable/red_button"
@@ -96,6 +166,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
         android:textSize="20sp"
         android:text="@string/startGame" />
 

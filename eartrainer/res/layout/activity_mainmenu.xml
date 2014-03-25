@@ -4,87 +4,78 @@
     android:background="@drawable/black_wood"
     android:columnCount="1" >
 
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_row="1"
+        android:text="@string/title_ear_trainer"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="48sp"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/textDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_gravity="center"
+        android:layout_row="2"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/main_menu_description"
+        android:textSize="20sp" />
+    
     <Button
         android:id="@+id/btnToGame"
         android:layout_width="200dp"
         android:layout_gravity="center_horizontal|top"
+        android:layout_column="0"
         android:layout_row="3"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/red_button"
         android:gravity="center"
         android:text="@string/main_menu_game"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_column="0"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_row="4"
-        android:text="" />
-
     <Button
         android:id="@+id/btnToSettings"
         android:layout_width="200dp"
         android:layout_column="0"
         android:layout_gravity="center_horizontal|top"
-        android:layout_row="5"
+        android:layout_row="4"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/red_button"
         android:textColor="@color/white"
         android:textSize="20sp" 
         android:text="@string/main_menu_tutorial" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_column="0"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_row="6"
-        android:text="" />
-
-    <TextView
-        android:id="@+id/textDescription"
-        android:layout_width="284dp"
-        android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_gravity="center"
-        android:layout_row="2"
-        android:gravity="center_horizontal"
-        android:paddingBottom="60dp"
-        android:text="@string/main_menu_description"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_gravity="center"
-        android:layout_row="1"
-        android:paddingBottom="20dp"
-        android:paddingTop="60dp"
-        android:text="@string/title_ear_trainer"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="48sp"
-        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnToLeaderboards"
         android:layout_width="200dp"
         android:layout_column="0"
         android:layout_gravity="center_horizontal|top"
-        android:layout_row="7"
+        android:layout_row="5"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/red_button"
         android:text="@string/main_menu_leaderboards"
         android:textColor="@color/white"
         android:textSize="20sp" />
-    
+
     <VideoView
         android:id="@+id/videoView1"
-        android:layout_gravity="center_horizontal|top"
         android:layout_width="match_parent"
-        android:layout_height="195dp"
+        android:layout_height="71dp"
         android:layout_column="0"
-        android:layout_row="1" 
-        android:visibility="invisible"/>
+        android:layout_gravity="left|top"
+        android:layout_row="1"
+        android:visibility="invisible" />
 
 </GridLayout>

@@ -118,7 +118,7 @@
 	<string name="leaderboard_col2">Name</string>
 	<string name="leaderboard_col3">Score</string>
 	<string name="leaderboard_title">LEADERBOARD</string>
-	<string name="leaderboard_prev">Prev Page</string>
+	<string name="leaderboard_prev">Previous Page</string>
 	<string name="leaderboard_next">Next Page</string>
 	<string name="pause_title">PAUSE</string>
 	<string name="options_title">OPTIONS</string>

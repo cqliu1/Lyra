@@ -1,8 +1,8 @@
 package com.lyra.eartrainer.model;
 
-import java.util.TimerTask;
+//import java.util.TimerTask;
 
-import android.app.Activity;
+//import android.app.Activity;
 
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;

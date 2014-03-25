@@ -12,35 +12,36 @@
         android:id="@+id/textPromptForNick"
         android:layout_gravity="fill_horizontal"
         android:gravity="center"
-        android:paddingTop="10dp"
+        android:paddingTop="20dp"
         android:textSize="20sp"
         android:text="@string/enter_nick" />
     
     <EditText
         android:id="@+id/editNick" 
         android:inputType="text"
-        android:layout_gravity="fill_horizontal" 
+        android:layout_width="300dp"
+        android:layout_gravity="center_horizontal" 
         android:gravity="center"
-        android:textSize="20sp"
-        android:layout_width="wrap_content" 
-    />
+        android:textSize="20sp"/>
 
     <Button
         android:background="@drawable/red_button"
         android:textColor="@color/white"
         android:id="@+id/btnSubmitNick"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="200dp"
         android:textSize="20sp"
         android:text="@string/submit" />
 
     <TextView
         android:id="@+id/textDisplayNickname"
-        android:layout_width="wrap_content"
-        android:layout_height="380dp"
-        android:layout_gravity="fill_horizontal"
+        android:layout_width="500dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
         android:paddingTop="10dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="@string/nick_description"
         android:textSize="20sp" />
 

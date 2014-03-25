@@ -55,7 +55,7 @@ public class GameController extends Controller {
 			activity.setContentView(R.layout.piano);
 		else if(game.getInstrumentType() == InstrumentTypes.GUITAR)
 			activity.setContentView(R.layout.guitar);
-		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 		
 		gameView = new GameInterface(activity,game);
 		
