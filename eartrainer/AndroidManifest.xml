@@ -35,5 +35,7 @@
         </activity>
         <activity android:name="com.lyra.eartrainer.LeaderBoardActivity">
         </activity>
+        <activity android:name="com.lyra.eartrainer.TutorialActivity">
+        </activity>
     </application>
 </manifest>

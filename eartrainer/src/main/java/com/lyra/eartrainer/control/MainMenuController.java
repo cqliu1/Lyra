@@ -15,6 +15,7 @@ import android.net.Uri;
 import com.lyra.eartrainer.LeaderBoardActivity;
 import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.OptionsActivity;
+import com.lyra.eartrainer.TutorialActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.view.MainMenu;
 
@@ -53,23 +54,7 @@ public class MainMenuController extends Controller {
                 btnSubmit1.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // play our video
-                        	Button btnSubmit2 = (Button) activity.findViewById(R.id.btnToSettings);
-                        	mmVideo = (VideoView) activity.findViewById(R.id.videoView1);
-                        	if (mmVideo.isShown())
-                        	{
-                        		mmVideo.setVisibility(View.INVISIBLE);
-                        		btnSubmit2.setText(R.string.tutorial);
-                        	}
-                        	else
-                        	{
-                        		mmVideo.setVisibility(View.VISIBLE);
-                        		mmVideo.setVideoURI(Uri.parse("android.resource://" + activity.getPackageName() + "/" + R.raw.tutorial));
-                            	mmVideo.setMediaController(new MediaController(newMMActivity));
-                            	btnSubmit2.setText(R.string.close_tutorial);
-                        		mmVideo.requestFocus();
-                        		mmVideo.start();
-                        	}
+                            goToTutorial();
                         }
                 });
                 Button btnSubmit2 = (Button) activity
@@ -86,5 +71,9 @@ public class MainMenuController extends Controller {
         	Intent intent = new Intent(activity,OptionsActivity.class);
         	activity.startActivity(intent);
 //        	activity.finish();
+        }
+        public void goToTutorial(){
+        	Intent intent = new Intent(activity, TutorialActivity.class);
+        	activity.startActivity(intent);
         }
 }

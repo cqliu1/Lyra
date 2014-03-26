@@ -8,11 +8,6 @@ import android.view.Menu;
 import com.lyra.eartrainer.control.PauseController;
 
 public class PauseActivity extends Activity {
-//	private Button resume;
-//	private Button restart;
-//	private Button quit;
-///	private SeekBar volumeBar;
-//	private int volume = 50;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
