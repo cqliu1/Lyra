@@ -5,9 +5,9 @@ import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.media.MediaPlayer;
-import android.content.Context;
-import android.view.Surface;
+//import android.media.MediaPlayer;
+//import android.content.Context;
+//import android.view.Surface;
 import android.widget.VideoView;
 import android.widget.MediaController;
 import android.net.Uri;
@@ -31,7 +31,7 @@ public class MainMenuController extends Controller {
 
         public void initialize() {
         		activity.setContentView(R.layout.activity_mainmenu);
-        		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                 
         		// creating the view
                 mmView = new MainMenu(activity);
@@ -57,8 +57,7 @@ public class MainMenuController extends Controller {
                             goToTutorial();
                         }
                 });
-                Button btnSubmit2 = (Button) activity
-                                .findViewById(R.id.btnToLeaderboards);
+                Button btnSubmit2 = (Button) activity.findViewById(R.id.btnToLeaderboards);
                 btnSubmit2.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {

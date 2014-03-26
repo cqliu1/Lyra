@@ -1,9 +1,6 @@
 package com.lyra.eartrainer.model;
 
-import java.util.ArrayList;
-
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;
-import com.lyra.eartrainer.model.instrument.MusicInstrument;
 
 public class GamePlay {
 	private static GamePlay instance = null;

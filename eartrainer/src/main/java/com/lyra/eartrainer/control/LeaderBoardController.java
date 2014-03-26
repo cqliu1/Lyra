@@ -31,7 +31,7 @@ public class LeaderBoardController extends Controller {
 	public void initialize(){
 		//creating the leaderboard view object
 		activity.setContentView(R.layout.activity_leaderboard);
-		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 		leaderBoardView = new LeaderboardView(activity);
 		fetchScores(0);
 		attachEvents();

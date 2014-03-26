@@ -1,7 +1,5 @@
 package com.lyra.eartrainer.control;
 
-import com.lyra.eartrainer.OptionsActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 

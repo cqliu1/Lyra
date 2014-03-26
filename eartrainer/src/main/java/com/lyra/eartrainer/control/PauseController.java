@@ -26,7 +26,7 @@ public class PauseController extends Controller {
 	public void initialize(){
 		//creating the view
 		activity.setContentView(R.layout.activity_pause);
-		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 		pView = new Pause(activity);
 		game = GamePlay.instance();
 		//attaching event listeners to view widgets

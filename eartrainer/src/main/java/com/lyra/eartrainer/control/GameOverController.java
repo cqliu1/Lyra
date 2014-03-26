@@ -8,7 +8,6 @@ import android.widget.Button;
 
 import com.lyra.eartrainer.GameOverActivity;
 import com.lyra.eartrainer.LeaderBoardActivity;
-import com.lyra.eartrainer.MainMenuActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.view.GameOver;
@@ -23,7 +22,7 @@ public class GameOverController extends Controller {
         public void initialize(){
                 //creating the view
         		activity.setContentView(R.layout.activity_gameover);
-        		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                 cgoView = new GameOver(activity);
                 //attaching event listeners to view widgets
                 attachEvents();

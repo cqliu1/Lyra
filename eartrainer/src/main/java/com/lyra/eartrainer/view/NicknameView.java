@@ -1,7 +1,7 @@
 package com.lyra.eartrainer.view;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
+//import android.app.ProgressDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;

@@ -29,7 +29,7 @@ public class NicknameController extends Controller {
 	}
 	
 	public void initialize(){
-		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 		//instantiating relevant model classes
 		game = GamePlay.instance(); //creates initial instance of GamePlay
 		
