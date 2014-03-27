@@ -25,7 +25,12 @@ public class Round {
 		firstNote = (int) (Math.random() * (max-min));
 		secondNote = firstNote;
 		
+		// Make sure they are not the same note
 		while(secondNote == firstNote) {
+			
+			// Second note should be within one octave of the first
+			//int s_max = (firstNote + 12) > max ? max : firstNote + 12;
+			//int s_min = (firstNote - 12) < min ? min : firstNote - 12;
 			secondNote = (int) (Math.random() * (max-min));
 		}	
 		
