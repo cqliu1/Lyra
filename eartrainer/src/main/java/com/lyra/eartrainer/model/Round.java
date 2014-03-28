@@ -4,6 +4,8 @@ package com.lyra.eartrainer.model;
 
 //import android.app.Activity;
 
+import android.util.Log;
+
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;
 
@@ -22,17 +24,21 @@ public class Round {
 		int min = instrument.getMinNote();
 		int max = instrument.getMaxNote() +1;
 		
-		firstNote = (int) (Math.random() * (max-min));
-		secondNote = firstNote;
+		// When we implement intervals, they will be plugged in here
+		int minHalfStep = 1;
+		int maxHalfStep = 12;
 		
-		// Make sure they are not the same note
-		while(secondNote == firstNote) {
-			
-			// Second note should be within one octave of the first
-			//int s_max = (firstNote + 12) > max ? max : firstNote + 12;
-			//int s_min = (firstNote - 12) < min ? min : firstNote - 12;
+		firstNote = (int) (Math.random() * (max-min));
+		boolean belowMinStep = true, aboveMaxStep = true;
+		
+		do {
 			secondNote = (int) (Math.random() * (max-min));
-		}	
+			System.out.println("Second note: " + secondNote);
+			
+			// Make sure the second note is at least minHalfStep away
+			belowMinStep = Math.abs(secondNote-firstNote) < minHalfStep;
+			aboveMaxStep = Math.abs(secondNote-firstNote) > maxHalfStep;
+		} while(belowMinStep || aboveMaxStep || secondNote < 0 || secondNote > (max-min));
 		
 		finished = false;
 		
