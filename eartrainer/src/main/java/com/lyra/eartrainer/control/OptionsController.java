@@ -15,9 +15,6 @@ import android.widget.RadioGroup;
 //import android.widget.Spinner;
 
 
-
-
-
 import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
@@ -32,6 +29,7 @@ import com.lyra.eartrainer.model.instrument.MusicInstrumentFactory;
 //import com.lyra.eartrainer.model.globals.ScaleTypes;
 //import com.lyra.eartrainer.model.instrument.IMusicInstrument;
 import com.lyra.eartrainer.model.instrument.SoundInfo;
+import com.lyra.eartrainer.properties.LyraProps;
 //import com.lyra.eartrainer.model.instrument.MusicInstrumentFactory;
 import com.lyra.eartrainer.view.Options;
 
@@ -150,6 +148,11 @@ public class OptionsController extends Controller {
     		IMusicInstrument guitar = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.GUITAR, game.getScale());
     		game.setInstrument(guitar);
     	}
+    	
+    	//saving user preferences
+    	LyraProps.getInstance(activity).getUserPreferences().setGameMode(game.getMode());
+    	LyraProps.getInstance(activity).getUserPreferences().setInstrumentType(game.getInstrumentType());
+    	LyraProps.getInstance(activity).saveProps();
     }
 
 	private SoundInfo loadNotes() {
