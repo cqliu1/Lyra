@@ -25,15 +25,15 @@ public class Round {
 		int max = instrument.getMaxNote() +1;
 		
 		// When we implement intervals, they will be plugged in here
-		int minHalfStep = 1;
-		int maxHalfStep = 12;
+		int minHalfStep = 5;
+		int maxHalfStep = 5;
 		
 		firstNote = (int) (Math.random() * (max-min));
 		boolean belowMinStep = true, aboveMaxStep = true;
 		
 		do {
 			secondNote = (int) (Math.random() * (max-min));
-			System.out.println("Second note: " + secondNote);
+			//System.out.println("Second note: " + secondNote);
 			
 			// Make sure the second note is at least minHalfStep away
 			belowMinStep = Math.abs(secondNote-firstNote) < minHalfStep;

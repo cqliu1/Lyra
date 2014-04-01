@@ -123,7 +123,11 @@ public class GamePlay {
 	}
 	
 	public boolean isGameOver() {
-		return (roundNumber == numberOfRounds || strikes == 3);
+		// For when we limit the number of rounds
+		//return (roundNumber == numberOfRounds || strikes == 3);
+		
+		// For when there is unlimited rounds
+		return strikes == 3;
 	}
 
 	public int getScore() {
