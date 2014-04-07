@@ -5,6 +5,7 @@ package com.lyra.eartrainer.model;
 //import android.app.Activity;
 
 import android.util.Log;
+import java.lang.Math;
 
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;
@@ -25,8 +26,8 @@ public class Round {
 		int max = instrument.getMaxNote() +1;
 		
 		// When we implement intervals, they will be plugged in here
-		int minHalfStep = 5;
-		int maxHalfStep = 5;
+		int minHalfStep = 1;
+		int maxHalfStep = 12;
 		
 		firstNote = (int) (Math.random() * (max-min));
 		boolean belowMinStep = true, aboveMaxStep = true;
@@ -116,6 +117,13 @@ public class Round {
 
 	public int getSecondNote() {
 		return secondNote;
+	}
+	
+	public int getInterval() {
+		int returnVal = Math.abs(firstNote-secondNote);
+		//Sean - Add logic to subtract the right amount so that the interval is correct.
+		
+		return returnVal;
 	}
 	
 	public void setFinished(boolean finished) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.lang.StringBuilder;
 
 import android.app.Activity;
 import android.content.Context;
@@ -192,6 +193,7 @@ public class GameController extends Controller {
 							timer.schedule(new PlayNoteTask(note, act), 0L);
 							
 							if(game.getCurrentRound().isCorrect(note)) {
+								//This works fine for piano but not for guitar, because guitar has repeated notes.
 								updateGameScore();
 								gameView.selectCorrectNote(note);					
 								game.getCurrentRound().setFinished(true);
@@ -199,7 +201,41 @@ public class GameController extends Controller {
 								if(game.isGameOver()) {
 									
 								} else {
-									Toast.makeText(act, "Round completed!", Toast.LENGTH_SHORT).show();
+									StringBuilder interval = new StringBuilder();
+									int theInterval = game.getCurrentRound().getInterval();
+									if (theInterval > 13) {
+										//The interval spans an octave, present it differently
+										interval.append("Octave ");
+										theInterval = theInterval%12;
+									}
+									switch(theInterval) {
+									case 1: interval.append("minor 2nd");
+										break;
+									case 2: interval.append("Major 2nd");
+									break;
+									case 3: interval.append("minor 3rd");
+									break;
+									case 4: interval.append("Major 3rd");
+									break;
+									case 5: interval.append("Perfect 4th");
+									break;
+									case 6: interval.append("diminished 5th");
+									break;
+									case 7: interval.append("Perfect 5th");
+									break;
+									case 8: interval.append("minor 6th");
+									break;
+									case 9: interval.append("Major 6th");
+									break;
+									case 10: interval.append("minor 7th");
+									break;
+									case 11: interval.append("Major 7th");
+									break;
+									case 12: interval.append("Octave");
+									break;
+									default: break;
+									}
+									Toast.makeText(act, interval.toString(), Toast.LENGTH_SHORT).show();
 									timer.schedule(new EndRoundTask(act), 1000L);
 								}
 								
