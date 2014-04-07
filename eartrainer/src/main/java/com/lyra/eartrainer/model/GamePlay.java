@@ -137,6 +137,10 @@ public class GamePlay {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	
+	public void incrementScore(int score) {
+		this.score = this.score + score;
+	}
 
 	public float getVolume() {
 		return volume;

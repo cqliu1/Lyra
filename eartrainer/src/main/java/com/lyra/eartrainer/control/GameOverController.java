@@ -5,15 +5,18 @@ import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.lyra.eartrainer.GameOverActivity;
 import com.lyra.eartrainer.LeaderBoardActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.view.GameOver;
+import com.lyra.eartrainer.model.GamePlay;
 
 public class GameOverController extends Controller {
         private GameOver cgoView;
+        private GamePlay game;
          
         public GameOverController(GameOverActivity gameOverActivity){
                 super(gameOverActivity);
@@ -21,10 +24,13 @@ public class GameOverController extends Controller {
         
         public void initialize(){
                 //creating the view
+        		game = GamePlay.instance();
         		activity.setContentView(R.layout.activity_gameover);
         		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                 cgoView = new GameOver(activity);
                 //attaching event listeners to view widgets
+                TextView txtScore = (TextView)activity.findViewById(R.id.txtScore);
+                txtScore.setText("Final score: " + game.getScore());
                 attachEvents();
         }
 

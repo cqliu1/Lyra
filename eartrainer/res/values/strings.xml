@@ -17,6 +17,7 @@
     <string name = "resume">RESUME GAME</string>
     <string name = "quit">QUIT GAME</string> 
     <string name = "volume_val"> volume_val</string>
+    <string name = "scoreText">Final score: </string>
 
     <string name="game_mode_prompt">GAME MODE</string>
     
