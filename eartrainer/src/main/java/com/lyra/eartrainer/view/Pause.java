@@ -4,14 +4,16 @@ import android.app.Activity;
 import android.widget.SeekBar;
 
 import com.lyra.eartrainer.R;
+import com.lyra.eartrainer.control.LyraView;
 import com.lyra.eartrainer.model.GamePlay;
 
-public class Pause{
+public class Pause extends LyraView {
 	private GamePlay game;
 	private SeekBar volumeBar;
 	//SharedPreferences sharedPref = context.getSharedPreferences("volume_val", Context.MODE_PRIVATE);
 	//SharedPreferences.Editor editor = sharedPref.edit();
-	public Pause(Activity activity){
+	public Pause(Activity act){
+		super(act);
 		game = GamePlay.instance();
 		volumeBar = (SeekBar) activity.findViewById(R.id.seekVolume);
 		//updateVolume();

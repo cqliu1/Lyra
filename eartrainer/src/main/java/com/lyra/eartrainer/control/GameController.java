@@ -40,15 +40,12 @@ public class GameController extends Controller {
 	private GamePlay game;
 	private int MAX_STRIKES;	// varies depending on difficulty
 	ImageButton[] keys;
-	private LeaderBoardDao leaderBoardDao;
 
 	public GameController(GameActivity gameActivity) {
 		super(gameActivity);
 	}
 
 	public void initialize() {
-		initializeLeaderBoardDao();
-		
 		game = GamePlay.instance();
 		
 		// set layout by instrument
@@ -65,27 +62,8 @@ public class GameController extends Controller {
 		else if (game.getDifficulty() == Difficulties.INTERMEDIATE) MAX_STRIKES = 5;
 		else if (game.getDifficulty() == Difficulties.ADVANCED) MAX_STRIKES = 3; 
 		
+		initializeLeaderBoardDao(gameView);
 		attachEvents();
-	}
-	
-	private void initializeLeaderBoardDao(){
-		leaderBoardDao = new LeaderBoardDaoImpl();
-		leaderBoardDao.addEventListener(new LeaderBoardDaoEventListener(){
-			public void onSaveScoreSuccess(final Integer recordId){
-				activity.runOnUiThread(new Runnable(){
-					public void run(){
-						saveScoreSuccess(recordId);
-					}
-				});
-			}
-			public void onSaveScoreFailure(final DaoErrorInfo errorObject){
-				activity.runOnUiThread(new Runnable(){
-					public void run(){
-						saveScoreFailed(errorObject);
-					}
-				});
-			}
-		});
 	}
 	
 	private void attachEvents(){
@@ -244,7 +222,7 @@ public class GameController extends Controller {
 								checkStrikes(timer, act);
 							}
 							if(game.isGameOver()) {
-								addScore();
+								addScore(gameView);
 								Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
 								timer.schedule(new EndGameTask(act), 2000L);
 							}
@@ -284,7 +262,7 @@ public class GameController extends Controller {
 									if(game.isGameOver()) {
 										Toast.makeText(act, "Game Over!", Toast.LENGTH_SHORT).show();
 										timer.schedule(new EndGameTask(act), 2000L);
-										addScore();
+										addScore(gameView);
 									}
 									timer.schedule(new ResetNoteTask(hoverKey, act), 1000L);
 										
@@ -392,47 +370,6 @@ public class GameController extends Controller {
 			int oldScore = game.getScore();
 			game.setScore(oldScore+10);
 			gameView.updateScore();
-		}
-	}
-	
-	private void addScore(){
-		if(GamePlay.instance().getMode() != Modes.CHALLENGE){
-			return;
-		}
-		if(game.getScore() <= 0) {
-			return;
-		}
-		
-		Timestamp ts = new Timestamp(new Date().getTime());
-		
-		LeaderBoardEntry entry = new LeaderBoardEntry();
-		entry.setDate(ts + "");
-		entry.setUser_id(game.getNickname().getId());
-		entry.setDifficulty(game.getDifficulty());
-		entry.setInstrument(game.getInstrumentType());
-		entry.setGame(game.getMode());
-		entry.setScore(game.getScore());
-		
-		gameView.startSpinner(activity, "Saving Score", "Please wait...");
-		
-		try {
-			leaderBoardDao.addScore(entry);
-		} catch(DaoParseException dpe){
-			System.out.println("Failed to save Leaderboard score entry.");
-			dpe.printStackTrace();
-		}
-	}
-	
-	private void saveScoreSuccess(Integer recordId){
-		gameView.stopSpinner();
-		System.out.println("Successfully saved score!");
-	}
-	
-	private void saveScoreFailed(DaoErrorInfo errorInfo){
-		gameView.stopSpinner();
-		System.out.println("Failed to save score!");
-		if(errorInfo != null && errorInfo.getEx() != null){
-			errorInfo.getEx().printStackTrace();
 		}
 	}
 	

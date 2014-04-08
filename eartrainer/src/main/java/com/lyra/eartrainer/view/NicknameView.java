@@ -11,16 +11,13 @@ import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.control.LyraView;
 
 public class NicknameView extends LyraView {
-	private Activity activity;
 	private EditText editNick;
 	private TextView textDisplay;
 	private TextView textPromptNick;
 	private Button btnSubmit;
 	
-	private NicknameView(){}
-	
-	public NicknameView(Activity activity){
-		this.activity = activity;
+	public NicknameView(Activity act){
+		super(act);
 		this.editNick = (EditText)activity.findViewById(R.id.editNick);
 		this.textDisplay = (TextView)activity.findViewById(R.id.textDisplayNickname);
 		this.btnSubmit = (Button)activity.findViewById(R.id.btnSubmitNick);

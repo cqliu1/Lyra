@@ -25,7 +25,8 @@ public class GameInterface extends LyraView {
 //	int[] notes;
 //	int currentNote;
 	
-    public GameInterface(Activity activity, GamePlay game) {
+    public GameInterface(Activity act, GamePlay game) {
+    	super(act);
 //    	replay = (ImageButton) activity.findViewById(R.id.replay_button);
 //      pause = (ImageButton) activity.findViewById(R.id.pause_button);
     	gameplay = game;
