@@ -36,6 +36,14 @@ public class GamePlay {
 		currentRound = null;
 	}
 	
+	// used when we want to restart after game over screen
+	public void softReset() {
+		roundNumber = 0;
+		score = 0;
+		strikes = 0;
+		currentRound = null;
+	}
+	
     //Begin singleton logic code ------------------------------------------------->
     
     public static GamePlay instance(){

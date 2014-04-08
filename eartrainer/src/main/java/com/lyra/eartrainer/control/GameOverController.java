@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.GameOverActivity;
 import com.lyra.eartrainer.LeaderBoardActivity;
 import com.lyra.eartrainer.OptionsActivity;
@@ -41,7 +42,7 @@ public class GameOverController extends Controller {
                         @Override
                         public void onClick(View v) {
                                 //fill in later
-                        	goToOptions();
+                        	goToGame();
                         }
                 });
                 Button btnToMainMenu = (Button)activity.findViewById(R.id.btnToMainMenu);
@@ -68,9 +69,16 @@ public class GameOverController extends Controller {
 			activity.startActivity(intent);
 			activity.finish();
 		}
+		
 		public void goToMain() {
 //			Intent intent = new Intent(activity,MainMenuActivity.class);
 //			activity.startActivity(intent);
+			activity.finish();
+		}
+		public void goToGame() {
+			Intent intent = new Intent(activity, GameActivity.class);
+			game.softReset();
+			activity.startActivity(intent);
 			activity.finish();
 		}
 		public void goToLeaderboard() {

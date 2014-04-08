@@ -63,6 +63,17 @@
         android:text="@string/main_menu_leaderboards" />
 
     <TextView
+        android:id="@+id/txtScore"
+        android:layout_width="284dp"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_gravity="center"
+        android:layout_row="8"
+        android:gravity="center"
+        android:text="@string/scoreText"
+        android:textSize="20sp" />
+
+    <TextView
         android:layout_width="284dp"
         android:layout_height="wrap_content"
         android:layout_column="0"
@@ -70,17 +81,6 @@
         android:layout_row="8"
         android:gravity="center"
         android:text="@string/game_over_description"
-        android:textSize="20sp" />
-
-    <TextView
-        android:layout_width="284dp"
-        android:id="@+id/txtScore"
-        android:layout_height="wrap_content"
-        android:layout_column="0"
-        android:layout_gravity="center"
-        android:layout_row="8"
-        android:gravity="center"
-        android:text="@string/scoreText"
         android:textSize="20sp" />
 
 </GridLayout>
