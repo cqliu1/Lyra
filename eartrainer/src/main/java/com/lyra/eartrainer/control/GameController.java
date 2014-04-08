@@ -370,8 +370,20 @@ public class GameController extends Controller {
 			{
 				game.getCurrentRound().setFinished(true);
 				Toast.makeText(act, "Round failed!", Toast.LENGTH_SHORT).show();
+				int correctNote = -1;
+				for(int i = 0; i < keys.length; i++ ) 
+				{       	
+			        if(game.getCurrentRound().isCorrect(i)) 
+			        {
+			        	correctNote = i;
+			        	break;
+			        }
+				}
+				gameView.selectCorrectNote(correctNote);
+				game.getCurrentRound().setFinished(true);
 				timer.schedule(new EndRoundTask(act), 1000L);
 			}
+			
 		}
 	}
 	
@@ -599,6 +611,7 @@ public class GameController extends Controller {
                @Override
                public void run() {
             	   gameView.resetNote(game.getCurrentRound().getFirstNote());
+            	   gameView.resetNote(game.getCurrentRound().getSecondNote());
             	   game.endCurrentRound();
                }
            });
