@@ -186,7 +186,6 @@ public class OptionsController extends Controller {
 				notes[i] = notesList.get(i).intValue();
 			}
 		} else if (game.getInstrumentType() == InstrumentTypes.GUITAR) {
-			// TODO: load the guitar sounds
 			Class<raw> raw = R.raw.class;
 			Field[] fields = raw.getFields();
 			ArrayList<Integer> notesList = new ArrayList<Integer>();

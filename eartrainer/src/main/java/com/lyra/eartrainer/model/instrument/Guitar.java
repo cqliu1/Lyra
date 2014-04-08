@@ -19,12 +19,7 @@ public class Guitar extends MusicInstrument implements IMusicInstrument {
 
 		notes = new Note[maxNote-minNote+1];
 		
-		if(soundNotes.length < notes.length) {
-			Log.e("Guitar", "Only " + soundNotes.length + " soundNotes but " + notes.length + " Notes");
-		}
-		
-		
-		for(int i=0; i<=(maxNote-minNote); i++) {
+		for(int i=0; i<notes.length; i++) {
 			notes[i] = new Note();
 			notes[i].setId(i+minNote);
 			
@@ -92,31 +87,31 @@ public class Guitar extends MusicInstrument implements IMusicInstrument {
 				notes[i].setName("D#/Eb");
 				break;
 			}
-			
+			// Fifth open string, fifth fret, offset by 6
+			if(notes[i].getId() > 30) {
+				notes[i].setSoundId(soundNotes[i-6]);
+			} else
+			// Fourth open string on fourth fret, offset by 5
+			if(notes[i].getId() > 24) {
+				notes[i].setSoundId(soundNotes[i-5]);
+			} else
+			// Third open string, offset by 3
+			if(notes[i].getId() > 18) {
+				notes[i].setSoundId(soundNotes[i-3]);
+			} else
+			// Second open string, offset by 2
+			if(notes[i].getId() > 12) {
+				notes[i].setSoundId(soundNotes[i-2]);
+			} else
+			// First open string, so offset by 1
+			if(notes[i].getId() > 6) {
+				notes[i].setSoundId(soundNotes[i-1]);
+			} else
 			// Set the note from musicInfo
 			if(notes[i].getId() <= 6) {
 				notes[i].setSoundId(soundNotes[i]);
 			}
-			// First open string, so offset by 1
-			if(notes[i].getId() > 6) {
-				notes[i].setSoundId(soundNotes[i-1]);
-			}
-			// Second open string, offset by 2
-			if(notes[i].getId() > 12) {
-				notes[i].setSoundId(soundNotes[i-2]);
-			}
-			// Third open string, offset by 3
-			if(notes[i].getId() > 18) {
-				notes[i].setSoundId(soundNotes[i-3]);
-			}
-			// Fourth open string on fourth fret, offset by 5
-			if(notes[i].getId() > 24) {
-				notes[i].setSoundId(soundNotes[i-5]);
-			}
-			// Fifth open string, fifth fret, offset by 6
-			if(notes[i].getId() > 30) {
-				notes[i].setSoundId(soundNotes[i-6]);
-			}
+			
 		}	
 	}
 }
