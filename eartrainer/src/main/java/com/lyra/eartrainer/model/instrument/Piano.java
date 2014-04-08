@@ -7,7 +7,7 @@ import com.lyra.eartrainer.model.Note;
 public class Piano extends MusicInstrument implements IMusicInstrument {
 	public Piano(SoundInfo musicInfo){
 		super(musicInfo);
-		minNote = 40;
+		minNote = 28;
 		maxNote = 52;
 		
 		// Load the piano notes from the musicInfo
@@ -20,7 +20,7 @@ public class Piano extends MusicInstrument implements IMusicInstrument {
 		}
 		
 		
-		for(int i=0; i<=(maxNote-minNote); i++) {
+		for(int i=0; i<notes.length; i++) {
 			notes[i] = new Note();
 			notes[i].setId(i+minNote);
 			
