@@ -14,7 +14,7 @@
         android:paddingTop="20dp"
         android:text="@string/options_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="48sp"
+        android:textSize="36sp"
         android:textStyle="bold" />
     <TextView
         android:id="@+id/gameModePrompt"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/game_mode_prompt"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 <!--     <Spinner -->
@@ -80,7 +80,7 @@
         android:layout_marginTop="10dp"
         android:contentDescription="@string/instrument_prompt"
         android:text="@string/instrument_prompt"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <RadioGroup
@@ -104,6 +104,47 @@
 
     <RadioButton
         android:id="@+id/guitar_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:background="@drawable/guitar_selection"
+        android:button="@null"
+        android:gravity="center" />
+    
+    </RadioGroup>
+    
+    <TextView
+        android:id="@+id/hi_lo_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/hi_low_textBox"
+        android:text="@string/hi_low_textBox"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="15sp" />
+    
+    <RadioGroup
+    android:id="@+id/hi_lo_group"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="10dp"
+    android:gravity="center"
+    android:orientation="horizontal" >
+
+    <RadioButton
+        android:id="@+id/hi_lo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:background="@drawable/piano_selection"
+        android:button="@null"
+        android:checked="true"
+        android:gravity="center" />
+
+    <RadioButton
+        android:id="@+id/lo_hi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"

@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 //import android.widget.Spinner;
 
 
@@ -62,11 +63,44 @@ public class OptionsController extends Controller {
 	private void attachEvents() {
 		// adding button click handlers
 		Button start = (Button) activity.findViewById(R.id.startGame);
+		
 		start.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				storeOptions();
 				goToGame();
+			}
+		});
+		RadioButton freeplay = (RadioButton)activity.findViewById(R.id.freeplay_option);
+		freeplay.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
+		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
+				hi_lo.setVisibility(View.INVISIBLE);
+	    		lo_hi.setVisibility(View.INVISIBLE);
+	    		lo_hi_text.setVisibility(View.INVISIBLE);
+			}
+		});RadioButton practice = (RadioButton)activity.findViewById(R.id.practice_option);
+		practice.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
+		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
+				hi_lo.setVisibility(View.VISIBLE);
+	    		lo_hi.setVisibility(View.VISIBLE);
+	    		lo_hi_text.setVisibility(View.VISIBLE);
+			}
+		});
+		RadioButton challenge = (RadioButton)activity.findViewById(R.id.challenge_option);
+		challenge.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
+		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
+				hi_lo.setVisibility(View.INVISIBLE);
+	    		lo_hi.setVisibility(View.INVISIBLE);
+	    		lo_hi_text.setVisibility(View.INVISIBLE);
 			}
 		});
 	}
@@ -114,16 +148,28 @@ public class OptionsController extends Controller {
     	int modeId = gameMode.getCheckedRadioButtonId();
     	RadioButton modeBtn = (RadioButton) activity.findViewById(modeId);
     	int mode = gameMode.indexOfChild(modeBtn);
+    	RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
+    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
     	
     	switch(mode){
     	case 0:
     		game.setMode(Modes.FREEPLAY);
+    		hi_lo.setVisibility(View.INVISIBLE);
+    		lo_hi.setVisibility(View.INVISIBLE);
+    		lo_hi_text.setVisibility(View.INVISIBLE);
     		break;
     	case 1:
     		game.setMode(Modes.PRACTICE);
+    		hi_lo.setVisibility(View.INVISIBLE);
+    		lo_hi.setVisibility(View.VISIBLE);
+    		lo_hi_text.setVisibility(View.VISIBLE);
     		break;
     	case 2:
     		game.setMode(Modes.CHALLENGE);
+    		hi_lo.setVisibility(View.INVISIBLE);
+    		lo_hi.setVisibility(View.INVISIBLE);
+    		lo_hi_text.setVisibility(View.INVISIBLE);
     		break;
     	}
     	
