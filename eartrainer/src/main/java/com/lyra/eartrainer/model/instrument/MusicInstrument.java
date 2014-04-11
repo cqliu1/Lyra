@@ -26,8 +26,9 @@ public class MusicInstrument implements IMusicInstrument {
 		
 		// this is where we set the volume
 		//float vol = (float)newVolume/100;
-    	float vol = game.getVolume();
-		sp.play(notes[note].getSoundId(), vol*volumeMultiplier, vol*volumeMultiplier, 0, 0, 1.0f);
+    	//float vol = game.getVolume();
+		//sp.play(notes[note].getSoundId(), vol*volumeMultiplier, vol*volumeMultiplier, 0, 0, 1.0f);
+    	sp.play(notes[note].getSoundId(), 1.0f, 1.0f, 0, 0, 1.0f);
 	}
     
     public int getMinNote() {

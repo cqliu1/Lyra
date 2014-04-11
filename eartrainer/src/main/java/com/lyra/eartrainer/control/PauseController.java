@@ -63,6 +63,7 @@ public class PauseController extends Controller {
 			}
 		});
 		// adjust volume
+		/*
 		SeekBar volumeBar = (SeekBar)activity.findViewById(R.id.seekVolume);
 		volumeBar.setMax(100);
 		float vol = game.getVolume()*100;
@@ -85,7 +86,7 @@ public class PauseController extends Controller {
 				updateVolume(seekBar.getProgress());
 				
 			}
-		});
+		});*/
 	}
 	
 	public void resumeGame(){

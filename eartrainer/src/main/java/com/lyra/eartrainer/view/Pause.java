@@ -15,7 +15,7 @@ public class Pause extends LyraView {
 	public Pause(Activity act){
 		super(act);
 		game = GamePlay.instance();
-		volumeBar = (SeekBar) activity.findViewById(R.id.seekVolume);
+		//volumeBar = (SeekBar) activity.findViewById(R.id.seekVolume);
 		//updateVolume();
 		// THIS VVVVV IS BREAKING PAUSE
 		//volumeBar.setProgress((int)(game.getVolume()*100));
