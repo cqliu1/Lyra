@@ -25,6 +25,7 @@ import com.lyra.eartrainer.model.globals.Difficulties;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
 import com.lyra.eartrainer.model.globals.ScaleTypes;
+import com.lyra.eartrainer.model.globals.HiLo;
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;
 import com.lyra.eartrainer.model.instrument.MusicInstrumentFactory;
 //import com.lyra.eartrainer.model.globals.ScaleTypes;
@@ -148,28 +149,16 @@ public class OptionsController extends Controller {
     	int modeId = gameMode.getCheckedRadioButtonId();
     	RadioButton modeBtn = (RadioButton) activity.findViewById(modeId);
     	int mode = gameMode.indexOfChild(modeBtn);
-    	RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
-    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
-    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
     	
     	switch(mode){
     	case 0:
     		game.setMode(Modes.FREEPLAY);
-    		hi_lo.setVisibility(View.INVISIBLE);
-    		lo_hi.setVisibility(View.INVISIBLE);
-    		lo_hi_text.setVisibility(View.INVISIBLE);
     		break;
     	case 1:
     		game.setMode(Modes.PRACTICE);
-    		hi_lo.setVisibility(View.INVISIBLE);
-    		lo_hi.setVisibility(View.VISIBLE);
-    		lo_hi_text.setVisibility(View.VISIBLE);
     		break;
     	case 2:
     		game.setMode(Modes.CHALLENGE);
-    		hi_lo.setVisibility(View.INVISIBLE);
-    		lo_hi.setVisibility(View.INVISIBLE);
-    		lo_hi_text.setVisibility(View.INVISIBLE);
     		break;
     	}
     	
@@ -199,6 +188,18 @@ public class OptionsController extends Controller {
     	LyraProps.getInstance(activity).getUserPreferences().setGameMode(game.getMode());
     	LyraProps.getInstance(activity).getUserPreferences().setInstrumentType(game.getInstrumentType());
     	LyraProps.getInstance(activity).saveProps();
+    	
+    	// choosing high to low or low to high
+    	RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
+    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+    	if (hi_lo.isChecked())
+    	{
+    		System.out.println("HiLo");
+    	}
+    	else if (lo_hi.isChecked())
+    	{
+    		System.out.println("LoHi");
+    	}
     }
 
 	private SoundInfo loadNotes() {

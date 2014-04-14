@@ -1,6 +1,8 @@
 package com.lyra.eartrainer.model;
 
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;
+import com.lyra.eartrainer.model.globals.Modes;
+import com.lyra.eartrainer.model.globals.HiLo;
 
 public class GamePlay {
 	private static GamePlay instance = null;
@@ -9,6 +11,7 @@ public class GamePlay {
 	private byte difficulty;
 	private byte instrumentType;
 	private byte scale;
+	private byte hiLo;
 	private int numberOfRounds;					
 	private boolean isFirstRound;		
 	//private ArrayList<Round> rounds;
@@ -99,6 +102,14 @@ public class GamePlay {
 	public void setScale(byte newScale) {
 		this.scale = newScale;
 	}
+	
+	public byte getHiLo() {
+		return hiLo;
+	}
+	
+	public void setHiLo(byte newHiLo) {
+		hiLo = newHiLo;
+	}
 
 	public int getNumberOfRounds() {
 		return numberOfRounds;
@@ -128,6 +139,27 @@ public class GamePlay {
 		currentRound = new Round();
 		roundNumber++;
 		strikes = 0;
+		// if it's practice mode, we need to check high/low
+		if (mode == Modes.PRACTICE)
+		{
+			
+			int first = currentRound.getFirstNote();
+			int second = currentRound.getSecondNote();
+			if (hiLo == HiLo.HiLo)
+			{
+				if (first < second)
+				{
+					currentRound.swapNotes();
+				}
+			}
+			else if (hiLo == HiLo.LoHi)
+			{
+				if (first > second)
+				{
+					currentRound.swapNotes();
+				}
+			}
+		}
 	}
 	
 	public boolean isGameOver() {

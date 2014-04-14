@@ -133,4 +133,10 @@ public class Round {
 	public boolean getFinished() {
 		return finished;
 	}
+	
+	public void swapNotes() {
+		int temp = firstNote;
+		firstNote = secondNote;
+		secondNote = temp;
+	}
 }
