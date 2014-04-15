@@ -297,12 +297,12 @@ public class OptionsController extends Controller {
 	        default: // set to last interval
         }
         
-    	// choosing direction
-    	int dirId = direction.getCheckedRadioButtonId();
-    	RadioButton dirBtn = (RadioButton) activity.findViewById(dirId);
-    	int dir = gameMode.indexOfChild(dirBtn);
+    	// choosing note order
+    	int orderId = noteOrder.getCheckedRadioButtonId();
+    	RadioButton orderBtn = (RadioButton) activity.findViewById(orderId);
+    	int order = gameMode.indexOfChild(orderBtn);
     	
-    	switch(dir){
+    	switch(order){
     	case 0: // low-high
     		break;
     	case 1: // high-low
