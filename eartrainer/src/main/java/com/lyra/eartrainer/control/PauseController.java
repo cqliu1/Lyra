@@ -30,6 +30,7 @@ public class PauseController extends Controller {
 		pView = new Pause(activity);
 		game = GamePlay.instance();
 		//attaching event listeners to view widgets
+		initializeLeaderBoardDao(pView);
 		attachEvents();
 	}
 
@@ -62,6 +63,7 @@ public class PauseController extends Controller {
 			}
 		});
 		// adjust volume
+		/*
 		SeekBar volumeBar = (SeekBar)activity.findViewById(R.id.seekVolume);
 		volumeBar.setMax(100);
 		float vol = game.getVolume()*100;
@@ -84,7 +86,7 @@ public class PauseController extends Controller {
 				updateVolume(seekBar.getProgress());
 				
 			}
-		});
+		});*/
 	}
 	
 	public void resumeGame(){
@@ -92,6 +94,7 @@ public class PauseController extends Controller {
 	}
 
 	public void restartGame(){
+		saveLeaderBoardScore();
 		Intent intent = new Intent(activity,OptionsActivity.class);
 		activity.startActivity(intent); 
 		activity.setResult(GameActivity.GAME_CANCELLED);
@@ -100,6 +103,7 @@ public class PauseController extends Controller {
 	}
 
 	public void quitGame() {
+		saveLeaderBoardScore();
 		Intent intent = new Intent(activity,GameOverActivity.class);
 		activity.startActivity(intent); 
 		activity.setResult(GameActivity.GAME_CANCELLED);
@@ -110,5 +114,9 @@ public class PauseController extends Controller {
 	public void updateVolume(int vol){
 		game.setVolume((float)vol/100);
 		game.getInstrument().playNote(0);
+	}
+	
+	private void saveLeaderBoardScore(){
+		addScore(pView);
 	}
 }

@@ -5,6 +5,11 @@ import android.app.ProgressDialog;
 
 public class LyraView {
 	protected ProgressDialog spinner;
+	protected Activity activity;
+	
+	public LyraView(Activity activity){
+		this.activity = activity;
+	}
 	
 	public void startSpinner(Activity activity, String title, String message){
 		spinner = new ProgressDialog(activity);

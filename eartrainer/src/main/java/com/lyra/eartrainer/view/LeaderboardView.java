@@ -13,11 +13,10 @@ import com.lyra.eartrainer.model.LeaderBoardEntry;
 import com.lyra.eartrainer.R;
 
 public class LeaderboardView extends LyraView {
-	private Activity activity;
 	private ProgressDialog spinner;
 	
 	public LeaderboardView(Activity activity) {
-		this.activity = activity;
+		super(activity);
 	}
 	
 	public void setPage(int pageNumber) {

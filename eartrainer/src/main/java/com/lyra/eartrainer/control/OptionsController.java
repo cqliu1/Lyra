@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 //import android.widget.Spinner;
 
 
@@ -29,6 +30,7 @@ import com.lyra.eartrainer.model.globals.Difficulties;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
 import com.lyra.eartrainer.model.globals.ScaleTypes;
+import com.lyra.eartrainer.model.globals.HiLo;
 import com.lyra.eartrainer.model.instrument.IMusicInstrument;
 import com.lyra.eartrainer.model.instrument.MusicInstrumentFactory;
 //import com.lyra.eartrainer.model.globals.ScaleTypes;
@@ -44,8 +46,10 @@ public class OptionsController extends Controller {
 	// private Spinner difficulty;
 	// private Spinner scale;
 	private RadioGroup instrument;
+	private TextView intervalText;
 	private RangeBar interval;
-	private RadioGroup direction;
+	private TextView noteOrderText;
+	private RadioGroup noteOrder;
 	private GamePlay game;
 	private TextView leftIndexValue;
 	private TextView rightIndexValue;
@@ -63,8 +67,10 @@ public class OptionsController extends Controller {
 		game.reset();
 		gameMode = (RadioGroup) activity.findViewById(R.id.game_mode_group);
 		instrument = (RadioGroup) activity.findViewById(R.id.instrument_group);
+		intervalText = (TextView) activity.findViewById(R.id.intervalText);
 		interval = (RangeBar) activity.findViewById(R.id.intervalBar);
-		direction = (RadioGroup) activity.findViewById(R.id.direction_group);
+		noteOrderText = (TextView) activity.findViewById(R.id.hi_lo_text);
+		noteOrder = (RadioGroup) activity.findViewById(R.id.hi_lo_group);
 		leftIndexValue = (TextView) activity.findViewById(R.id.leftInterval);
 		rightIndexValue = (TextView) activity.findViewById(R.id.rightInterval);
 		
@@ -76,6 +82,7 @@ public class OptionsController extends Controller {
 	private void attachEvents() {
 		// adding button click handlers
 		Button start = (Button) activity.findViewById(R.id.startGame);
+		
 		start.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -97,7 +104,57 @@ public class OptionsController extends Controller {
                 rightIndexValue.setText("" + rightThumbIndex);
             }
         });
-    	
+        
+		RadioButton freeplay = (RadioButton)activity.findViewById(R.id.freeplay_option);
+		freeplay.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+//				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
+//		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+//		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
+//				hi_lo.setVisibility(View.INVISIBLE);
+//	    		lo_hi.setVisibility(View.INVISIBLE);
+//	    		lo_hi_text.setVisibility(View.INVISIBLE);
+				
+				noteOrder.setVisibility(View.INVISIBLE);
+				noteOrderText.setVisibility(View.INVISIBLE);
+				interval.setVisibility(View.INVISIBLE);
+				intervalText.setVisibility(View.INVISIBLE);
+			}
+		});
+		
+		RadioButton practice = (RadioButton)activity.findViewById(R.id.practice_option);
+		practice.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+//				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
+//		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+//		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
+//				hi_lo.setVisibility(View.VISIBLE);
+//	    		lo_hi.setVisibility(View.VISIBLE);
+//	    		lo_hi_text.setVisibility(View.VISIBLE);
+				
+				noteOrder.setVisibility(View.VISIBLE);
+				noteOrderText.setVisibility(View.VISIBLE);
+				interval.setVisibility(View.VISIBLE);
+				intervalText.setVisibility(View.VISIBLE);
+			}
+		});
+		
+		RadioButton challenge = (RadioButton)activity.findViewById(R.id.challenge_option);
+		challenge.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+//				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
+//		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+//		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
+//				hi_lo.setVisibility(View.INVISIBLE);
+//	    		lo_hi.setVisibility(View.INVISIBLE);
+//	    		lo_hi_text.setVisibility(View.INVISIBLE);
+				
+				noteOrder.setVisibility(View.INVISIBLE);
+				noteOrderText.setVisibility(View.INVISIBLE);
+				interval.setVisibility(View.INVISIBLE);
+				intervalText.setVisibility(View.INVISIBLE);
+			}
+		});
 	}
 
 	public void goToGame() {
@@ -258,6 +315,18 @@ public class OptionsController extends Controller {
     	LyraProps.getInstance(activity).getUserPreferences().setGameMode(game.getMode());
     	LyraProps.getInstance(activity).getUserPreferences().setInstrumentType(game.getInstrumentType());
     	LyraProps.getInstance(activity).saveProps();
+    	
+    	// choosing high to low or low to high
+    	RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
+    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+    	if (hi_lo.isChecked())
+    	{
+    		System.out.println("HiLo");
+    	}
+    	else if (lo_hi.isChecked())
+    	{
+    		System.out.println("LoHi");
+    	}
     }
 
 	private SoundInfo loadNotes() {
@@ -291,7 +360,6 @@ public class OptionsController extends Controller {
 				notes[i] = notesList.get(i).intValue();
 			}
 		} else if (game.getInstrumentType() == InstrumentTypes.GUITAR) {
-			// TODO: load the guitar sounds
 			Class<raw> raw = R.raw.class;
 			Field[] fields = raw.getFields();
 			ArrayList<Integer> notesList = new ArrayList<Integer>();
