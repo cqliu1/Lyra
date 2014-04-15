@@ -50,6 +50,9 @@
         <!--<item>Bass Guitar</item>-->
         <item >Guitar</item>
     </string-array>
+    
+    <string name="interval_prompt">INTERVAL</string>
+    <string name="direction_prompt">DIRECTION</string>
  
     <string name="replay">Replay</string>
     <string name="pause">Pause</string>
@@ -67,6 +70,18 @@
     <string name="key11">A#/Bb</string>
     <string name="key12">B</string>
     <string name="key13">C</string>
+    <string name="key14">C#/Db</string>
+    <string name="key15">D</string>
+    <string name="key16">D#/Eb</string>
+    <string name="key17">E</string>
+    <string name="key18">F</string>
+    <string name="key19">F#/Gb</string>
+    <string name="key20">G</string>
+    <string name="key21">G#/Ab</string>
+    <string name="key22">A</string>
+    <string name="key23">A#/Bb</string>
+    <string name="key24">B</string>
+    <string name="key25">C</string>
     <string name="title_ear_trainer">EAR TRAINER</string>
     <string name="main_menu_game">GAME</string>
     <string name="main_menu_settings">SETTINGS</string>

@@ -95,7 +95,7 @@ public class GameController extends Controller {
         
         if (game.getInstrumentType() == InstrumentTypes.PIANO)
         {
-	        keys = new ImageButton[13];
+	        keys = new ImageButton[26];
 	        
 	       	keys[0] = (ImageButton) activity.findViewById(R.id.key1);
 	        keys[1] = (ImageButton) activity.findViewById(R.id.key2);
@@ -110,6 +110,18 @@ public class GameController extends Controller {
 	        keys[10] = (ImageButton) activity.findViewById(R.id.key11);
 	        keys[11] = (ImageButton) activity.findViewById(R.id.key12);
 	        keys[12] = (ImageButton) activity.findViewById(R.id.key13);
+	        keys[13] = (ImageButton) activity.findViewById(R.id.key14);
+	        keys[14] = (ImageButton) activity.findViewById(R.id.key15);
+	        keys[15] = (ImageButton) activity.findViewById(R.id.key16);
+	        keys[16] = (ImageButton) activity.findViewById(R.id.key17);
+	        keys[17] = (ImageButton) activity.findViewById(R.id.key18);
+	        keys[18] = (ImageButton) activity.findViewById(R.id.key19);
+	        keys[19] = (ImageButton) activity.findViewById(R.id.key20);
+	        keys[20] = (ImageButton) activity.findViewById(R.id.key21);
+	        keys[21] = (ImageButton) activity.findViewById(R.id.key22);
+	        keys[22] = (ImageButton) activity.findViewById(R.id.key23);
+	        keys[23] = (ImageButton) activity.findViewById(R.id.key24);
+	        keys[24] = (ImageButton) activity.findViewById(R.id.key25);
         }
         else if (game.getInstrumentType() == InstrumentTypes.GUITAR){
         	keys = new ImageButton[36];

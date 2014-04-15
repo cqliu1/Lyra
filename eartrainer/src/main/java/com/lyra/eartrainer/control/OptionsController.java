@@ -10,11 +10,16 @@ import android.media.SoundPool;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 //import android.widget.Spinner;
 
 
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.edmodo.rangebar.RangeBar;
 import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.OptionsActivity;
 import com.lyra.eartrainer.R;
@@ -39,7 +44,11 @@ public class OptionsController extends Controller {
 	// private Spinner difficulty;
 	// private Spinner scale;
 	private RadioGroup instrument;
+	private RangeBar interval;
+	private RadioGroup direction;
 	private GamePlay game;
+	private TextView leftIndexValue;
+	private TextView rightIndexValue;
 
 	public OptionsController(OptionsActivity optionsActivity) {
 		super(optionsActivity);
@@ -54,6 +63,11 @@ public class OptionsController extends Controller {
 		game.reset();
 		gameMode = (RadioGroup) activity.findViewById(R.id.game_mode_group);
 		instrument = (RadioGroup) activity.findViewById(R.id.instrument_group);
+		interval = (RangeBar) activity.findViewById(R.id.intervalBar);
+		direction = (RadioGroup) activity.findViewById(R.id.direction_group);
+		leftIndexValue = (TextView) activity.findViewById(R.id.leftInterval);
+		rightIndexValue = (TextView) activity.findViewById(R.id.rightInterval);
+		
 //		difficulty = (Spinner) activity.findViewById(R.id.difficultySpinner);
 //		scale = (Spinner) activity.findViewById(R.id.scaleSpinner);
 		attachEvents();
@@ -69,6 +83,21 @@ public class OptionsController extends Controller {
 				goToGame();
 			}
 		});
+		
+		//TODO change this to display interval string, not index
+		leftIndexValue.setText("" + interval.getLeftIndex());
+		rightIndexValue.setText("" + interval.getRightIndex());
+		
+		// Sets the display values of the indices
+        interval.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onIndexChangeListener(RangeBar rangeBar, int leftThumbIndex, int rightThumbIndex) {
+            	//TODO change this to display interval string, not index
+                leftIndexValue.setText("" + leftThumbIndex);
+                rightIndexValue.setText("" + rightThumbIndex);
+            }
+        });
+    	
 	}
 
 	public void goToGame() {
@@ -127,6 +156,8 @@ public class OptionsController extends Controller {
     		break;
     	}
     	
+    	
+    	
     	// choosing scale
     	/*if(((String)scale.getSelectedItem()).equals("Major"))
     	{
@@ -147,6 +178,80 @@ public class OptionsController extends Controller {
     	{
     		IMusicInstrument guitar = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.GUITAR, game.getScale());
     		game.setInstrument(guitar);
+    	}
+    	
+    	// choosing interval range
+        int left = interval.getLeftIndex();
+        int right = interval.getRightIndex();
+        
+        switch(left){
+	        case 0:
+	        	break;
+	        case 1:
+	        	break;
+	        case 2:
+	        	break;
+	        case 3:
+	        	break;
+	        case 4:
+	        	break;
+	        case 5:
+	        	break;
+	        case 6:
+	        	break;
+	        case 7:
+	        	break;
+	        case 8:
+	        	break;
+	        case 9:
+	        	break;
+	        case 10:
+	        	break;
+	        case 11:
+	        	break;
+	        default: // set to first interval
+        }
+    	
+        switch(right){
+	        case 0:
+	        	break;
+	        case 1:
+	        	break;
+	        case 2:
+	        	break;
+	        case 3:
+	        	break;
+	        case 4:
+	        	break;
+	        case 5:
+	        	break;
+	        case 6:
+	        	break;
+	        case 7:
+	        	break;
+	        case 8:
+	        	break;
+	        case 9:
+	        	break;
+	        case 10:
+	        	break;
+	        case 11:
+	        	break;
+	        default: // set to last interval
+        }
+        
+    	// choosing direction
+    	int dirId = direction.getCheckedRadioButtonId();
+    	RadioButton dirBtn = (RadioButton) activity.findViewById(dirId);
+    	int dir = gameMode.indexOfChild(dirBtn);
+    	
+    	switch(dir){
+    	case 0: // low-high
+    		break;
+    	case 1: // high-low
+    		break;
+    	case 2: // both
+    		break;
     	}
     	
     	//saving user preferences
