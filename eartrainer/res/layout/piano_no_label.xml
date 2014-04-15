@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/black_wood" >
+
+
+    <ImageButton
+        android:id="@+id/pause_button"
+        style="@style/AppBaseTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/replay_button"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/replay_button"
+        android:background="@null"
+        android:clickable="true"
+        android:contentDescription="@string/pause"
+        android:src="@drawable/pause" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/replay_button"
+        android:layout_marginLeft="90dp"
+        android:text="@string/score"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white" />
+
+    <ImageButton
+        android:id="@+id/replay_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="270dp"
+        android:layout_marginTop="30dp"
+        android:background="@null"
+        android:clickable="true"
+        android:contentDescription="@string/replay"
+        android:src="@drawable/play" />
+
+    <TextView
+        android:id="@+id/strikesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/pause_button"
+        android:layout_marginLeft="110dp"
+        android:layout_toRightOf="@+id/pause_button"
+        android:text="@string/strikes"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_marginBottom="30dp">
+            <ImageButton
+			        android:id="@+id/key1"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="8dp"
+			        android:layout_alignParentBottom="true"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key1"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key3"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key1"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key3"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key5"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key3"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key5"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key6"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key5"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key6"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key8"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key6"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key8"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key10"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key8"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key10"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key12"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key10"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key12"
+			        android:src="@drawable/white_key_selection"/>
+
+			<ImageButton
+			        android:id="@+id/key2"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignTop="@+id/key1"
+			        android:layout_marginLeft="45dp"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key2"
+			        android:src="@drawable/black_key_selection" />
+			<ImageButton
+			        android:id="@+id/key4"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignTop="@+id/key3"
+			        android:layout_marginLeft="18dp"
+			        android:layout_toRightOf="@+id/key2"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key4"
+			        android:src="@drawable/black_key_selection" />
+			<ImageButton
+			        android:id="@+id/key7"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="80dp"
+			        android:layout_toRightOf="@+id/key4"
+			        android:layout_alignTop="@+id/key6"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key7"
+			        android:src="@drawable/black_key_selection" />
+			<ImageButton
+			        android:id="@+id/key9"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignTop="@+id/key3"
+			        android:layout_marginLeft="18dp"
+			        android:layout_toRightOf="@+id/key7"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key9"
+			        android:src="@drawable/black_key_selection" />
+			<ImageButton
+			        android:id="@+id/key11"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignTop="@+id/key3"
+			        android:layout_marginLeft="18dp"
+			        android:layout_toRightOf="@+id/key9"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key11"
+			        android:src="@drawable/black_key_selection" />
+			<ImageButton
+			        android:id="@+id/key13"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="6dp"
+			        android:layout_alignParentBottom="true"
+			        android:layout_toRightOf="@+id/key12"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key13"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key15"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key13"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key15"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key17"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key15"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key17"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key18"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key17"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key18"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key20"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key18"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key20"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key22"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key20"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key22"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key24"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key22"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key24"
+			        android:src="@drawable/white_key_selection"/>
+			<ImageButton
+			        android:id="@+id/key25"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:layout_marginLeft="6dp"
+			        android:layout_toRightOf="@+id/key24"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key25"
+			        android:src="@drawable/white_key_selection" />
+			<ImageButton
+			        android:id="@+id/key19"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="42dp"
+			        android:layout_toRightOf="@+id/key17"
+			        android:layout_alignTop="@+id/key6"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key19"
+			        android:src="@drawable/black_key_selection" />
+			<ImageButton
+			        android:id="@+id/key21"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignTop="@+id/key3"
+			        android:layout_marginLeft="18dp"
+			        android:layout_toRightOf="@+id/key19"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key21"
+			        android:src="@drawable/black_key_selection" />
+			<ImageButton
+			        android:id="@+id/key23"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignTop="@+id/key3"
+			        android:layout_marginLeft="18dp"
+			        android:layout_toRightOf="@+id/key21"
+			        android:background="@null"
+			        android:clickable="true"
+			        android:contentDescription="@string/key23"
+			        android:src="@drawable/black_key_selection" />
+
+			<ImageButton
+			    android:id="@+id/key16"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignRight="@+id/key17"
+			    android:layout_alignTop="@+id/key15"
+			    android:layout_marginRight="37dp"
+			    android:background="@null"
+			    android:clickable="true"
+			    android:contentDescription="@string/key16"
+			    android:src="@drawable/black_key_selection" />
+
+			<ImageButton
+			    android:id="@+id/key14"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignTop="@+id/key13"
+			    android:layout_marginRight="18dp"
+			    android:layout_toLeftOf="@+id/key16"
+			    android:background="@null"
+			    android:clickable="true"
+			    android:contentDescription="@string/key14"
+			    android:src="@drawable/black_key_selection" />
+
+        </RelativeLayout>
+    </HorizontalScrollView>
+
+</RelativeLayout>
