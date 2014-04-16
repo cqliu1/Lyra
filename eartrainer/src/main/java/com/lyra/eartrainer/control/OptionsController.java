@@ -77,6 +77,13 @@ public class OptionsController extends Controller {
 //		difficulty = (Spinner) activity.findViewById(R.id.difficultySpinner);
 //		scale = (Spinner) activity.findViewById(R.id.scaleSpinner);
 		attachEvents();
+		
+		noteOrder.setVisibility(View.INVISIBLE);
+		noteOrderText.setVisibility(View.INVISIBLE);
+		interval.setVisibility(View.INVISIBLE);
+		intervalText.setVisibility(View.INVISIBLE);
+		leftIndexValue.setVisibility(View.INVISIBLE);
+		rightIndexValue.setVisibility(View.INVISIBLE);
 	}
 
 	private void attachEvents() {
@@ -90,10 +97,6 @@ public class OptionsController extends Controller {
 				goToGame();
 			}
 		});
-		
-		//TODO change this to display interval string, not index
-		leftIndexValue.setText("" + interval.getLeftIndex());
-		rightIndexValue.setText("" + interval.getRightIndex());
 		
 		// Sets the display values of the indices
         interval.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
@@ -119,6 +122,8 @@ public class OptionsController extends Controller {
 				noteOrderText.setVisibility(View.INVISIBLE);
 				interval.setVisibility(View.INVISIBLE);
 				intervalText.setVisibility(View.INVISIBLE);
+				leftIndexValue.setVisibility(View.INVISIBLE);
+				rightIndexValue.setVisibility(View.INVISIBLE);
 			}
 		});
 		
@@ -136,6 +141,8 @@ public class OptionsController extends Controller {
 				noteOrderText.setVisibility(View.VISIBLE);
 				interval.setVisibility(View.VISIBLE);
 				intervalText.setVisibility(View.VISIBLE);
+				leftIndexValue.setVisibility(View.VISIBLE);
+				rightIndexValue.setVisibility(View.VISIBLE);
 			}
 		});
 		
@@ -153,6 +160,8 @@ public class OptionsController extends Controller {
 				noteOrderText.setVisibility(View.INVISIBLE);
 				interval.setVisibility(View.INVISIBLE);
 				intervalText.setVisibility(View.INVISIBLE);
+				leftIndexValue.setVisibility(View.INVISIBLE);
+				rightIndexValue.setVisibility(View.INVISIBLE);
 			}
 		});
 	}
