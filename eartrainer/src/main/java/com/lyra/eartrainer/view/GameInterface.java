@@ -146,19 +146,76 @@ public class GameInterface extends LyraView {
 		Round round = GamePlay.instance().getCurrentRound();
 		
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
-			Piano piano = (Piano) GamePlay.instance().getInstrument();
-			
-			if(piano.isBlackKey(note)) {
-				if(round != null && !round.getFinished() && round.getFirstNote() == note) // if first note played, keep highlighted
-					keys[note].setImageResource(R.drawable.correct_black_key);
-				else
-					keys[note].setImageResource(R.drawable.black_key_selection);
-			} else {
-				if(round != null && !round.getFinished() && round.getFirstNote() == note)
-					keys[note].setImageResource(R.drawable.correct_white_key);
-				else
-				keys[note].setImageResource(R.drawable.white_key_selection);
-			}	
+//			Piano piano = (Piano) GamePlay.instance().getInstrument();
+//			
+//			if(piano.isBlackKey(note)) {
+//				if(round != null && !round.getFinished() && round.getFirstNote() == note) // if first note played, keep highlighted
+//					keys[note].setImageResource(R.drawable.correct_black_key);
+//				else
+//					keys[note].setImageResource(R.drawable.black_key_selection);
+//			} else {
+//				if(round != null && !round.getFinished() && round.getFirstNote() == note)
+//					keys[note].setImageResource(R.drawable.correct_white_key);
+//				else
+//				keys[note].setImageResource(R.drawable.white_key_selection);
+//			}	
+			if(round != null && !round.getFinished() && round.getFirstNote() == note){
+				switch(note){
+				case 0:
+					keys[note].setImageResource(R.drawable.c3_key);
+					break;
+				case 1:
+				case 14:
+					keys[note].setImageResource(R.drawable.cd_key);
+					break;
+				case 2:
+				case 15:
+					keys[note].setImageResource(R.drawable.d_key);
+					break;
+				case 3:
+				case 16:
+					keys[note].setImageResource(R.drawable.de_key);
+					break;
+				case 4:
+				case 17:
+					keys[note].setImageResource(R.drawable.e_key);
+					break;
+				case 5:
+				case 18:
+					keys[note].setImageResource(R.drawable.f_key);
+					break;
+				case 6:
+				case 19:
+					keys[note].setImageResource(R.drawable.fg_key);
+					break;
+				case 7:
+				case 20:
+					keys[note].setImageResource(R.drawable.g_key);
+					break;
+				case 8:
+				case 21:
+					keys[note].setImageResource(R.drawable.ga_key);
+					break;
+				case 9:
+				case 22:
+					keys[note].setImageResource(R.drawable.a_key);
+					break;
+				case 10:
+				case 23:
+					keys[note].setImageResource(R.drawable.ab_key);
+					break;
+				case 11:
+				case 24:
+					keys[note].setImageResource(R.drawable.b_key);
+					break;
+				case 13:
+					keys[note].setImageResource(R.drawable.c4_key);
+					break;
+				case 25:
+					keys[note].setImageResource(R.drawable.c5_key);
+					break;
+				}
+			}
 		}
 		else if (GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR) {
 //			Guitar guitar = (Guitar) GamePlay.instance().getInstrument();

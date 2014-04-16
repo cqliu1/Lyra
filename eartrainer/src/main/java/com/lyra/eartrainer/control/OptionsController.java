@@ -81,12 +81,14 @@ public class OptionsController extends Controller {
 		leftIndexValue.setText("" + interval.getLeftIndex());
 		rightIndexValue.setText("" + interval.getRightIndex());
         
-		noteOrder.setVisibility(View.INVISIBLE);
-		noteOrderText.setVisibility(View.INVISIBLE);
-		interval.setVisibility(View.INVISIBLE);
-		intervalText.setVisibility(View.INVISIBLE);
-		leftIndexValue.setVisibility(View.INVISIBLE);
-		rightIndexValue.setVisibility(View.INVISIBLE);
+		if(game.getMode() == Modes.FREEPLAY || game.getMode() == Modes.CHALLENGE){
+			noteOrder.setVisibility(View.INVISIBLE);
+			noteOrderText.setVisibility(View.INVISIBLE);
+			interval.setVisibility(View.INVISIBLE);
+			intervalText.setVisibility(View.INVISIBLE);
+			leftIndexValue.setVisibility(View.INVISIBLE);
+			rightIndexValue.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	private void attachEvents() {
