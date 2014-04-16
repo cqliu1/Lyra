@@ -100,6 +100,7 @@ public class GameController extends Controller {
 	        keys[22] = (ImageButton) activity.findViewById(R.id.key23);
 	        keys[23] = (ImageButton) activity.findViewById(R.id.key24);
 	        keys[24] = (ImageButton) activity.findViewById(R.id.key25);
+	        
         }
         else if (game.getInstrumentType() == InstrumentTypes.GUITAR){
         	keys = new ImageButton[36];

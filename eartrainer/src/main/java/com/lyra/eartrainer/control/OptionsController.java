@@ -77,13 +77,18 @@ public class OptionsController extends Controller {
 //		difficulty = (Spinner) activity.findViewById(R.id.difficultySpinner);
 //		scale = (Spinner) activity.findViewById(R.id.scaleSpinner);
 		attachEvents();
-		
-		noteOrder.setVisibility(View.INVISIBLE);
-		noteOrderText.setVisibility(View.INVISIBLE);
-		interval.setVisibility(View.INVISIBLE);
-		intervalText.setVisibility(View.INVISIBLE);
-		leftIndexValue.setVisibility(View.INVISIBLE);
-		rightIndexValue.setVisibility(View.INVISIBLE);
+
+		leftIndexValue.setText("" + interval.getLeftIndex());
+		rightIndexValue.setText("" + interval.getRightIndex());
+        
+		if(game.getMode() == Modes.FREEPLAY || game.getMode() == Modes.CHALLENGE){
+			noteOrder.setVisibility(View.INVISIBLE);
+			noteOrderText.setVisibility(View.INVISIBLE);
+			interval.setVisibility(View.INVISIBLE);
+			intervalText.setVisibility(View.INVISIBLE);
+			leftIndexValue.setVisibility(View.INVISIBLE);
+			rightIndexValue.setVisibility(View.INVISIBLE);
+		}
 	}
 
 	private void attachEvents() {
