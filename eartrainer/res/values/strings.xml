@@ -139,5 +139,5 @@
 	<string name="pause_title">PAUSE</string>
 	<string name="options_title">OPTIONS</string>
 	<string name="hi_low_textBox">NOTE ORDER</string>
-    
+    <string name="show_hide">Show/Hide</string>
 </resources>

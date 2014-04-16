@@ -159,6 +159,7 @@ public class GameInterface extends LyraView {
 //				else
 //				keys[note].setImageResource(R.drawable.white_key_selection);
 //			}	
+			
 			if(round != null && !round.getFinished() && round.getFirstNote() == note){
 				switch(note){
 				case 0:
