@@ -51,15 +51,18 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/white" />
     
-    <ImageButton
+    <ToggleButton
         android:id="@+id/show_hide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/strikesText"
         android:layout_marginRight="26dp"
+        android:button="@drawable/show_hide_toggle"
         android:background="@null"
-        android:src="@drawable/show" 
+        android:textOn=""
+        android:textOff=""
+        android:checked="true"
         android:contentDescription="@string/show_hide"/>
 
     <ImageView

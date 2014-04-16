@@ -158,7 +158,7 @@ public class GameInterface extends LyraView {
 		Round round = GamePlay.instance().getCurrentRound();
 		
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
-//			Piano piano = (Piano) GamePlay.instance().getInstrument();
+			Piano piano = (Piano) GamePlay.instance().getInstrument();
 //			
 //			if(piano.isBlackKey(note)) {
 //				if(round != null && !round.getFinished() && round.getFirstNote() == note) // if first note played, keep highlighted
@@ -173,58 +173,63 @@ public class GameInterface extends LyraView {
 //			}	
 			
 			if(round != null && !round.getFinished() && round.getFirstNote() == note){
+				if(piano.isBlackKey(note)) {
+					keys[note].setImageResource(R.drawable.correct_black_key);
+				} else
+					keys[note].setImageResource(R.drawable.correct_white_key);
+			} else {
 				switch(note){
 				case 0:
 					keys[note].setImageResource(R.drawable.c3_key);
 					break;
 				case 1:
-				case 14:
+				case 13:
 					keys[note].setImageResource(R.drawable.cd_key);
 					break;
 				case 2:
-				case 15:
+				case 14:
 					keys[note].setImageResource(R.drawable.d_key);
 					break;
 				case 3:
-				case 16:
+				case 15:
 					keys[note].setImageResource(R.drawable.de_key);
 					break;
 				case 4:
-				case 17:
+				case 16:
 					keys[note].setImageResource(R.drawable.e_key);
 					break;
 				case 5:
-				case 18:
+				case 17:
 					keys[note].setImageResource(R.drawable.f_key);
 					break;
 				case 6:
-				case 19:
+				case 18:
 					keys[note].setImageResource(R.drawable.fg_key);
 					break;
 				case 7:
-				case 20:
+				case 19:
 					keys[note].setImageResource(R.drawable.g_key);
 					break;
 				case 8:
-				case 21:
+				case 20:
 					keys[note].setImageResource(R.drawable.ga_key);
 					break;
 				case 9:
-				case 22:
+				case 21:
 					keys[note].setImageResource(R.drawable.a_key);
 					break;
 				case 10:
-				case 23:
+				case 22:
 					keys[note].setImageResource(R.drawable.ab_key);
 					break;
 				case 11:
-				case 24:
+				case 23:
 					keys[note].setImageResource(R.drawable.b_key);
 					break;
-				case 13:
+				case 12:
 					keys[note].setImageResource(R.drawable.c4_key);
 					break;
-				case 25:
+				case 24:
 					keys[note].setImageResource(R.drawable.c5_key);
 					break;
 				}

@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.lyra.eartrainer.GameActivity;
 import com.lyra.eartrainer.GameOverActivity;
@@ -39,7 +40,10 @@ public class GameController extends Controller {
 	private String note;
 	private GamePlay game;
 	private int MAX_STRIKES;	// varies depending on difficulty
-	ImageButton[] keys;
+	private ImageButton[] keys;
+	private ImageButton replay;
+	private ImageButton pause;
+	private ToggleButton showHide;
 
 	public GameController(GameActivity gameActivity) {
 		super(gameActivity);
@@ -68,8 +72,9 @@ public class GameController extends Controller {
 	
 	private void attachEvents(){
 		//adding submit button click handler
-		ImageButton replay = (ImageButton) activity.findViewById(R.id.replay_button);
-        ImageButton pause = (ImageButton) activity.findViewById(R.id.pause_button);
+		replay = (ImageButton) activity.findViewById(R.id.replay_button);
+        pause = (ImageButton) activity.findViewById(R.id.pause_button);
+        showHide = (ToggleButton) activity.findViewById(R.id.show_hide);
         
         if (game.getInstrumentType() == InstrumentTypes.PIANO)
         {
@@ -155,6 +160,16 @@ public class GameController extends Controller {
         pause.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
 				goToPause();
+			}
+		});
+        
+        //TODO set showHide value to what is stored in gameplay
+        
+        showHide.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//TODO store value in gameplay and reset all keys
 			}
 		});
         
