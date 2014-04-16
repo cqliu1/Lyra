@@ -73,7 +73,7 @@ public class GameController extends Controller {
         
         if (game.getInstrumentType() == InstrumentTypes.PIANO)
         {
-	        keys = new ImageButton[26];
+	        keys = new ImageButton[25];
 	        
 	       	keys[0] = (ImageButton) activity.findViewById(R.id.key1);
 	        keys[1] = (ImageButton) activity.findViewById(R.id.key2);
