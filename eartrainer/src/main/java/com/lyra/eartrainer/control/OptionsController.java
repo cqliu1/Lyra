@@ -77,7 +77,10 @@ public class OptionsController extends Controller {
 //		difficulty = (Spinner) activity.findViewById(R.id.difficultySpinner);
 //		scale = (Spinner) activity.findViewById(R.id.scaleSpinner);
 		attachEvents();
-		
+
+		leftIndexValue.setText("" + interval.getLeftIndex());
+		rightIndexValue.setText("" + interval.getRightIndex());
+        
 		noteOrder.setVisibility(View.INVISIBLE);
 		noteOrderText.setVisibility(View.INVISIBLE);
 		interval.setVisibility(View.INVISIBLE);
