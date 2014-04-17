@@ -7,10 +7,13 @@ import com.lyra.eartrainer.R;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
 import com.lyra.eartrainer.properties.LyraProps;
+import com.lyra.eartrainer.model.globals.ScaleTypes;
+import com.lyra.eartrainer.model.globals.HiLo;
+
  public class Options {
    public Options(Activity activity) {
 	   //setting the view options based on the users' preferences
-	   int gameModeButtonId = 0, instrumentButtonId = 0;
+	   int gameModeButtonId = 0, instrumentButtonId = 0, hiloButtonId = 0, scaleTypeLowButtonId = 0, scaleTypeHighButtonId = 0;
 	   
 	   byte gameMode = LyraProps.getInstance(activity).getUserPreferences().getGameMode();
 	   if(gameMode == Modes.CHALLENGE)
@@ -31,5 +34,10 @@ import com.lyra.eartrainer.properties.LyraProps;
 	   
 	   RadioGroup instrumentGroup = (RadioGroup)activity.findViewById(R.id.instrument_group);
 	   instrumentGroup.check(instrumentButtonId);
+	   
+	   RadioGroup hiloGroup = (RadioGroup)activity.findViewById(R.id.hi_lo_group);
+	   
+	   
+	   
    }
 }
