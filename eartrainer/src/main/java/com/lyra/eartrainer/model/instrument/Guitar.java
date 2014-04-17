@@ -114,4 +114,9 @@ public class Guitar extends MusicInstrument implements IMusicInstrument {
 			
 		}	
 	}
+	
+	//takes a guitar key as input and returns the corresponding note
+	public String getNoteName(int key){
+		return notes[key].getName();
+	}
 }

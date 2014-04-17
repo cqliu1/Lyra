@@ -83,4 +83,8 @@ public class Piano extends MusicInstrument implements IMusicInstrument {
 		
 	}
 	
+	//takes a piano key as input and returns the corresponding note
+	public String getNoteName(int key){
+		return notes[key].getName();
+	}
 }

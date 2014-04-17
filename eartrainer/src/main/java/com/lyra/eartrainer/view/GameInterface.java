@@ -1,7 +1,11 @@
 package com.lyra.eartrainer.view;
 
 import android.app.Activity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lyra.eartrainer.R;
@@ -10,14 +14,16 @@ import com.lyra.eartrainer.model.GamePlay;
 import com.lyra.eartrainer.model.Round;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
+import com.lyra.eartrainer.model.instrument.Guitar;
 import com.lyra.eartrainer.model.instrument.Piano;
 
 public class GameInterface extends LyraView {
 	
-//	private ImageButton replay;
-//	private ImageButton pause;
+	private ImageButton replay;
+	private ImageButton pause;
 	private TextView score;
 	private TextView strikes;
+	private TextView noteDisplay;
 	private ImageButton[] keys;
 	private GamePlay gameplay;
 	
@@ -27,8 +33,8 @@ public class GameInterface extends LyraView {
 	
     public GameInterface(Activity act, GamePlay game) {
     	super(act);
-//    	replay = (ImageButton) activity.findViewById(R.id.replay_button);
-//      pause = (ImageButton) activity.findViewById(R.id.pause_button);
+    	replay = (ImageButton) activity.findViewById(R.id.replay_button);
+    	pause = (ImageButton) activity.findViewById(R.id.pause_button);
     	gameplay = game;
         score = (TextView) activity.findViewById(R.id.score);
         strikes = (TextView) activity.findViewById(R.id.strikesText);
@@ -122,6 +128,7 @@ public class GameInterface extends LyraView {
 	}
 	
 	public void selectCorrectNote(int note) {
+		displayNote(note);
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
 			Piano piano = (Piano) GamePlay.instance().getInstrument();
 			
@@ -138,6 +145,7 @@ public class GameInterface extends LyraView {
 	}
 	
 	public void selectIncorrectNote(int note) {
+		displayNote(note);
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
 			Piano piano = (Piano) GamePlay.instance().getInstrument();
 			
@@ -282,4 +290,43 @@ public class GameInterface extends LyraView {
 			keys[note].setImageResource(R.drawable.silver_tab);
 		}
 	}
+	
+	public void displayNote(int note){
+		if(noteDisplay == null){
+			noteDisplay = (TextView)activity.findViewById(R.id.note_display);
+		}
+		String noteName = "";
+		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO){
+			Piano piano = (Piano) GamePlay.instance().getInstrument();
+			noteName = piano.getNoteName(note);
+		}
+		else {
+			Guitar guitar = (Guitar) GamePlay.instance().getInstrument();
+			noteName = guitar.getNoteName(note);
+		}
+		noteDisplay.setText("Note: " + noteName);
+		//setMargins(replay, 500, 30, 0, 0, noteDisplay);
+		//setMargins(pause, 270 + 100, 30, 0, 0);
+		//setMargins(strikes, 110 + 100, 30, 0, 0);
+	}
+	
+	/*
+	public void setMargins(View v, int l, int t, int r, int b, View toRightOfControl){
+		setMargins(v, l, t, r, b);
+	    
+        if(toRightOfControl != null){
+        	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        	params.addRule(RelativeLayout.RIGHT_OF, toRightOfControl.getId());
+        }
+        
+        v.requestLayout();
+	}
+	
+	public void setMargins(View v, int l, int t, int r, int b){
+	    if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+	        ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+	        p.setMargins(l, t, r, b);
+	    }
+	}
+	*/
 }

@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="270dp"
+        android:layout_marginLeft="175dp"
         android:layout_marginTop="30dp"
         android:background="@null"
         android:clickable="true"
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/pause_button"
-        android:layout_marginLeft="110dp"
+        android:layout_marginLeft="26dp"
         android:layout_toRightOf="@+id/pause_button"
         android:text="@string/strikes"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -64,6 +64,17 @@
         android:textOff=""
         android:checked="true"
         android:contentDescription="@string/show_hide"/>
+    
+    <TextView
+        android:id="@+id/note_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/strikesText"
+        android:layout_toRightOf="@+id/strikesText"
+        android:layout_marginLeft="26dp"
+        android:text="@string/notedisplay"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white" />
 
     <ImageView
         android:id="@+id/guitar"

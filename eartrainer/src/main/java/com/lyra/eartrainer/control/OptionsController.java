@@ -238,7 +238,7 @@ public class OptionsController extends Controller {
     	{
     		game.setScale(ScaleTypes.PENTATONIC);
     	}*/
-    	game.setScale(ScaleTypes.MAJOR);
+    	game.setScale(ScaleTypes.m2);
     	SoundInfo mi = loadNotes();
     	if (game.getInstrumentType() == InstrumentTypes.PIANO)
     	{
