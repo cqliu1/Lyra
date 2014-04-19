@@ -32,6 +32,7 @@ import com.lyra.eartrainer.model.globals.Difficulties;
 import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
 import com.lyra.eartrainer.model.instrument.Piano;
+import com.lyra.eartrainer.properties.LyraProps;
 import com.lyra.eartrainer.view.GameInterface;
 
 public class GameController extends Controller {
@@ -68,6 +69,23 @@ public class GameController extends Controller {
 		
 		initializeLeaderBoardDao(gameView);
 		attachEvents();
+		
+        //if the eyeball is closed then show the keys that don't have the notes on them
+		if(game.getInstrumentType() != InstrumentTypes.PIANO){
+			//instrument is guitar, disable/hide the eyeball
+			showHide.setEnabled(false);
+			showHide.setVisibility(View.INVISIBLE);
+		}
+		else {
+			//instrument is piano, enable/show the eyeball
+			showHide.setEnabled(true);
+			showHide.setVisibility(View.VISIBLE);
+			
+			if(!LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes()){
+				showHide.setChecked(false);
+				gameView.swapKeys();
+			}
+        }
 	}
 	
 	private void attachEvents(){
@@ -163,13 +181,12 @@ public class GameController extends Controller {
 			}
 		});
         
-        //TODO set showHide value to what is stored in gameplay
-        
         showHide.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
-				//TODO store value in gameplay and reset all keys
+				LyraProps.getInstance(activity).getUserPreferences().setShownKeyNotes(showHide.isChecked());
+				LyraProps.getInstance(activity).saveProps();
+				gameView.swapKeys();
 			}
 		});
         

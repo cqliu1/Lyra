@@ -1,11 +1,9 @@
 package com.lyra.eartrainer.view;
 
+import java.lang.reflect.Field;
+
 import android.app.Activity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lyra.eartrainer.R;
@@ -16,6 +14,7 @@ import com.lyra.eartrainer.model.globals.InstrumentTypes;
 import com.lyra.eartrainer.model.globals.Modes;
 import com.lyra.eartrainer.model.instrument.Guitar;
 import com.lyra.eartrainer.model.instrument.Piano;
+import com.lyra.eartrainer.properties.LyraProps;
 
 public class GameInterface extends LyraView {
 	
@@ -128,7 +127,6 @@ public class GameInterface extends LyraView {
 	}
 	
 	public void selectCorrectNote(int note) {
-		displayNote(note);
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
 			Piano piano = (Piano) GamePlay.instance().getInstrument();
 			
@@ -145,7 +143,6 @@ public class GameInterface extends LyraView {
 	}
 	
 	public void selectIncorrectNote(int note) {
-		displayNote(note);
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
 			Piano piano = (Piano) GamePlay.instance().getInstrument();
 			
@@ -164,7 +161,7 @@ public class GameInterface extends LyraView {
 	
 	public void resetNote(int note) {
 		Round round = GamePlay.instance().getCurrentRound();
-		
+		displayNote(note);
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
 			Piano piano = (Piano) GamePlay.instance().getInstrument();
 //			
@@ -185,7 +182,7 @@ public class GameInterface extends LyraView {
 					keys[note].setImageResource(R.drawable.correct_black_key);
 				} else
 					keys[note].setImageResource(R.drawable.correct_white_key);
-			} else {
+			} else if(LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes()){
 				switch(note){
 				case 0:
 					keys[note].setImageResource(R.drawable.c3_key);
@@ -240,6 +237,13 @@ public class GameInterface extends LyraView {
 				case 24:
 					keys[note].setImageResource(R.drawable.c5_key);
 					break;
+				}
+			} else {
+				if(piano.isBlackKey(note)) {
+					keys[note].setImageResource(R.drawable.black_key);
+				}
+				else {
+					keys[note].setImageResource(R.drawable.white_key);
 				}
 			}
 		}
@@ -308,6 +312,45 @@ public class GameInterface extends LyraView {
 		//setMargins(replay, 500, 30, 0, 0, noteDisplay);
 		//setMargins(pause, 270 + 100, 30, 0, 0);
 		//setMargins(strikes, 110 + 100, 30, 0, 0);
+	}
+	
+	public void swapKeys(){
+		if(GamePlay.instance().getInstrumentType() != InstrumentTypes.PIANO)
+			return;
+		
+		if(LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes()){
+			//show the notes
+			for(int i = 0;i < keys.length;i++){
+				//using content description to get the name of the image drawable resource
+				String imgRef = keys[i].getContentDescription().toString();
+				imgRef = imgRef.replaceAll("b", "");
+				imgRef = imgRef.replaceAll("#", "");
+				imgRef = imgRef.replaceAll("/", "");
+				imgRef = imgRef.toLowerCase();
+				imgRef += "_key";
+				
+				try {
+					//using java reflection with the image resource name to get a reference to the actual resource
+					Field field = R.drawable.class.getField(imgRef);
+					int imageRef = field.getInt(null);
+					keys[i].setImageResource(imageRef); //setting image
+				} catch(Exception e){
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+		else {
+			//hide the notes
+			Piano piano = (Piano)GamePlay.instance().getInstrument();
+			for(int i = 0;i < keys.length;i++){
+				if(piano.isBlackKey(i)){
+					keys[i].setImageResource(R.drawable.black_key);
+				}
+				else {
+					keys[i].setImageResource(R.drawable.white_key);
+				}
+			}
+		}
 	}
 	
 	/*

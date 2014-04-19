@@ -57,7 +57,7 @@
     <string name="replay">Replay</string>
     <string name="pause">Pause</string>
     <string name="score">Score</string>
-    <string name="key1">C</string>
+    <string name="key1">C3</string>
     <string name="key2">C#/Db</string>
     <string name="key3">D</string>
     <string name="key4">D#/Eb</string>
@@ -69,7 +69,7 @@
     <string name="key10">A</string>
     <string name="key11">A#/Bb</string>
     <string name="key12">B</string>
-    <string name="key13">C</string>
+    <string name="key13">C4</string>
     <string name="key14">C#/Db</string>
     <string name="key15">D</string>
     <string name="key16">D#/Eb</string>
@@ -81,7 +81,7 @@
     <string name="key22">A</string>
     <string name="key23">A#/Bb</string>
     <string name="key24">B</string>
-    <string name="key25">C</string>
+    <string name="key25">C5</string>
     <string name="title_ear_trainer">EAR TRAINER</string>
     <string name="main_menu_game">GAME</string>
     <string name="main_menu_settings">SETTINGS</string>

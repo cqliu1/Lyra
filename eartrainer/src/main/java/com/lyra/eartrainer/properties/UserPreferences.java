@@ -6,10 +6,12 @@ import com.lyra.eartrainer.model.globals.Modes;
 public class UserPreferences {
 	private byte gameMode;
 	private byte instrumentType;
+	private boolean shownKeyNotes;
 	
 	public UserPreferences(){
 		gameMode = Modes.FREEPLAY;
 		instrumentType = InstrumentTypes.PIANO;
+		shownKeyNotes = true;
 	}
 
 	public byte getGameMode() {
@@ -23,5 +25,11 @@ public class UserPreferences {
 	}
 	public void setInstrumentType(byte instrumentType) {
 		this.instrumentType = instrumentType;
+	}
+	public boolean isShownKeyNotes() {
+		return shownKeyNotes;
+	}
+	public void setShownKeyNotes(boolean shownKeyNotes) {
+		this.shownKeyNotes = shownKeyNotes;
 	}
 }

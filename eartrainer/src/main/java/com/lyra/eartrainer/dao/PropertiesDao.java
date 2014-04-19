@@ -31,6 +31,7 @@ public class PropertiesDao {
         
         prefs.setGameMode(Byte.parseByte((String)properties.getProperty("user.pref.game.mode", Modes.FREEPLAY + "").trim()));
         prefs.setInstrumentType(Byte.parseByte((String)properties.getProperty("user.pref.game.instrument", InstrumentTypes.PIANO + "").trim()));
+        prefs.setShownKeyNotes(((String)properties.getProperty("user.pref.game.showKeyNotes","true").trim()).equals("true") ? true : false);
 	}
 	
 	public void saveProperties(UserPreferences prefs) throws Exception {
@@ -39,6 +40,7 @@ public class PropertiesDao {
         
         properties.put("user.pref.game.mode", prefs.getGameMode() + "");
         properties.put("user.pref.game.instrument", prefs.getInstrumentType() + "");
+        properties.put("user.pref.game.showKeyNotes", prefs.isShownKeyNotes() + "");
         
         FileOutputStream fos = new FileOutputStream(new File(propFile));
         properties.store(fos,"Lyra Eartrainer Properties");
