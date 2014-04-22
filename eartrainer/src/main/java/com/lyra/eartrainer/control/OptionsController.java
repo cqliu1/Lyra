@@ -81,13 +81,12 @@ public class OptionsController extends Controller {
 		leftIndexValue.setText("" + interval.getLeftIndex());
 		rightIndexValue.setText("" + interval.getRightIndex());
         
-		if(game.getMode() == Modes.FREEPLAY || game.getMode() == Modes.CHALLENGE){
-			noteOrder.setVisibility(View.INVISIBLE);
-			noteOrderText.setVisibility(View.INVISIBLE);
-			interval.setVisibility(View.INVISIBLE);
-			intervalText.setVisibility(View.INVISIBLE);
-			leftIndexValue.setVisibility(View.INVISIBLE);
-			rightIndexValue.setVisibility(View.INVISIBLE);
+		// Practice mode options are invisible by default
+		hideHighLow();
+		
+		// Make visible if mode is practice
+		if(game.getMode() == Modes.PRACTICE){
+			showHighLow();
 		}
 	}
 
@@ -116,62 +115,66 @@ public class OptionsController extends Controller {
 		RadioButton freeplay = (RadioButton)activity.findViewById(R.id.freeplay_option);
 		freeplay.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-//				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
-//		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
-//		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
-//				hi_lo.setVisibility(View.INVISIBLE);
-//	    		lo_hi.setVisibility(View.INVISIBLE);
-//	    		lo_hi_text.setVisibility(View.INVISIBLE);
-				
-				noteOrder.setVisibility(View.INVISIBLE);
-				noteOrderText.setVisibility(View.INVISIBLE);
-				interval.setVisibility(View.INVISIBLE);
-				intervalText.setVisibility(View.INVISIBLE);
-				leftIndexValue.setVisibility(View.INVISIBLE);
-				rightIndexValue.setVisibility(View.INVISIBLE);
+				hideHighLow();
+				storeOptions();
 			}
 		});
 		
 		RadioButton practice = (RadioButton)activity.findViewById(R.id.practice_option);
 		practice.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-//				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
-//		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
-//		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
-//				hi_lo.setVisibility(View.VISIBLE);
-//	    		lo_hi.setVisibility(View.VISIBLE);
-//	    		lo_hi_text.setVisibility(View.VISIBLE);
-				
-				noteOrder.setVisibility(View.VISIBLE);
-				noteOrderText.setVisibility(View.VISIBLE);
-				interval.setVisibility(View.VISIBLE);
-				intervalText.setVisibility(View.VISIBLE);
-				leftIndexValue.setVisibility(View.VISIBLE);
-				rightIndexValue.setVisibility(View.VISIBLE);
+				showHighLow();
+				storeOptions();
 			}
 		});
 		
 		RadioButton challenge = (RadioButton)activity.findViewById(R.id.challenge_option);
 		challenge.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-//				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
-//		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
-//		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
-//				hi_lo.setVisibility(View.INVISIBLE);
-//	    		lo_hi.setVisibility(View.INVISIBLE);
-//	    		lo_hi_text.setVisibility(View.INVISIBLE);
-				
-				noteOrder.setVisibility(View.INVISIBLE);
-				noteOrderText.setVisibility(View.INVISIBLE);
-				interval.setVisibility(View.INVISIBLE);
-				intervalText.setVisibility(View.INVISIBLE);
-				leftIndexValue.setVisibility(View.INVISIBLE);
-				rightIndexValue.setVisibility(View.INVISIBLE);
+				hideHighLow();
+				storeOptions();
 			}
 		});
 	}
+	
+	private void hideHighLow() {
+		noteOrder.setVisibility(View.INVISIBLE);
+		noteOrderText.setVisibility(View.INVISIBLE);
+		interval.setVisibility(View.INVISIBLE);
+		intervalText.setVisibility(View.INVISIBLE);
+		leftIndexValue.setVisibility(View.INVISIBLE);
+		rightIndexValue.setVisibility(View.INVISIBLE);
+	}
+	
+	private void showHighLow() {
+		noteOrder.setVisibility(View.VISIBLE);
+		noteOrderText.setVisibility(View.VISIBLE);
+		interval.setVisibility(View.VISIBLE);
+		intervalText.setVisibility(View.VISIBLE);
+		leftIndexValue.setVisibility(View.VISIBLE);
+		rightIndexValue.setVisibility(View.VISIBLE);
+	}
 
 	public void goToGame() {
+		// Store the options
+		storeOptions();
+		
+		// Load the sound files
+		SoundInfo sound = loadNotes();
+		
+		// Create the instrument
+		IMusicInstrument mi = null;
+    	if (game.getInstrumentType() == InstrumentTypes.PIANO)
+    	{
+    		mi = MusicInstrumentFactory.makeInstrument(sound, InstrumentTypes.PIANO, game.getScale());
+    	}
+    	else if (game.getInstrumentType() == InstrumentTypes.GUITAR)
+    	{
+    		mi = MusicInstrumentFactory.makeInstrument(sound, InstrumentTypes.GUITAR, game.getScale());
+    	}
+    	game.setInstrument(mi);
+    	
+    	// Start the activity
 		Intent intent = new Intent(activity, GameActivity.class);
 		activity.startActivity(intent);
 		activity.finish();
@@ -190,6 +193,7 @@ public class OptionsController extends Controller {
 			break;
 		case 1:
 			game.setInstrumentType(InstrumentTypes.GUITAR);
+			break;
 		}
     	
 		// TODO change settings in gameplay instance
@@ -239,17 +243,6 @@ public class OptionsController extends Controller {
     		game.setScale(ScaleTypes.PENTATONIC);
     	}*/
     	game.setScale(ScaleTypes.m2);
-    	SoundInfo mi = loadNotes();
-    	if (game.getInstrumentType() == InstrumentTypes.PIANO)
-    	{
-    		IMusicInstrument piano = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.PIANO, game.getScale());
-    		game.setInstrument(piano);
-    	}
-    	else if (game.getInstrumentType() == InstrumentTypes.GUITAR)
-    	{
-    		IMusicInstrument guitar = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.GUITAR, game.getScale());
-    		game.setInstrument(guitar);
-    	}
     	
     	// choosing interval range
         int left = interval.getLeftIndex();
