@@ -215,7 +215,7 @@
     android:orientation="horizontal" >
 
     <RadioButton
-        android:id="@+id/lo_hi"
+        android:id="@+id/lo_hi_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
@@ -225,7 +225,7 @@
         android:gravity="center" />
 
     <RadioButton
-        android:id="@+id/hi_lo"
+        android:id="@+id/hi_lo_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"

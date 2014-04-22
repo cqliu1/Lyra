@@ -257,58 +257,86 @@ public class OptionsController extends Controller {
         
         switch(left){
 	        case 0:
+	        	game.setLeftInterval(ScaleTypes.m2);
 	        	break;
 	        case 1:
+	        	game.setLeftInterval(ScaleTypes.M2);
 	        	break;
 	        case 2:
+	        	game.setLeftInterval(ScaleTypes.m3);
 	        	break;
 	        case 3:
+	        	game.setLeftInterval(ScaleTypes.M3);
 	        	break;
 	        case 4:
+	        	game.setLeftInterval(ScaleTypes.P4);
 	        	break;
 	        case 5:
+	        	game.setLeftInterval(ScaleTypes.d5);
 	        	break;
 	        case 6:
+	        	game.setLeftInterval(ScaleTypes.P5);
 	        	break;
 	        case 7:
+	        	game.setLeftInterval(ScaleTypes.m6);
 	        	break;
 	        case 8:
+	        	game.setLeftInterval(ScaleTypes.M6);
 	        	break;
 	        case 9:
+	        	game.setLeftInterval(ScaleTypes.m7);
 	        	break;
 	        case 10:
+	        	game.setLeftInterval(ScaleTypes.M7);
 	        	break;
 	        case 11:
+	        	game.setLeftInterval(ScaleTypes.O);
 	        	break;
 	        default: // set to first interval
+	        	game.setLeftInterval(ScaleTypes.m2);
+	        	break;
         }
     	
         switch(right){
-	        case 0:
-	        	break;
-	        case 1:
-	        	break;
-	        case 2:
-	        	break;
-	        case 3:
-	        	break;
-	        case 4:
-	        	break;
-	        case 5:
-	        	break;
-	        case 6:
-	        	break;
-	        case 7:
-	        	break;
-	        case 8:
-	        	break;
-	        case 9:
-	        	break;
-	        case 10:
-	        	break;
-	        case 11:
-	        	break;
-	        default: // set to last interval
+        case 0:
+        	game.setRightInterval(ScaleTypes.m2);
+        	break;
+        case 1:
+        	game.setRightInterval(ScaleTypes.M2);
+        	break;
+        case 2:
+        	game.setRightInterval(ScaleTypes.m3);
+        	break;
+        case 3:
+        	game.setRightInterval(ScaleTypes.M3);
+        	break;
+        case 4:
+        	game.setRightInterval(ScaleTypes.P4);
+        	break;
+        case 5:
+        	game.setRightInterval(ScaleTypes.d5);
+        	break;
+        case 6:
+        	game.setRightInterval(ScaleTypes.P5);
+        	break;
+        case 7:
+        	game.setRightInterval(ScaleTypes.m6);
+        	break;
+        case 8:
+        	game.setRightInterval(ScaleTypes.M6);
+        	break;
+        case 9:
+        	game.setRightInterval(ScaleTypes.m7);
+        	break;
+        case 10:
+        	game.setRightInterval(ScaleTypes.M7);
+        	break;
+        case 11:
+        	game.setRightInterval(ScaleTypes.O);
+        	break;
+        default: // set to first interval
+        	game.setRightInterval(ScaleTypes.m2);
+        	break;
         }
         
     	// choosing note order
@@ -318,10 +346,13 @@ public class OptionsController extends Controller {
     	
     	switch(order){
     	case 0: // low-high
+    		game.setHiLo(HiLo.LoHi);
     		break;
     	case 1: // high-low
+    		game.setHiLo(HiLo.HiLo);
     		break;
     	case 2: // both
+    		game.setHiLo(HiLo.Both);
     		break;
     	}
     	
@@ -331,8 +362,8 @@ public class OptionsController extends Controller {
     	LyraProps.getInstance(activity).saveProps();
     	
     	// choosing high to low or low to high
-    	RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
-    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+    	RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo_option);
+    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi_option);
     	if (hi_lo.isChecked())
     	{
     		System.out.println("HiLo");
