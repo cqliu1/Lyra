@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -71,21 +73,21 @@ public class GameController extends Controller {
 		attachEvents();
 		
         //if the eyeball is closed then show the keys that don't have the notes on them
-		if(game.getInstrumentType() != InstrumentTypes.PIANO){
-			//instrument is guitar, disable/hide the eyeball
-			showHide.setEnabled(false);
-			showHide.setVisibility(View.INVISIBLE);
-		}
-		else {
-			//instrument is piano, enable/show the eyeball
-			showHide.setEnabled(true);
-			showHide.setVisibility(View.VISIBLE);
-			
+//		if(game.getInstrumentType() != InstrumentTypes.PIANO){
+//			//instrument is guitar, disable/hide the eyeball
+//			showHide.setEnabled(false);
+//			showHide.setVisibility(View.INVISIBLE);
+//		}
+//		else {
+//			//instrument is piano, enable/show the eyeball
+//			showHide.setEnabled(true);
+//			showHide.setVisibility(View.VISIBLE);
+//			
 			if(!LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes()){
 				showHide.setChecked(false);
 				gameView.swapKeys();
 			}
-        }
+//        }
 	}
 	
 	private void attachEvents(){
@@ -181,10 +183,11 @@ public class GameController extends Controller {
 			}
 		});
         
-        showHide.setOnClickListener(new View.OnClickListener() {
+        showHide.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
-			public void onClick(View v) {
-				LyraProps.getInstance(activity).getUserPreferences().setShownKeyNotes(showHide.isChecked());
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				LyraProps.getInstance(activity).getUserPreferences().setShownKeyNotes(isChecked);
 				LyraProps.getInstance(activity).saveProps();
 				gameView.swapKeys();
 			}

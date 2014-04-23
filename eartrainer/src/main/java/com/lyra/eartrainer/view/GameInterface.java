@@ -164,6 +164,7 @@ public class GameInterface extends LyraView {
 		displayNote(note);
 		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO) {
 			Piano piano = (Piano) GamePlay.instance().getInstrument();
+
 //			
 //			if(piano.isBlackKey(note)) {
 //				if(round != null && !round.getFinished() && round.getFirstNote() == note) // if first note played, keep highlighted
@@ -251,7 +252,70 @@ public class GameInterface extends LyraView {
 //			Guitar guitar = (Guitar) GamePlay.instance().getInstrument();
 			if(round != null && !round.getFinished() && round.getFirstNote() == note)
 				keys[note].setImageResource(R.drawable.correct_tab);
-			else{
+			else if ((LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes())){
+				switch(note){
+				case 0: 
+				case 14:
+				case 29:
+				case 30:
+					keys[note].setImageResource(R.drawable.e_tab); // reset open e tab 
+					break;
+				case 1:
+				case 15:
+				case 31:
+					keys[note].setImageResource(R.drawable.f_tab); // reset open e tab 
+					break;
+				case 2:
+				case 16:
+				case 32:
+					keys[note].setImageResource(R.drawable.fg_tab); // reset open e tab 
+					break;
+				case 3:
+				case 17:
+				case 18:
+				case 33:
+					keys[note].setImageResource(R.drawable.g_tab); // reset open e tab 
+					break;	
+				case 4:
+				case 19:
+				case 34:
+					keys[note].setImageResource(R.drawable.ga_tab); // reset open e tab 
+					break;
+				case 5:
+				case 6: 
+				case 20:
+				case 35:
+					keys[note].setImageResource(R.drawable.a_tab); // reset open a tab
+					break;
+				case 7:
+				case 21:
+					keys[note].setImageResource(R.drawable.ab_tab); // reset open e tab 
+					break;
+				case 8:
+				case 22:
+				case 24:
+					keys[note].setImageResource(R.drawable.b_tab); // reset open e tab 
+					break;
+				case 9:
+				case 23:
+				case 25:
+					keys[note].setImageResource(R.drawable.c_tab); // reset open e tab 
+					break;
+				case 10:
+				case 26:
+					keys[note].setImageResource(R.drawable.cd_tab); // reset open e tab 
+					break;
+				case 11:
+				case 12:
+				case 27:
+					keys[note].setImageResource(R.drawable.d_tab); // reset open d tab
+					break;
+				case 13:
+				case 28:
+					keys[note].setImageResource(R.drawable.de_tab); // reset open e tab 
+					break;
+				}
+			} else {
 				switch(note){
 					case 0: //tab 1
 						keys[note].setImageResource(R.drawable.e_tab); // reset open e tab 
@@ -315,39 +379,81 @@ public class GameInterface extends LyraView {
 	}
 	
 	public void swapKeys(){
-		if(GamePlay.instance().getInstrumentType() != InstrumentTypes.PIANO)
-			return;
+		Round round = GamePlay.instance().getCurrentRound();
 		
-		if(LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes()){
-			//show the notes
-			for(int i = 0;i < keys.length;i++){
-				//using content description to get the name of the image drawable resource
-				String imgRef = keys[i].getContentDescription().toString();
-				imgRef = imgRef.replaceAll("b", "");
-				imgRef = imgRef.replaceAll("#", "");
-				imgRef = imgRef.replaceAll("/", "");
-				imgRef = imgRef.toLowerCase();
-				imgRef += "_key";
-				
-				try {
-					//using java reflection with the image resource name to get a reference to the actual resource
-					Field field = R.drawable.class.getField(imgRef);
-					int imageRef = field.getInt(null);
-					keys[i].setImageResource(imageRef); //setting image
-				} catch(Exception e){
-					System.out.println(e.getMessage());
+		if(GamePlay.instance().getInstrumentType() == InstrumentTypes.PIANO){
+			if(LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes()){
+				//show the notes
+				for(int i = 0;i < keys.length;i++){
+					if(round != null && i == round.getFirstNote()){}
+					else {
+						//using content description to get the name of the image drawable resource
+						String imgRef = keys[i].getContentDescription().toString();
+						imgRef = imgRef.replaceAll("b", "");
+						imgRef = imgRef.replaceAll("#", "");
+						imgRef = imgRef.replaceAll("/", "");
+						imgRef = imgRef.toLowerCase();
+						imgRef += "_key";
+						
+						try {
+							//using java reflection with the image resource name to get a reference to the actual resource
+							Field field = R.drawable.class.getField(imgRef);
+							int imageRef = field.getInt(null);
+							keys[i].setImageResource(imageRef); //setting image
+						} catch(Exception e){
+							System.out.println(e.getMessage());
+						}
+					}
 				}
 			}
-		}
-		else {
-			//hide the notes
-			Piano piano = (Piano)GamePlay.instance().getInstrument();
-			for(int i = 0;i < keys.length;i++){
-				if(piano.isBlackKey(i)){
-					keys[i].setImageResource(R.drawable.black_key);
+			else {
+				//hide the notes
+				Piano piano = (Piano)GamePlay.instance().getInstrument();
+				for(int i = 0;i < keys.length;i++){
+					if(round != null && i == round.getFirstNote()){}
+					else {
+						if(piano.isBlackKey(i)){
+							keys[i].setImageResource(R.drawable.black_key);
+						}
+						else {
+							keys[i].setImageResource(R.drawable.white_key);
+						}
+					}
 				}
-				else {
-					keys[i].setImageResource(R.drawable.white_key);
+			}
+		} else if(GamePlay.instance().getInstrumentType() == InstrumentTypes.GUITAR){
+			if(LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes()){
+				//show the notes
+				for(int i = 0;i < keys.length;i++){
+					if(round != null && i == round.getFirstNote()){}
+					else {
+						//using content description to get the name of the image drawable resource
+						String imgRef = keys[i].getContentDescription().toString();
+						imgRef = imgRef.replaceAll("b", "");
+						imgRef = imgRef.replaceAll("#", "");
+						imgRef = imgRef.replaceAll("/", "");
+						imgRef = imgRef.toLowerCase();
+						imgRef += "_tab";
+						
+						try {
+							//using java reflection with the image resource name to get a reference to the actual resource
+							Field field = R.drawable.class.getField(imgRef);
+							int imageRef = field.getInt(null);
+							keys[i].setImageResource(imageRef); //setting image
+						} catch(Exception e){
+							System.out.println(e.getMessage());
+						}
+					}
+				}
+			}
+			else {
+				//hide the notes
+				for(int i = 0;i < keys.length;i++){
+					if(round != null && i == round.getFirstNote()){}
+					else {
+						if(i != 0 && i != 6 && i != 12 && i != 18 && i != 24 && i != 30)
+							keys[i].setImageResource(R.drawable.blank_tab);
+					}
 				}
 			}
 		}

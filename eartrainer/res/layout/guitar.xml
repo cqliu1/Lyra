@@ -113,7 +113,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="6dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/f_tab" />
 
     <ImageButton
         android:id="@+id/tab3"
@@ -127,7 +127,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="6dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/fg_tab" />
 
     <ImageButton
         android:id="@+id/tab4"
@@ -141,7 +141,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="6dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/g_tab" />
 
     <ImageButton
         android:id="@+id/tab5"
@@ -155,7 +155,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="6dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/ga_tab" />
 
     <ImageButton
         android:id="@+id/tab6"
@@ -169,7 +169,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="6dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/a_tab" />
 
     <ImageButton
         android:id="@+id/tab7"
@@ -197,7 +197,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/ab_tab" />
 
     <ImageButton
         android:id="@+id/tab9"
@@ -211,7 +211,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/b_tab" />
 
     <ImageButton
         android:id="@+id/tab10"
@@ -225,7 +225,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/c_tab" />
 
     <ImageButton
         android:id="@+id/tab11"
@@ -239,7 +239,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/cd_tab" />
 
     <ImageButton
         android:id="@+id/tab12"
@@ -253,7 +253,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/d_tab" />
 
     <ImageButton
         android:id="@+id/tab13"
@@ -281,7 +281,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/de_tab" />
 
     <ImageButton
         android:id="@+id/tab15"
@@ -295,7 +295,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/e_tab" />
 
     <ImageButton
         android:id="@+id/tab16"
@@ -309,7 +309,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/f_tab" />
 
     <ImageButton
         android:id="@+id/tab17"
@@ -323,7 +323,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/fg_tab" />
 
     <ImageButton
         android:id="@+id/tab18"
@@ -337,7 +337,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/g_tab" />
 
     <ImageButton
         android:id="@+id/tab19"
@@ -365,7 +365,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/ga_tab" />
 
     <ImageButton
         android:id="@+id/tab21"
@@ -379,7 +379,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/a_tab" />
 
     <ImageButton
         android:id="@+id/tab22"
@@ -393,7 +393,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/ab_tab" />
 
     <ImageButton
         android:id="@+id/tab23"
@@ -407,7 +407,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/b_tab" />
 
     <ImageButton
         android:id="@+id/tab24"
@@ -421,7 +421,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="5dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/c_tab" />
 
     <ImageButton
         android:id="@+id/tab25"
@@ -449,7 +449,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/c_tab" />
 
     <ImageButton
         android:id="@+id/tab27"
@@ -463,7 +463,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/cd_tab" />
 
     <ImageButton
         android:id="@+id/tab28"
@@ -477,7 +477,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/d_tab" />
 
     <ImageButton
         android:id="@+id/tab29"
@@ -491,7 +491,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/de_tab" />
 
     <ImageButton
         android:id="@+id/tab30"
@@ -505,7 +505,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/e_tab" />
 
     <ImageButton
         android:id="@+id/tab31"
@@ -533,7 +533,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/f_tab" />
 
     <ImageButton
         android:id="@+id/tab33"
@@ -547,7 +547,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/fg_tab" />
 
     <ImageButton
         android:id="@+id/tab34"
@@ -561,7 +561,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/g_tab" />
 
     <ImageButton
         android:id="@+id/tab35"
@@ -575,7 +575,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/ga_tab" />
 
     <ImageButton
         android:id="@+id/tab36"
@@ -589,6 +589,6 @@
         android:paddingLeft="8dp"
         android:paddingRight="7dp"
         android:paddingTop="4dp"
-        android:src="@drawable/blank_tab" />
+        android:src="@drawable/a_tab" />
 
 </RelativeLayout>
