@@ -12,6 +12,8 @@ public class GamePlay {
 	private byte instrumentType;
 	private byte scale;
 	private byte hiLo;
+	private byte leftInterval;
+	private byte rightInterval;
 	private int numberOfRounds;					
 	private boolean isFirstRound;		
 	//private ArrayList<Round> rounds;
@@ -109,6 +111,19 @@ public class GamePlay {
 	
 	public void setHiLo(byte newHiLo) {
 		hiLo = newHiLo;
+	}
+	
+	public byte getLeftInterval(){
+		return leftInterval;
+	}
+	public void setLeftInterval(byte leftInterval) {
+		this.leftInterval = leftInterval;
+	}
+	public byte getRightInterval(){
+		return rightInterval;
+	}
+	public void setRightInterval(byte rightInterval) {
+		this.rightInterval = rightInterval;
 	}
 
 	public int getNumberOfRounds() {

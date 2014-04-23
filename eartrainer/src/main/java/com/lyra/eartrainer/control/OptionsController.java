@@ -78,16 +78,15 @@ public class OptionsController extends Controller {
 //		scale = (Spinner) activity.findViewById(R.id.scaleSpinner);
 		attachEvents();
 
-		leftIndexValue.setText("" + interval.getLeftIndex());
-		rightIndexValue.setText("" + interval.getRightIndex());
+		leftIndexValue.setText("m2");
+		rightIndexValue.setText("O");
         
-		if(game.getMode() == Modes.FREEPLAY || game.getMode() == Modes.CHALLENGE){
-			noteOrder.setVisibility(View.INVISIBLE);
-			noteOrderText.setVisibility(View.INVISIBLE);
-			interval.setVisibility(View.INVISIBLE);
-			intervalText.setVisibility(View.INVISIBLE);
-			leftIndexValue.setVisibility(View.INVISIBLE);
-			rightIndexValue.setVisibility(View.INVISIBLE);
+		// Practice mode options are invisible by default
+		hideHighLow();
+		
+		// Make visible if mode is practice
+		if(game.getMode() == Modes.PRACTICE){
+			showHighLow();
 		}
 	}
 
@@ -108,70 +107,126 @@ public class OptionsController extends Controller {
             @Override
             public void onIndexChangeListener(RangeBar rangeBar, int leftThumbIndex, int rightThumbIndex) {
             	//TODO change this to display interval string, not index
-                leftIndexValue.setText("" + leftThumbIndex);
-                rightIndexValue.setText("" + rightThumbIndex);
+            	switch(leftThumbIndex) {
+				case 0: leftIndexValue.setText("m2");
+					break;
+				case 1: leftIndexValue.setText("M2");
+				break;
+				case 2: leftIndexValue.setText("m3");
+				break;
+				case 3: leftIndexValue.setText("M3");
+				break;
+				case 4: leftIndexValue.setText("P4");
+				break;
+				case 5: leftIndexValue.setText("d5");
+				break;
+				case 6: leftIndexValue.setText("P5");
+				break;
+				case 7: leftIndexValue.setText("m6");
+				break;
+				case 8: leftIndexValue.setText("M6");
+				break;
+				case 9: leftIndexValue.setText("m7");
+				break;
+				case 10: leftIndexValue.setText("M7");
+				break;
+				case 11: leftIndexValue.setText("O");
+				break;
+				default: break;
+            	}
+            	switch(rightThumbIndex) {
+				case 0: rightIndexValue.setText("m2");
+					break;
+				case 1: rightIndexValue.setText("M2");
+				break;
+				case 2: rightIndexValue.setText("m3");
+				break;
+				case 3: rightIndexValue.setText("M3");
+				break;
+				case 4: rightIndexValue.setText("P4");
+				break;
+				case 5: rightIndexValue.setText("d5");
+				break;
+				case 6: rightIndexValue.setText("P5");
+				break;
+				case 7: rightIndexValue.setText("m6");
+				break;
+				case 8: rightIndexValue.setText("M6");
+				break;
+				case 9: rightIndexValue.setText("m7");
+				break;
+				case 10: rightIndexValue.setText("M7");
+				break;
+				case 11: rightIndexValue.setText("O");
+				break;
+				default: break;
+            	}
             }
         });
         
 		RadioButton freeplay = (RadioButton)activity.findViewById(R.id.freeplay_option);
 		freeplay.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-//				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
-//		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
-//		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
-//				hi_lo.setVisibility(View.INVISIBLE);
-//	    		lo_hi.setVisibility(View.INVISIBLE);
-//	    		lo_hi_text.setVisibility(View.INVISIBLE);
-				
-				noteOrder.setVisibility(View.INVISIBLE);
-				noteOrderText.setVisibility(View.INVISIBLE);
-				interval.setVisibility(View.INVISIBLE);
-				intervalText.setVisibility(View.INVISIBLE);
-				leftIndexValue.setVisibility(View.INVISIBLE);
-				rightIndexValue.setVisibility(View.INVISIBLE);
+				hideHighLow();
+				storeOptions();
 			}
 		});
 		
 		RadioButton practice = (RadioButton)activity.findViewById(R.id.practice_option);
 		practice.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-//				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
-//		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
-//		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
-//				hi_lo.setVisibility(View.VISIBLE);
-//	    		lo_hi.setVisibility(View.VISIBLE);
-//	    		lo_hi_text.setVisibility(View.VISIBLE);
-				
-				noteOrder.setVisibility(View.VISIBLE);
-				noteOrderText.setVisibility(View.VISIBLE);
-				interval.setVisibility(View.VISIBLE);
-				intervalText.setVisibility(View.VISIBLE);
-				leftIndexValue.setVisibility(View.VISIBLE);
-				rightIndexValue.setVisibility(View.VISIBLE);
+				showHighLow();
+				storeOptions();
 			}
 		});
 		
 		RadioButton challenge = (RadioButton)activity.findViewById(R.id.challenge_option);
 		challenge.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-//				RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
-//		    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
-//		    	TextView lo_hi_text = (TextView)activity.findViewById(R.id.hi_lo_text);
-//				hi_lo.setVisibility(View.INVISIBLE);
-//	    		lo_hi.setVisibility(View.INVISIBLE);
-//	    		lo_hi_text.setVisibility(View.INVISIBLE);
-				
-				noteOrder.setVisibility(View.INVISIBLE);
-				noteOrderText.setVisibility(View.INVISIBLE);
-				interval.setVisibility(View.INVISIBLE);
-				intervalText.setVisibility(View.INVISIBLE);
-				leftIndexValue.setVisibility(View.INVISIBLE);
-				rightIndexValue.setVisibility(View.INVISIBLE);
+				hideHighLow();
+				storeOptions();
 			}
 		});
 	}
+	
+	private void hideHighLow() {
+		noteOrder.setVisibility(View.INVISIBLE);
+		noteOrderText.setVisibility(View.INVISIBLE);
+		interval.setVisibility(View.INVISIBLE);
+		intervalText.setVisibility(View.INVISIBLE);
+		leftIndexValue.setVisibility(View.INVISIBLE);
+		rightIndexValue.setVisibility(View.INVISIBLE);
+	}
+	
+	private void showHighLow() {
+		noteOrder.setVisibility(View.VISIBLE);
+		noteOrderText.setVisibility(View.VISIBLE);
+		interval.setVisibility(View.VISIBLE);
+		intervalText.setVisibility(View.VISIBLE);
+		leftIndexValue.setVisibility(View.VISIBLE);
+		rightIndexValue.setVisibility(View.VISIBLE);
+	}
 
 	public void goToGame() {
+		// Store the options
+		storeOptions();
+		
+		// Load the sound files
+		SoundInfo sound = loadNotes();
+		
+		// Create the instrument
+		IMusicInstrument mi = null;
+    	if (game.getInstrumentType() == InstrumentTypes.PIANO)
+    	{
+    		mi = MusicInstrumentFactory.makeInstrument(sound, InstrumentTypes.PIANO, game.getScale());
+    	}
+    	else if (game.getInstrumentType() == InstrumentTypes.GUITAR)
+    	{
+    		mi = MusicInstrumentFactory.makeInstrument(sound, InstrumentTypes.GUITAR, game.getScale());
+    	}
+    	game.setInstrument(mi);
+    	
+    	// Start the activity
 		Intent intent = new Intent(activity, GameActivity.class);
 		activity.startActivity(intent);
 		activity.finish();
@@ -190,6 +245,7 @@ public class OptionsController extends Controller {
 			break;
 		case 1:
 			game.setInstrumentType(InstrumentTypes.GUITAR);
+			break;
 		}
     	
 		// TODO change settings in gameplay instance
@@ -239,17 +295,6 @@ public class OptionsController extends Controller {
     		game.setScale(ScaleTypes.PENTATONIC);
     	}*/
     	game.setScale(ScaleTypes.m2);
-    	SoundInfo mi = loadNotes();
-    	if (game.getInstrumentType() == InstrumentTypes.PIANO)
-    	{
-    		IMusicInstrument piano = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.PIANO, game.getScale());
-    		game.setInstrument(piano);
-    	}
-    	else if (game.getInstrumentType() == InstrumentTypes.GUITAR)
-    	{
-    		IMusicInstrument guitar = MusicInstrumentFactory.makeInstrument(mi, InstrumentTypes.GUITAR, game.getScale());
-    		game.setInstrument(guitar);
-    	}
     	
     	// choosing interval range
         int left = interval.getLeftIndex();
@@ -257,58 +302,86 @@ public class OptionsController extends Controller {
         
         switch(left){
 	        case 0:
+	        	game.setLeftInterval(ScaleTypes.m2);
 	        	break;
 	        case 1:
+	        	game.setLeftInterval(ScaleTypes.M2);
 	        	break;
 	        case 2:
+	        	game.setLeftInterval(ScaleTypes.m3);
 	        	break;
 	        case 3:
+	        	game.setLeftInterval(ScaleTypes.M3);
 	        	break;
 	        case 4:
+	        	game.setLeftInterval(ScaleTypes.P4);
 	        	break;
 	        case 5:
+	        	game.setLeftInterval(ScaleTypes.d5);
 	        	break;
 	        case 6:
+	        	game.setLeftInterval(ScaleTypes.P5);
 	        	break;
 	        case 7:
+	        	game.setLeftInterval(ScaleTypes.m6);
 	        	break;
 	        case 8:
+	        	game.setLeftInterval(ScaleTypes.M6);
 	        	break;
 	        case 9:
+	        	game.setLeftInterval(ScaleTypes.m7);
 	        	break;
 	        case 10:
+	        	game.setLeftInterval(ScaleTypes.M7);
 	        	break;
 	        case 11:
+	        	game.setLeftInterval(ScaleTypes.O);
 	        	break;
 	        default: // set to first interval
+	        	game.setLeftInterval(ScaleTypes.m2);
+	        	break;
         }
     	
         switch(right){
-	        case 0:
-	        	break;
-	        case 1:
-	        	break;
-	        case 2:
-	        	break;
-	        case 3:
-	        	break;
-	        case 4:
-	        	break;
-	        case 5:
-	        	break;
-	        case 6:
-	        	break;
-	        case 7:
-	        	break;
-	        case 8:
-	        	break;
-	        case 9:
-	        	break;
-	        case 10:
-	        	break;
-	        case 11:
-	        	break;
-	        default: // set to last interval
+        case 0:
+        	game.setRightInterval(ScaleTypes.m2);
+        	break;
+        case 1:
+        	game.setRightInterval(ScaleTypes.M2);
+        	break;
+        case 2:
+        	game.setRightInterval(ScaleTypes.m3);
+        	break;
+        case 3:
+        	game.setRightInterval(ScaleTypes.M3);
+        	break;
+        case 4:
+        	game.setRightInterval(ScaleTypes.P4);
+        	break;
+        case 5:
+        	game.setRightInterval(ScaleTypes.d5);
+        	break;
+        case 6:
+        	game.setRightInterval(ScaleTypes.P5);
+        	break;
+        case 7:
+        	game.setRightInterval(ScaleTypes.m6);
+        	break;
+        case 8:
+        	game.setRightInterval(ScaleTypes.M6);
+        	break;
+        case 9:
+        	game.setRightInterval(ScaleTypes.m7);
+        	break;
+        case 10:
+        	game.setRightInterval(ScaleTypes.M7);
+        	break;
+        case 11:
+        	game.setRightInterval(ScaleTypes.O);
+        	break;
+        default: // set to first interval
+        	game.setRightInterval(ScaleTypes.m2);
+        	break;
         }
         
     	// choosing note order
@@ -318,10 +391,13 @@ public class OptionsController extends Controller {
     	
     	switch(order){
     	case 0: // low-high
+    		game.setHiLo(HiLo.LoHi);
     		break;
     	case 1: // high-low
+    		game.setHiLo(HiLo.HiLo);
     		break;
     	case 2: // both
+    		game.setHiLo(HiLo.Both);
     		break;
     	}
     	
@@ -331,8 +407,8 @@ public class OptionsController extends Controller {
     	LyraProps.getInstance(activity).saveProps();
     	
     	// choosing high to low or low to high
-    	RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo);
-    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi);
+    	RadioButton hi_lo = (RadioButton)activity.findViewById(R.id.hi_lo_option);
+    	RadioButton lo_hi = (RadioButton)activity.findViewById(R.id.lo_hi_option);
     	if (hi_lo.isChecked())
     	{
     		System.out.println("HiLo");

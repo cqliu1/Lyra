@@ -35,7 +35,21 @@ import com.lyra.eartrainer.model.globals.HiLo;
 	   RadioGroup instrumentGroup = (RadioGroup)activity.findViewById(R.id.instrument_group);
 	   instrumentGroup.check(instrumentButtonId);
 	   
+	   byte hiLo = LyraProps.getInstance(activity).getUserPreferences().getHiOrLo();
+	   if(hiLo == HiLo.LoHi)
+		   hiloButtonId = R.id.lo_hi_option;
+	   else if (hiLo == HiLo.HiLo)
+		   hiloButtonId = R.id.hi_lo_option;
+	   else
+		   hiloButtonId = R.id.both_option;
+	   
 	   RadioGroup hiloGroup = (RadioGroup)activity.findViewById(R.id.hi_lo_group);
+	   hiloGroup.check(hiloButtonId);
+	   
+	   byte leftInterval = LyraProps.getInstance(activity).getUserPreferences().getLeftInterval();
+	   //if (leftInterval == ScaleTypes.m2)
+		   //scaleTypeLowButtonId = R.id.
+		   
 	   
 	   
 	   

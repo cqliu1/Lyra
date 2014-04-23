@@ -21,13 +21,14 @@ public class Round {
 	
 	public Round(){
 		IMusicInstrument instrument = GamePlay.instance().getInstrument();
+		byte instrument2 = GamePlay.instance().getInstrumentType();
 		
 		int min = instrument.getMinNote();
 		int max = instrument.getMaxNote() +1;
 		
 		// When we implement intervals, they will be plugged in here
-		int minHalfStep = 1;
-		int maxHalfStep = 12;
+		int minHalfStep = GamePlay.instance().getLeftInterval();
+		int maxHalfStep = GamePlay.instance().getRightInterval();
 		
 		firstNote = (int) (Math.random() * (max-min));
 		boolean belowMinStep = true, aboveMaxStep = true;
@@ -39,7 +40,9 @@ public class Round {
 			// Make sure the second note is at least minHalfStep away
 			belowMinStep = Math.abs(secondNote-firstNote) < minHalfStep;
 			aboveMaxStep = Math.abs(secondNote-firstNote) > maxHalfStep;
-		} while(belowMinStep || aboveMaxStep || secondNote < 0 || secondNote > (max-min));
+		} while(belowMinStep || aboveMaxStep || secondNote < 0 || secondNote > (max-min)
+				|| (instrument2 == InstrumentTypes.GUITAR && ((secondNote%5 == 0 || secondNote%5==1)
+						&& (firstNote%5 == 0 || firstNote%5 == 1))));
 		
 		finished = false;
 		
