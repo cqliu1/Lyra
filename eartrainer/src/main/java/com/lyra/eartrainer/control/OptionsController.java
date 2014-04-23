@@ -78,8 +78,8 @@ public class OptionsController extends Controller {
 //		scale = (Spinner) activity.findViewById(R.id.scaleSpinner);
 		attachEvents();
 
-		leftIndexValue.setText("" + interval.getLeftIndex());
-		rightIndexValue.setText("" + interval.getRightIndex());
+		leftIndexValue.setText("m2");
+		rightIndexValue.setText("O");
         
 		// Practice mode options are invisible by default
 		hideHighLow();
@@ -107,8 +107,60 @@ public class OptionsController extends Controller {
             @Override
             public void onIndexChangeListener(RangeBar rangeBar, int leftThumbIndex, int rightThumbIndex) {
             	//TODO change this to display interval string, not index
-                leftIndexValue.setText("" + leftThumbIndex);
-                rightIndexValue.setText("" + rightThumbIndex);
+            	switch(leftThumbIndex) {
+				case 0: leftIndexValue.setText("m2");
+					break;
+				case 1: leftIndexValue.setText("M2");
+				break;
+				case 2: leftIndexValue.setText("m3");
+				break;
+				case 3: leftIndexValue.setText("M3");
+				break;
+				case 4: leftIndexValue.setText("P4");
+				break;
+				case 5: leftIndexValue.setText("d5");
+				break;
+				case 6: leftIndexValue.setText("P5");
+				break;
+				case 7: leftIndexValue.setText("m6");
+				break;
+				case 8: leftIndexValue.setText("M6");
+				break;
+				case 9: leftIndexValue.setText("m7");
+				break;
+				case 10: leftIndexValue.setText("M7");
+				break;
+				case 11: leftIndexValue.setText("O");
+				break;
+				default: break;
+            	}
+            	switch(rightThumbIndex) {
+				case 0: rightIndexValue.setText("m2");
+					break;
+				case 1: rightIndexValue.setText("M2");
+				break;
+				case 2: rightIndexValue.setText("m3");
+				break;
+				case 3: rightIndexValue.setText("M3");
+				break;
+				case 4: rightIndexValue.setText("P4");
+				break;
+				case 5: rightIndexValue.setText("d5");
+				break;
+				case 6: rightIndexValue.setText("P5");
+				break;
+				case 7: rightIndexValue.setText("m6");
+				break;
+				case 8: rightIndexValue.setText("M6");
+				break;
+				case 9: rightIndexValue.setText("m7");
+				break;
+				case 10: rightIndexValue.setText("M7");
+				break;
+				case 11: rightIndexValue.setText("O");
+				break;
+				default: break;
+            	}
             }
         });
         
