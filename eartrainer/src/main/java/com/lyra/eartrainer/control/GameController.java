@@ -73,21 +73,10 @@ public class GameController extends Controller {
 		attachEvents();
 		
         //if the eyeball is closed then show the keys that don't have the notes on them
-//		if(game.getInstrumentType() != InstrumentTypes.PIANO){
-//			//instrument is guitar, disable/hide the eyeball
-//			showHide.setEnabled(false);
-//			showHide.setVisibility(View.INVISIBLE);
-//		}
-//		else {
-//			//instrument is piano, enable/show the eyeball
-//			showHide.setEnabled(true);
-//			showHide.setVisibility(View.VISIBLE);
-//			
-			if(!LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes()){
-				showHide.setChecked(false);
-				gameView.swapKeys();
-			}
-//        }
+		if(!LyraProps.getInstance(activity).getUserPreferences().isShownKeyNotes()){
+			showHide.setChecked(false);
+			gameView.swapKeys();
+		}
 	}
 	
 	private void attachEvents(){
