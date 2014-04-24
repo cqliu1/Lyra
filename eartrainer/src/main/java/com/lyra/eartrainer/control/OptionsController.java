@@ -85,7 +85,7 @@ public class OptionsController extends Controller {
 		hideHighLow();
 		
 		// Make visible if mode is practice
-		if(game.getMode() == Modes.PRACTICE){
+		if(LyraProps.getInstance(activity).getUserPreferences().getGameMode() == Modes.PRACTICE){
 			showHighLow();
 		}
 	}

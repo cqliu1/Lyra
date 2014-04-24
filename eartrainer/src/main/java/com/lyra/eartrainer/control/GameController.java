@@ -77,6 +77,16 @@ public class GameController extends Controller {
 			showHide.setChecked(false);
 			gameView.swapKeys();
 		}
+		
+		if(game.getMode() == Modes.FREEPLAY){
+			replay.setVisibility(View.INVISIBLE);
+			gameView.hideNoteDisplay();
+			gameView.hideScores();
+		} else{
+			replay.setVisibility(View.VISIBLE);
+			gameView.showNoteDisplay();
+			gameView.showScores();
+		}
 	}
 	
 	private void attachEvents(){

@@ -3,6 +3,7 @@ package com.lyra.eartrainer.view;
 import java.lang.reflect.Field;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -37,6 +38,8 @@ public class GameInterface extends LyraView {
     	gameplay = game;
         score = (TextView) activity.findViewById(R.id.score);
         strikes = (TextView) activity.findViewById(R.id.strikesText);
+        noteDisplay = (TextView) activity.findViewById(R.id.note_display);
+        
         if (GamePlay.instance().getMode() != Modes.FREEPLAY ) score.setText(""+gameplay.getScore());
         else score.setText("");
         if (GamePlay.instance().getMode() == Modes.CHALLENGE) strikes.setText("Strikes: " + gameplay.getStrikes());
@@ -457,6 +460,22 @@ public class GameInterface extends LyraView {
 				}
 			}
 		}
+	}
+	
+	public void hideNoteDisplay(){
+		noteDisplay.setVisibility(View.INVISIBLE);
+	}
+	
+	public void showNoteDisplay(){
+		noteDisplay.setVisibility(View.VISIBLE);
+	}
+	
+	public void hideScores(){
+		score.setVisibility(View.INVISIBLE);
+	}
+	
+	public void showScores(){
+		score.setVisibility(View.VISIBLE);
 	}
 	
 	/*
