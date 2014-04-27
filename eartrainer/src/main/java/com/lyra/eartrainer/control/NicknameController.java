@@ -95,12 +95,13 @@ public class NicknameController extends Controller {
 	
 	//the submit button handler
 	private void submitNick(){
-		//saving the nickname into the remote database
-		nView.beginSaveProgress();
-		
 		//attempting to create the nickname
-		String userInputNick = ((EditText)activity.findViewById(R.id.editNick)).getText().toString();
-		nicknameDao.storeNickname(userInputNick);
+		String userInputNick = ((EditText)activity.findViewById(R.id.editNick)).getText().toString().trim();
+		if(!userInputNick.equals("")){
+			//saving the nickname into the remote database
+			nView.beginSaveProgress();
+			nicknameDao.storeNickname(userInputNick);
+		}
 	}
 	
 	private void handleSaveFailure(DaoErrorInfo errorInfo){

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -30,7 +31,8 @@ public class NicknameDaoImpl implements NicknameDao {
 			public void run(){
 				try {
 					client = new LyraHttpClient(RESOURCE_URI);
-					String entity = client.executePost("/" + nickName, null);
+					String url = URLEncoder.encode(nickName, "UTF-8").replaceAll("\\+", "%20");
+					String entity = client.executePost("/" + url, null);
 					if(entity != null){
 						Nickname resultNickname = new Nickname(Integer.parseInt(entity.trim()), nickName);
 						storeLocalNickname(resultNickname);
