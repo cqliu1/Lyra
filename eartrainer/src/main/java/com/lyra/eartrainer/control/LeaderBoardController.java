@@ -12,6 +12,7 @@ import com.lyra.eartrainer.dao.DaoErrorInfo;
 import com.lyra.eartrainer.dao.LeaderBoardDao;
 import com.lyra.eartrainer.dao.LeaderBoardDaoEventListener;
 import com.lyra.eartrainer.dao.LeaderBoardDaoImpl;
+import com.lyra.eartrainer.dao.LeaderBoardDaoOperations;
 import com.lyra.eartrainer.model.LeaderBoard;
 import com.lyra.eartrainer.view.LeaderboardView;
 
@@ -85,7 +86,11 @@ public class LeaderBoardController extends Controller {
 	}
 	
 	private void fetchScores(int option){
+		if(dao.isProcessing()) return;
+		
+		leaderBoardView.disablePagingButtons();
 		leaderBoardView.startSpinner(activity, "Loading Scores", "Please wait...");
+		
 		if(option == 1)
 			dao.getPrevPage();
 		else if(option == 2)
@@ -96,6 +101,8 @@ public class LeaderBoardController extends Controller {
 	
 	private void getScoreSuccess(LeaderBoard scores){
 		leaderBoardView.stopSpinner();
+		leaderBoardView.enablePagingButtons();
+		
 		// Set the page
 		leaderBoardView.setPage(dao.getPageNumber());
 		if(scores != null){
@@ -103,21 +110,42 @@ public class LeaderBoardController extends Controller {
 		}
 		else {
 			System.out.println("Get Scores Failed, returned null scores object!");
-			showError();
+			leaderBoardView.showResultsError();
 		}
+		updatePagingButtons(false);
 	}
 	
 	private void getScoreFailed(DaoErrorInfo errorInfo){
 		leaderBoardView.stopSpinner();
-		System.out.println("Get Scores Failed!");
-		if(errorInfo != null){
+		leaderBoardView.enablePagingButtons();
+		
+		if(errorInfo != null && errorInfo.getMessage().equals("No Results")){
+			updatePagingButtons(true);
+			return;
+		}
+		else if(errorInfo != null && errorInfo.getEx() != null){
 			errorInfo.getEx().printStackTrace();
 		}
-		showError();
+		
+		System.out.println("Get Scores Failed!");
+		leaderBoardView.showResultsError();
+		updatePagingButtons(false);
 	}
-
-	private void showError(){
-		//move this into a method in the view
-		Toast.makeText(activity, "There was a problem while displaying the leaderboard results. Please try again later.", Toast.LENGTH_SHORT).show();
+	
+	private void updatePagingButtons(boolean emptyResults){
+		if(dao.getPageNumber() == 1){
+			leaderBoardView.enablePreviousButton(false);
+		}
+		
+		if(emptyResults){
+			leaderBoardView.enableNextButton(false);
+			if(dao.getPreviousOperation() == LeaderBoardDaoOperations.NEXT_PAGE){
+				int page = dao.getPageNumber();
+				if(page < 0) 
+					page = 0;
+				
+				leaderBoardView.setPage(page);
+			}
+		}
 	}
 }

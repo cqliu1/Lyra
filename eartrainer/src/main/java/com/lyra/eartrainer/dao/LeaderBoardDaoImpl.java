@@ -16,13 +16,18 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 	private int pageNumber = 1;
 	private String entity = null;
 	private ArrayList<LeaderBoardDaoEventListener> listeners = null;
+	private byte previousOperation;
+	private boolean isProcessing;
 	
 	public LeaderBoardDaoImpl(){
 		listeners = new ArrayList<LeaderBoardDaoEventListener>();
+		previousOperation = 0;
+		isProcessing = false;
 	}
     
 	//adds the user score to the leaderboard by appending it to the database via a CRUD 'create' request
 	public void addScore(LeaderBoardEntry scoreEntry) throws DaoParseException {
+		isProcessing = true;
 		//FYI: Not using AsyncTask since the background thread defined here has no need to communicate with the UI thread.
 		client = new LyraHttpClient(RESOURCE_URI);
 		
@@ -32,6 +37,7 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 		try {
 			scoreObject = mapper.writeValueAsString(scoreEntry);
 		} catch (Exception e) {
+			isProcessing = false;
 			throw new DaoParseException("Failed to serialize request object.\n" + e.getMessage());
 		}
 		
@@ -66,6 +72,7 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 	
 	//sets the page number and pulls a set of leaderboard entries (aka leaderboard scores) from the service
 	public void getScores(int pageNumber){
+		this.isProcessing = true;
 		this.pageNumber = pageNumber;
 		
 		final int reqPageNumber = pageNumber;
@@ -93,24 +100,43 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 					return;
 				}
 				
-				int size = leaderboard.getItems().size();
-				for(int i = 0;i < size;i++){
-					LeaderBoardEntry entry = leaderboard.getItems().get(i);
-					entry.setId(i + ((reqPageNumber - 1) * 10) + 1);
+				//checking for empty results
+				if(leaderboard == null || leaderboard.getItems() == null){
+					manageNoResults();
+					return;
 				}
 				
-				fireEvent(LeaderBoardEvents.GET_SCORE_SUCCESS, leaderboard);
+				try {
+					int size = leaderboard.getItems().size();
+					if(size <= 0){
+						manageNoResults();
+						return;
+					}
+					
+					for(int i = 0;i < size;i++){
+						LeaderBoardEntry entry = leaderboard.getItems().get(i);
+						entry.setId(i + ((reqPageNumber - 1) * 10) + 1);
+					}
+					
+					fireEvent(LeaderBoardEvents.GET_SCORE_SUCCESS, leaderboard);
+				}
+				catch(Exception e){
+					//NullPointerException is a possible exception here
+					fireEvent(LeaderBoardEvents.GET_SCORE_FAILURE, new DaoErrorInfo(client.getResponseStatusCode(), "Error", e));
+				}
 			}
 		}).start();
 	}
 	
 	//gets the next page of leaderboard scores
 	public void getNextPage(){
+		previousOperation = LeaderBoardDaoOperations.NEXT_PAGE;
 		getScores(pageNumber + 1);
 	}
 	
 	//gets the previous page of leaderboard scores, or refreshes the first page
 	public void getPrevPage(){
+		previousOperation = LeaderBoardDaoOperations.PREVIOUS_PAGE;
 		getScores( ((pageNumber - 1) >= 1) ? (pageNumber - 1) : 1 );
 	}
 	
@@ -130,7 +156,18 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 	    return result;
 	}
 	
+	private void manageNoResults(){
+		if(previousOperation == LeaderBoardDaoOperations.NEXT_PAGE){
+			pageNumber -= 1;
+			if(pageNumber < 1)
+				pageNumber = 1;
+		}
+		
+		fireEvent(LeaderBoardEvents.GET_SCORE_FAILURE, new DaoErrorInfo(client.getResponseStatusCode(), "No Results", null));
+	}
+	
 	private void fireEvent(byte eventType, Object pushObject){
+		isProcessing = false;
 		int size = listeners.size();
 		for(int i = 0;i < size;i++){
 			LeaderBoardDaoEventListener listener = listeners.get(i);
@@ -156,7 +193,23 @@ public class LeaderBoardDaoImpl implements LeaderBoardDao {
 	public void removeListener(LeaderBoardDaoEventListener listener){
 		listeners.remove(listener);
 	}
-	
+
+	public byte getPreviousOperation() {
+		return previousOperation;
+	}
+
+	public void setPreviousOperation(byte previousOperation) {
+		this.previousOperation = previousOperation;
+	}
+
+	public boolean isProcessing() {
+		return isProcessing;
+	}
+
+	public void setProcessing(boolean isProcessing) {
+		this.isProcessing = isProcessing;
+	}
+
 	/*
 	public LeaderBoardEntry getScore(String identifier) throws DaoParseException {
 		//sending a typical CRUD 'read' service request by setting the Media Type in the 'Accept' (Accept: application/json) header

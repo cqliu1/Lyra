@@ -23,7 +23,9 @@ import com.lyra.eartrainer.client.exception.ServerErrorException;
 public class LyraHttpClient {
 	public static final String REQUEST_GET = "GET";
 	public static final String REQUEST_POST = "POST";
-	private static final int REQUEST_TIMEOUT = 5; //number of seconds to wait for timing out, this doesn't apply to name lookups
+	//The following two connection settings don't apply to name lookups -- no way to manage timeouts for name lookups
+	private static final int CONNECT_TIMEOUT = 5; //number of seconds to wait for connection before timing out
+	private static final int REQUEST_TIMEOUT = 10; //number of seconds to wait for response after sending request before timing out
     private String baseURI; //the http url (including path) to the nickname service
     private int responseStatusCode;
     private DefaultHttpClient client;
@@ -32,12 +34,12 @@ public class LyraHttpClient {
     	this.baseURI = baseURI;
     	
 		HttpParams params = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(params, 1000 * REQUEST_TIMEOUT);
+		HttpConnectionParams.setConnectionTimeout(params, 1000 * CONNECT_TIMEOUT);
 		HttpConnectionParams.setSoTimeout(params, 1000 * REQUEST_TIMEOUT);
     	client = new DefaultHttpClient(params);
     	
-    	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-   		StrictMode.setThreadPolicy(policy); 
+    	//StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+   		//StrictMode.setThreadPolicy(policy); 
     }
     
     public String executePost(String uriPath, String requestData) throws ConflictException, BadRequestException, ServerErrorException {

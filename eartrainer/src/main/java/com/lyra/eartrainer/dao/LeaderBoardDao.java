@@ -23,4 +23,10 @@ public interface LeaderBoardDao {
 	
 	// Removes an event handler
 	public void removeListener(LeaderBoardDaoEventListener listener);
+	
+	// Gets the previous operation that was performed: see LeaderBoardDaoOperations
+	public byte getPreviousOperation();
+	
+	// For determining if the dao is current processing a network request
+	public boolean isProcessing();
 }

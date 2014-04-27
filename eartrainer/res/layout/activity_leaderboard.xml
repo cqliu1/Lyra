@@ -17,10 +17,11 @@
         android:textSize="48sp"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+    
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="wrap_content"
+        android:minHeight="190dp"
         android:layout_gravity="center_horizontal">
 
      <Button
@@ -35,7 +36,7 @@
             android:text="@string/leaderboard_prev"
             android:textSize="20sp"
             android:textColor="@color/white" />
-    
+     
     <TableLayout
         android:id="@+id/leaderboardTable"
         android:layout_width="350dp"
