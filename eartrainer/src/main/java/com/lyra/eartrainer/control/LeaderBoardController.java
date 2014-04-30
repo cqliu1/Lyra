@@ -21,12 +21,14 @@ public class LeaderBoardController extends Controller {
 	private LeaderboardView leaderBoardView;
 	private LeaderBoardActivity activity;
 	private LeaderBoardDao dao;
+	private boolean handlingRequest;
 	
 	public LeaderBoardController(LeaderBoardActivity leaderBoardActivity){
 		super(leaderBoardActivity);
 		
 		activity = leaderBoardActivity;
 		dao = new LeaderBoardDaoImpl();
+		handlingRequest = false;
 	}
 	
 	public void initialize(){
@@ -86,8 +88,9 @@ public class LeaderBoardController extends Controller {
 	}
 	
 	private void fetchScores(int option){
-		if(dao.isProcessing()) return;
+		if(dao.isProcessing() || handlingRequest) return;
 		
+		handlingRequest = true;
 		leaderBoardView.disablePagingButtons();
 		leaderBoardView.startSpinner(activity, "Loading Scores", "Please wait...");
 		
@@ -113,6 +116,7 @@ public class LeaderBoardController extends Controller {
 			leaderBoardView.showResultsError();
 		}
 		updatePagingButtons(false);
+		handlingRequest = false;
 	}
 	
 	private void getScoreFailed(DaoErrorInfo errorInfo){
@@ -121,6 +125,7 @@ public class LeaderBoardController extends Controller {
 		
 		if(errorInfo != null && errorInfo.getMessage().equals("No Results")){
 			updatePagingButtons(true);
+			handlingRequest = false;
 			return;
 		}
 		else if(errorInfo != null && errorInfo.getEx() != null){
@@ -130,6 +135,7 @@ public class LeaderBoardController extends Controller {
 		System.out.println("Get Scores Failed!");
 		leaderBoardView.showResultsError();
 		updatePagingButtons(false);
+		handlingRequest = false;
 	}
 	
 	private void updatePagingButtons(boolean emptyResults){
