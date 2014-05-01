@@ -1,0 +1,55 @@
+Losely followed the Abbott technique to abstract an initial design from the user stories.
+==========================================================================================
+
+Player
+	Leaderboard
+
+
+Leaderboard
+	top_scores (array)
+	my_score
+	-------------------
+	getPageResults(page)
+
+Nickname
+
+
+GamePlay
+	state		[playing/stopped/paused]
+	mode 		[practice/challenge/freeplay]
+	difficulty	[beginner, intermediate, advanced]
+	numberOfStep	[number of rounds that you have]
+	isFirstRound	[boolean]
+	Rounds		[Collection of rounds to play]
+	score
+	volume		(float)
+
+Round
+	Note	firstNote, secondNote, selectedNote (player selection)
+	selectionCount 		[the number of times the player attempted to select the correct note]
+	finished (boolean)
+	time	(int) [currentTime - startTime]
+	------------------
+	isCorrect --- returns true if the player selected the correct result
+
+
+Instrument
+	scaleType
+	name
+	Notes (collection of notes to be played)
+	minNote	(int - 0)
+	maxNote (int - 10)  --- for notes 0-10
+
+Piano	- extends Instrument
+	
+
+Guidance
+	steps (string[] step by step collection guide)
+
+Note
+	id	(int)
+	name 	(string)
+	file	(int)	
+
+
+
