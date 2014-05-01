@@ -387,7 +387,7 @@ public class OptionsController extends Controller {
     	// choosing note order
     	int orderId = noteOrder.getCheckedRadioButtonId();
     	RadioButton orderBtn = (RadioButton) activity.findViewById(orderId);
-    	int order = gameMode.indexOfChild(orderBtn);
+    	int order = noteOrder.indexOfChild(orderBtn);
     	
     	switch(order){
     	case 0: // low-high
